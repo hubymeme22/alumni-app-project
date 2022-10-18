@@ -32,6 +32,8 @@ and access the local web app on http://localhost/
 
 - Espinola I, Hubert
 
+- Reaño, Kenneth Joshua
+
 - Santos, Angelo
 
 ## Designers
