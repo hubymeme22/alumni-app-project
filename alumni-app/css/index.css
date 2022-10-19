@@ -1,7 +1,7 @@
 /* Splash Screen */
 .background {
   position: absolute;
-  background-image: url('/assets/images/bsu-background.jpg');
+  background-image: url('../assets/images/bsu-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
