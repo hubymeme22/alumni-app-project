@@ -15,7 +15,7 @@ function request_POST(url_path, json_data, accepted_callback, denied_callback) {
     });
 
     // sends the request to the server
-    fetch(API_URL, {
+    fetch(API_URL + url_path, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
