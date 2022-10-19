@@ -1,0 +1,180 @@
+/* Splash Screen */
+.background {
+  position: absolute;
+  background-image: url('/assets/images/bsu-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0%;
+}
+
+.background.show {
+  transition: opacity 1000ms ease-in;
+  opacity: 80%;
+}
+
+/* Login UI and SignUp UI */
+.auth-page {
+  position: relative;
+}
+
+.auth-page > .container {
+  position: relative;
+  height: 600px;
+  width: min(80%, 800px);
+  border-radius: var(--border-radius);
+}
+
+.middle {
+  position: absolute;
+  height: 100%;
+  width: 80px;
+  background-color: var(--red);
+}
+
+.left,
+.right {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  transition: all 500ms ease;
+  border-radius: var(--border-radius);
+  flex-direction: column;
+  gap: var(--l-gap);
+}
+
+.left {
+  background-color: var(--red);
+}
+
+.right {
+  background-color: white;
+  border: 1px solid white;
+}
+
+/* Adjust left and right container to sides */
+.left.adjust {
+  transform: translate(-50%);
+}
+
+.right.adjust {
+  transform: translate(50%);
+}
+
+/* Switch place animation */
+.left.switch {
+  transform: translate(50%);
+}
+
+.right.switch {
+  transform: translate(-50%);
+}
+
+/* LEFT PART  */
+/* forms */
+.auth-form {
+  width: 85%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.login,
+.signup {
+  gap: var(--s-gap);
+}
+
+legend {
+  font-size: 45px;
+  font-weight: 100;
+  font-family: 'Staatliches', 'Poppins', sans-serif;
+}
+
+fieldset {
+  border: 0;
+}
+
+.inputs {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputs > input {
+  width: 100%;
+  height: 1.5em;
+  outline: 0;
+  border: 1px;
+  border-radius: 5px;
+  background-color: white;
+  padding: 1em 2.8em 1em 1em;
+}
+
+.inputs > i {
+  position: absolute;
+  right: var(--s-gap);
+  color: black;
+  background-color: inherit;
+  font-size: 1.25em;
+}
+
+/* Buttons */
+.login-btn,
+.signup-btn {
+  background-color: #d0112b;
+  border: 1px;
+  padding: 10px;
+  margin-top: var(--s-gap);
+  color: inherit;
+  font-size: 1em;
+  border-radius: 10px;
+  transition: all 200ms;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  background-color: white;
+  color: #d0112b;
+}
+
+.new-account,
+.have-account {
+  color: white;
+  text-align: center;
+}
+
+.new-account > span,
+.have-account > span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* RIGHT PART */
+.right > img {
+  width: 80%;
+  height: auto;
+}
+
+.right > h1 {
+  text-align: center;
+  font-size: 3.5em;
+  font-family: 'Squada One', sans-serif;
+  letter-spacing: 1px;
+}
+
+.right > h1 > span {
+  font-family: inherit;
+  color: var(--red);
+
+  /* Add black line stroke */
+  -webkit-text-fill-color: inherit;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+}
+
+/* Authentication form hide */
+.auth-form.login.hide,
+.auth-form.signup.hide {
+  display: none;
+}
