@@ -48,11 +48,30 @@ CREATE TABLE `alumnus_bio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Table for verifying user answers
+--
+
+CREATE TABLE `to_be_verified` (
+  `id` int(30) NOT NULL,
+  `recent_degree` int(50) NOT NULL,
+  `recent_position` varchar(200) NOT NULL
+);
+
+--
+-- Types of degrees from recent_degree
+--
+
+CREATE TABLE `degree_map` (
+  `id` int(30) NOT NULL,
+  `degree_type` varchar(200) NOT NULL
+);
+
+--
 -- Dumping data for table `alumnus_bio`
 --
 
-INSERT INTO `alumnus_bio` (`id`, `firstname`, `middlename`, `lastname`, `gender`, `batch`, `course_id`, `email`, `connected_to`, `avatar`, `status`, `date_created`) VALUES
-(2, 'Mike', 'D', 'Williams', 'Male', 2009, 1, 'mwilliams@sample.com', 'My Company', '1602730260_avatar.jpg', 1, '2020-10-15');
+INSERT INTO `alumnus_bio` (`id`, `firstname`, `middlename`, `lastname`, `gender`, `batch`, `course_id`, `email`, `connected_to`, `avatar`, `status`, `date_created`, `facebook_link`, `twitter_link`, `linkedin_link`, `github_link`) VALUES
+(2, 'Mike', 'D', 'Williams', 'Male', 2009, 1, 'mwilliams@sample.com', 'My Company', '1602730260_avatar.jpg', 1, '2020-10-15', '#', '#', '#', '#');
 
 -- --------------------------------------------------------
 
