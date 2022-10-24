@@ -2,10 +2,6 @@ const background = document.querySelector('.background');
 const leftPart = document.querySelector('.left');
 const rightPart = document.querySelector('.right');
 
-background.classList.add('show');
-leftPart.classList.add('adjust');
-rightPart.classList.add('adjust');
-
 // animate splash screen
 setTimeout(() => {
   background.classList.add('show');
@@ -41,3 +37,14 @@ alreadyAcc.onclick = () => {
     signupForm.classList.add('hide');
   }, 150);
 };
+
+// Prevent foms from using form actions
+loginForm.addEventListener('click', e => {
+  e.preventDefault();
+});
+
+signupForm.addEventListener('click', e => {
+  e.preventDefault();
+});
+
+// TODO: Reset form everytime it switch forms
