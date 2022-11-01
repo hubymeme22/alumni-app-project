@@ -11,7 +11,7 @@ function request_POST(url_path, json_data, accepted_callback, denied_callback) {
     // converts the json data into acceptable format
     const keys = Object.keys(json_data);
     keys.forEach((value, index) => {
-        data_format += `${keys[index]}=${value}&`;
+        data_format += `${keys[index]}=${json_data[value]}&`;
     });
 
     // sends the request to the server
