@@ -1,7 +1,7 @@
 /* Splash Screen */
 .background {
   position: absolute;
-  background-image: url('../assets/images/bsu-background.jpg');
+  background-image: url('/assets/images/bsu-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -20,7 +20,7 @@
 
 .auth-page > .container {
   position: relative;
-  height: 600px;
+  height: 625px;
   width: min(80%, 800px);
   border-radius: var(--border-radius);
 }
@@ -92,6 +92,9 @@ legend {
 
 fieldset {
   border: 0;
+}
+label {
+  font-size: 1.1em;
 }
 
 .inputs {
@@ -177,4 +180,12 @@ fieldset {
 .auth-form.login.hide,
 .auth-form.signup.hide {
   display: none;
+}
+
+/* error messages */
+.error {
+  padding-left: 0.25em;
+  color: pink;
+  font-size: 0.9em;
+  font-style: italic;
 }
