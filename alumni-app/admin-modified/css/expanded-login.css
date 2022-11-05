@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+* {
+    font-family: 'Poppins';
+}
+
+body {
+    background-image: url('/assets/images/kist-park-admin-login.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+main {
+    background-color: #0000ff1b;
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.form {
+    padding: 30px;
+    padding-left: 35px;
+    color: white;
+    border-radius: 20px;
+    background-color: #9C0D20
+}
+
+div.form input {
+    height: 25px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+div.form button {
+    height: 33px;
+    width: 100%;
+    color: white;
+    background-color: #D0112B;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+div.form button:active {
+    background-color: #3b060d;
+}
