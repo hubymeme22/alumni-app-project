@@ -1,42 +1,37 @@
+import * as signup from './modules/signup-validation.js';
+import * as login from './modules/login-validation.js';
+
 const background = document.querySelector('.background');
+
+// Containers
 const leftPart = document.querySelector('.left');
 const rightPart = document.querySelector('.right');
 
-// animate splash screen
-setTimeout(() => {
-  background.classList.add('show');
-  setTimeout(() => {
-    leftPart.classList.add('adjust');
-    rightPart.classList.add('adjust');
-  }, 300);
-}, 750);
-
+// Forms
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
 
+// Switch buttons
 const newAccount = document.getElementById('create-acc');
 const alreadyAcc = document.getElementById('login-acc');
 
-newAccount.onclick = () => {
-  leftPart.classList.add('switch');
-  rightPart.classList.add('switch');
+// Input Fields
+const username = document.getElementById('username');
+const email = document.getElementById('email');
+const password = document.getElementById('pass');
+const confirmPassword = document.getElementById('cpass');
 
-  // change content
-  setTimeout(() => {
-    loginForm.classList.add('hide');
-    signupForm.classList.remove('hide');
-  }, 150);
-};
+// Buttons
+const loginBtn = document.querySelector('.login-btn');
+const signUpBtn = document.querySelector('.signup-btn');
 
-alreadyAcc.onclick = () => {
-  leftPart.classList.remove('switch');
-  rightPart.classList.remove('switch');
+// All fields
+const allInputs = document.querySelectorAll('input');
+const formErrors = document.querySelectorAll('.error');
 
-  setTimeout(() => {
-    loginForm.classList.remove('hide');
-    signupForm.classList.add('hide');
-  }, 150);
-};
+// Event listeners
+newAccount.addEventListener('click', switchToSignUp);
+alreadyAcc.addEventListener('click', switchToLogin);
 
 // Prevent foms from using form actions
 loginForm.addEventListener('click', e => {
@@ -47,4 +42,65 @@ signupForm.addEventListener('click', e => {
   e.preventDefault();
 });
 
-// TODO: Reset form everytime it switch forms
+// Signup form Validation
+username.addEventListener('input', signup.validateUsername);
+email.addEventListener('input', signup.validateEmail);
+password.addEventListener('input', signup.validatePassword);
+confirmPassword.addEventListener('input', signup.checkPassword);
+
+// Buttons event listeners
+loginBtn.addEventListener('click', login.validateAccount);
+signUpBtn.addEventListener('click', signup.registerAccount);
+
+// Functions
+function switchToSignUp() {
+  leftPart.classList.add('switch');
+  rightPart.classList.add('switch');
+
+  // change content
+  setTimeout(() => {
+    loginForm.classList.add('hide');
+    signupForm.classList.remove('hide');
+    resetAllForms();
+  }, 150);
+}
+
+function switchToLogin() {
+  leftPart.classList.remove('switch');
+  rightPart.classList.remove('switch');
+
+  setTimeout(() => {
+    loginForm.classList.remove('hide');
+    signupForm.classList.add('hide');
+    resetAllForms();
+  }, 150);
+}
+
+function resetAllForms() {
+  allInputs.forEach(input => {
+    input.value = '';
+  });
+
+  formErrors.forEach(error => {
+    error.textContent = '';
+  });
+}
+
+//* Driver code
+// animate splash screen (desktop)
+// Execute if in mobile device
+if (window.matchMedia('(max-width: 600px)').matches) {
+  setTimeout(() => {
+    background.classList.add('show');
+    rightPart.classList.add('decay');
+  }, 750);
+} else {
+  // Execute if in desktop
+  setTimeout(() => {
+    background.classList.add('show');
+    setTimeout(() => {
+      leftPart.classList.add('adjust');
+      rightPart.classList.add('adjust');
+    }, 300);
+  }, 750);
+}

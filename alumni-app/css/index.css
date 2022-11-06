@@ -19,9 +19,10 @@
 }
 
 .auth-page > .container {
+  transform: scale(0.9);
   position: relative;
   height: 625px;
-  width: min(80%, 800px);
+  width: min(90%, 800px);
   border-radius: var(--border-radius);
 }
 
@@ -188,4 +189,34 @@ label {
   color: pink;
   font-size: 0.9em;
   font-style: italic;
+}
+
+#login-error {
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .middle {
+    display: none;
+  }
+
+  .left.adjust,
+  .left.switch,
+  .right.adjust,
+  .right.switch {
+    transform: translate(0%);
+  }
+
+  .left,
+  .right {
+    border-radius: 30px;
+    width: 100%;
+    opacity: 1;
+  }
+
+  .right.decay {
+    transition: opacity 800ms ease-out;
+    opacity: 0;
+    pointer-events: none;
+  }
 }

@@ -36,9 +36,15 @@ body {
   display: none;
 }
 
+.container {
+  width: min(85%, 1000px);
+  margin: 0 auto;
+}
+
 :root {
   --red: #9c0d20;
   --dark-red: #8c0c1d;
+  --brown: #342c2d;
 
   /* gaps */
   --l-gap: 1.5em;
@@ -47,4 +53,64 @@ body {
 
   /* borders */
   --border-radius: 40px;
+}
+
+header,
+footer {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  background-color: var(--red);
+  height: 50px;
+  padding: 5px 0;
+}
+
+footer {
+  background-color: var(--brown);
+  height: 40px;
+}
+
+/* Header Styling */
+.header .logo {
+  width: 50px;
+}
+
+.header .hero {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 0.5em;
+}
+
+.hero > div {
+  line-height: 1.25em;
+}
+
+.hero > div > p:first-child {
+  font-size: 1.25em;
+}
+
+.hero > div > p:last-child {
+  font-weight: 300;
+  font-size: 0.9em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-bar {
+  display: flex;
+  gap: 1.25em;
+}
+
+.nav-bar > li:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
