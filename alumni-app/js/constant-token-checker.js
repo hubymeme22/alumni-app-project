@@ -5,7 +5,6 @@ function responseCallback(redirect_link_true, redirect_link_false) {
         if (response['validated'] == true) {
             window.location.href = redirect_link_true;
         } else {
-            alert('Session Expired');
             window.location.href = redirect_link_false;
         }
     }
