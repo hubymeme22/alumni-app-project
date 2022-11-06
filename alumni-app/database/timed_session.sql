@@ -6,5 +6,6 @@ CREATE TABLE `session_data` (
     `pass` varchar(200) NOT NULL,
     `token` varchar(100) NOT NULL,
     `epoch_created` int NOT NULL,
+    `type` int NOT NULL,
     `sess_stat` boolean NOT NULL DEFAULT 0
 );

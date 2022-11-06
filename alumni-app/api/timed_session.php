@@ -12,6 +12,8 @@
 
 // connect to the database session
 $timed_sess_db = new mysqli('localhost', 'db_user', 'mysqlpassword%2020', 'timed_session');
+$user_database = new mysqli('localhost', 'db_user', 'mysqlpassword%2020', 'alumni_db');
+
 
 // max and min time before updating the node
 $MAX_TIME_INTERVAL = 60;
@@ -68,6 +70,7 @@ function clearExpired() {
 // adds a new session to the table
 function addNewSessionDB($user, $pass) {
 	global $timed_sess_db;
+	global $user_database;
 	global $SALT;
 
 	// generates a new random unique id
@@ -78,7 +81,9 @@ function addNewSessionDB($user, $pass) {
 
 	$current_epoch = time();
 	$current_token = hash_hmac('sha256', "$user$pass$old_id$current_epoch", $SALT);
-	$inserted = $timed_sess_db->query("INSERT INTO session_data (id, new_id, user, pass, token, epoch_created) VALUES ('$old_id', '$old_id', '$user', '$pass', '$current_token', '$current_epoch')");
+	$user_type = $user_database->query("SELECT type from users WHERE username='$user' AND password='$pass';");
+	$user_type = $user_type->fetch_array()[0];
+	$inserted = $timed_sess_db->query("INSERT INTO session_data (id, new_id, user, pass, token, epoch_created, type) VALUES ('$old_id', '$old_id', '$user', '$pass', '$current_token', '$current_epoch', '$user_type')");
 
 	if ($inserted)
 		return array('token' => $current_token, 'id'=> $old_id);
@@ -90,7 +95,7 @@ function validateToken($old_id, $new_id, $token) {
 	global $timed_sess_db;
 
 	clearExpired();
-	$query = $timed_sess_db->query("SELECT * FROM session_data WHERE id='$old_id';");
+	$query = $timed_sess_db->query("SELECT * FROM session_data WHERE id='$old_id' AND type='3';");
 	$result = $query->fetch_row();
 
 	if ($query->num_rows < 1) return false;

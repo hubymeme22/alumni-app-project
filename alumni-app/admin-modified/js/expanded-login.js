@@ -38,9 +38,6 @@ function declined(error) {
 }
 
 loginButton.onclick = () => {
-    console.log(userfield.value);
-    console.log(passfield.value);
-
     request_POST('/admin-modified/admin-apis/login.php', {
         'username': userfield.value,
         'password': md5(passfield.value)
