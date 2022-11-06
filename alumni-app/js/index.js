@@ -104,3 +104,7 @@ if (window.matchMedia('(max-width: 600px)').matches) {
     }, 300);
   }, 750);
 }
+
+// checks if the current token is vald then redirect
+// to landing page if valid
+token_check('/landing.html');

@@ -4,54 +4,35 @@ include ('./timed_session.php');
 
 
 // this class is inspired by the concept of JWT for handling sessions
+// This one's sum stupid ugly-ass code (will fix soon)
 // Created By: Hubert F. Espinola I
 class TokenHandler {
 	function __construct($salt) {
+		global $SALT;
+
+		$SALT = $salt;
 		$this->salt = $salt;
-		$this->sessions = array();
-	}
-
-	function generateToken($id, $user, $pass) {
-		global $conn;
-		$query = $conn->query("SELECT * FROM users WHERE username='$user' AND password='$pass'");
-
-		// check if the username and password
-		// are existing and valid
-		if ($query->num_rows <= 0)
-			return null;
-
-		return new TimedSession($id, $user, $pass, $this->salt);
 	}
 
 	// logs in the credentials and authorize if valid
 	function login($user, $pass) {
-		$index = rand();
-		while (array_key_exists($index, $this->sessions)) { $index = rand(); }
+		global $conn;
+		$query = $conn->query("SELECT * FROM users WHERE username='$user' AND password='$pass' AND type='3'");
 
-		$sessionObject = $this->generateToken($index, $user, $pass);
-		if ($sessionObject == null) {
-			$arr = array(
-				'token' => 'null',
-				'id' => '0'
-			);
-		} else {
-			$arr = array(
-				'token' => $sessionObject->token,
-				'id' => $sessionObject->id
-			);
-		}
+		// check if the username and password
+		// are existing and valid
+		if ($query->num_rows <= 0)
+			return array('token' => 'null', 'id'=> 'null');
 
-		$sessions[$index] = $sessionObject;
-		return $arr;
+		// check if the user is authorized
+
+		// generates a valid token and id for this user
+		return createSession($user, $pass);
 	}
 
 	// validates token for authorization
 	function validateToken($token, $oldid, $newid) {
-		$sessionObject = $this->sessions[$oldid];
-		if ($sessionObject != null)
-			return $sessionObject->validate($token, $newid);
-
-		return false;
+		return validateToken((int)$oldid, (int)$newid, $token);
 	}
 }
 

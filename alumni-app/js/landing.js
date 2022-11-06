@@ -54,3 +54,6 @@ buttons.forEach((button) => {
     delete activeSlide.dataset.active;
   });
 });
+
+// redirect to login page if the current session is expired
+token_check('#', '/index.html');
