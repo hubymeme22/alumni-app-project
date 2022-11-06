@@ -1,3 +1,5 @@
+// Signup validation module
+
 // Input Fields
 const username = document.getElementById('username');
 const email = document.getElementById('email');
@@ -10,22 +12,11 @@ const emailError = document.querySelector('.email-msg');
 const passError = document.querySelector('.pass-msg');
 const cpassError = document.querySelector('.cpass-msg');
 
-// Buttons
-const submitBtn = document.querySelector('.signup-btn');
-
 // All fields
 const formInputs = document.querySelectorAll('#signup-form input');
 const formErrors = document.querySelectorAll('#signup-form .error');
 
-function ifEmpty(inputField, errorField) {
-  if (inputField.value.trim() == '') {
-    errorField.textContent = '* Must not be empty';
-  } else {
-    errorField.textContent = '';
-  }
-}
-
-// Event Listeners
+// Event Listener
 // Remove error if emptyy and not on focus
 formInputs.forEach((input, index) => {
   input.addEventListener('focusout', e => {
@@ -35,47 +26,13 @@ formInputs.forEach((input, index) => {
   });
 });
 
-username.addEventListener('input', e => {
-  ifEmpty(username, userError);
-});
-
-email.addEventListener('input', e => {
-  validateEmail();
-});
-
-password.addEventListener('input', () => {
-  validatePassword();
-});
-
-confirmPassword.addEventListener('input', e => {
-  checkPassword();
-});
-
-submitBtn.addEventListener('click', () => {
-  validateUsername();
-  validateEmail();
-  validatePassword();
-  checkPassword();
-
-  // Check if every input field is valid
-  let isValid = false;
-  formErrors.forEach(error => {
-    if (error.textContent == '') {
-      isValid = true;
-    } else {
-      isValid = false;
-    }
-  });
-
-  if (isValid === false) return;
-  const account = getAllInputValues();
-  submitAnimation();
-  resetForm();
-  /* 
-    TODO: Send to Database for checking
-    ? If approved, continue to questionnaire page
-  */
-});
+function ifEmpty(inputField, errorField) {
+  if (inputField.value.trim() == '') {
+    errorField.textContent = '* Must not be empty';
+  } else {
+    errorField.textContent = '';
+  }
+}
 
 // Validation function
 function checkPattern(value, pattern) {
@@ -153,15 +110,31 @@ function checkPassword() {
 }
 
 // Submit functions
-function submitAnimation() {
-  const left = document.querySelector('.left');
-  const right = document.querySelector('.right');
+function registerAccount() {
+  validateUsername();
+  validateEmail();
+  validatePassword();
+  checkPassword();
 
-  left.classList.remove('adjust');
-  left.classList.remove('switch');
+  // Check if every input field is valid
+  let isValid = false;
+  formErrors.forEach(error => {
+    if (error.textContent == '') {
+      isValid = true;
+    } else {
+      isValid = false;
+    }
+  });
 
-  right.classList.remove('adjust');
-  right.classList.remove('switch');
+  if (isValid === false) return;
+
+  const account = getAllInputValues();
+  resetForm();
+
+  /* 
+    TODO: Send to Database for checking
+    ? If approved, continue to questionnaire page
+  */
 }
 
 function getAllInputValues() {
@@ -179,3 +152,11 @@ function resetForm() {
     input.value = '';
   });
 }
+
+export {
+  validateUsername,
+  validateEmail,
+  validatePassword,
+  checkPassword,
+  registerAccount,
+};

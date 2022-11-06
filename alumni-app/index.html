@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="https://kit.fontawesome.com/5f33a2223c.js" crossorigin="anonymous"></script>
-    <script src="js/index.js" defer></script>
-    <script src="js/formValidation.js" defer></script>
+    <script type="module" src="js/index.js"></script>
   </head>
   <body>
     <!-- Background Image  -->
@@ -28,7 +27,7 @@
               <fieldset>
                 <label for="username"> Username </label>
               <div class="inputs">
-                <input type="text" name="username">
+                <input type="text" name="username" id="login-username">
                 <i class="fa-solid fa-circle-user"></i>
               </div>
             </fieldset>
@@ -36,10 +35,12 @@
             <fieldset>
               <label for="password"> Password </label>
               <div class="inputs">
-                <input type="password" name="password" />
+                <input type="password" name="password" id="login-password"/>
                 <i class="fa-solid fa-lock"></i>
               </div>
             </fieldset>
+
+            <div class="error hide" id="login-error" >* User does not exist</div>
           
             <button type="submit" class="login-btn">LOGIN</button>
             
