@@ -126,14 +126,14 @@ footer div.text-container {
 }
 
 /* CONTENTS PART */
-section.home {
+section {
     height: calc(100% - 70px); width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-section.home div.home-contents {
+section div.contents {
     height: calc(90% - 20px);
     width: calc(95% - 20px);
     border: 1px solid black;
@@ -159,4 +159,107 @@ div.element-content div.box {
     height: 40px; width: 40px;
     background-color: white;
     margin-right: 10px;
+}
+
+div.c40-60 {
+    height: 100%; width: 100%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+div.content-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0F0F0;
+}
+
+div.content-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0F0F0;
+    /* background-color: royalblue; */
+}
+
+div.course-form {
+    height: 50%;
+    width: 95%;
+    /* border: 1px solid black; */
+}
+
+div.course-form div.course-header {
+    width: calc(100% - 12px);
+    padding: 6px;
+    display: flex;
+    background-color: #650612;
+    color: white;
+    align-items: center;
+}
+
+div.course-form div.form-container input {
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    width: calc(100% - 20px);
+}
+
+div.course-form div.form-container input:focus {
+    outline: none;
+}
+
+div.course-form div.form-container button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #342C2D;
+    color: white;
+    border: none;
+    margin-top: 15px;
+}
+
+div.course-form div.form-container button:active {
+    background-color: white;
+    color: black;
+}
+
+div.course-form div.form-container {
+    padding: 20px;
+    width: calc(100% - 40px);
+    /* background-color: aqua; */
+}
+
+div.course-form div.course-list-container {
+    height: calc(100% - 36px);
+    width: 100%;
+    /* background-color: white; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.course-form div.course-list-container div.course-list-table {
+    height: 80%;
+    width: 90%;
+    max-width: 80%;
+}
+
+div.course-list-table table {
+    width: 100%;
+    height: auto;
+    background-color: #342C2D;
+    color: white;
+}
+
+div.course-list-table thead {
+    background-color: #342C2D;
+}
+
+div.course-list-table tbody {
+    background-color: #F0F0F0;
+    height: 90%;
+    width: 100%;
+    color: black;
+    text-align: center;
+    overflow-y: auto;
 }

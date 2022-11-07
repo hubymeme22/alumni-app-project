@@ -8,6 +8,7 @@
 
     <script src="js/modified.js" defer></script>
     <script src="js/sessionUpdater.js" defer></script>
+    <script src="js/home.js" defer></script>
     <title>Admin (Expansion)</title>
 </head>
 <body>
@@ -24,7 +25,7 @@
         <div class="content-containers">
 
             <section class="home" id="home-section">
-                <div class="home-contents">
+                <div class="contents">
                     <div class="element-content">
                         <span>
                             <div class="box"></div>
@@ -52,23 +53,79 @@
                 </div>
             </section>
 
-            <section class="course-list"></section>
-            <section class="alumni-list"></section>
-            <section class="jobs"></section>
-            <section class="events"></section>
-            <section class="users"></section>
+            <section class="course-list" id="course-section" hidden>
+                <div class="contents">
+                    <div class="c40-60">
+                        <!-- Contents on course form -->
+                        <div class="content-left">
+                            <div class="course-form">
+                                <div class="course-header">Course Form</div>
+                                <div class="form-container">
+                                    Course
+                                    <input type="text" placeholder="course name/keywords">
+                                    <button>Search Course</button>
+                                    <button>Add Course</button>
+                                    <button>Update Course</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contents on course list -->
+                        <div class="content-right">
+                            <div class="course-form">
+                                <div class="course-header">Course List</div>
+                                <div class="course-list-container">
+
+                                    <!-- Table container -->
+                                    <div class="course-list-table">
+                                        <table>
+                                            <thead>
+                                                <th>ID</th>
+                                                <th>Course</th>
+                                                <th>Action</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Computer Science</td>
+                                                    <td>Edit Delete</td>    
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>IT</td>
+                                                    <td>Edit Delete</td>    
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Computer Engineerng</td>
+                                                    <td>Edit Delete</td>    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alumni-list" id="alumni-section" hidden></section>
+            <section class="jobs" id="jobs-section" hidden></section>
+            <section class="events" id="events-section" hidden></section>
+            <section class="users" id="users-section" hidden></section>
 
 
         </div>
 
         <!-- CONTAINER FOR MENU -->
         <div class="menu-containers">
-            <button class="selected">Home</button>
-            <button>Course List</button>
-            <button>Alumni List</button>
-            <button>Jobs</button>
-            <button>Events</button>
-            <button>Users</button>
+            <button class="selected" id="btn-home">Home</button>
+            <button id="btn-course">Course List</button>
+            <button id="btn-alumni">Alumni List</button>
+            <button id="btn-jobs">Jobs</button>
+            <button id="btn-events">Events</button>
+            <button id="btn-users">Users</button>
         </div>
     </main>
     <footer>
