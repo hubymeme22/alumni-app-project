@@ -92,6 +92,27 @@ function getUserProfile(){
 
 }
 
+///////////////////////////////////////////////
+//  Functions for getting data (admin part)  //
+///////////////////////////////////////////////
+// retrieves the courses from database
+function getCourses() {
+	global $conn;
+	$query = $conn->query("SELECT * FROM courses;");
+	$rows = array();
+
+	while ($rowdata = $query->fetch_row()) {
+		$rows[] = $rowdata;
+	}
+
+	return $rows;
+}
+
+
+
+////////////////////////////////////////////////
+//  Functions for inserting data on database  //
+////////////////////////////////////////////////
 // registers the given user
 function registerUser($email, $password, $first, $middle, $last, $gender, $batch, $course_id, $fb, $tw, $lnkdin, $gthb, $avatar) {
 	// register these data to the database (initialize to unverified)
@@ -116,6 +137,20 @@ function registerUser($email, $password, $first, $middle, $last, $gender, $batch
 	return true;
 
 }
+
+// adds course to the database
+function addCourse($course_name) {
+	global $conn;
+
+	$query = $conn->query("SELECT * FROM courses WHERE course='$course_name';");
+	if ($query->num_rows > 1)
+		return false;
+
+	// the course to be added is valid (does not exist)
+	$conn->query("INSERT INTO courses (course, about) VALUES ('$course_name', '');");
+	return true;
+}
+
 
 // will be used throughout the api
 $sessionHandler = new AdminTokenHandler('jeezRickSanchez');

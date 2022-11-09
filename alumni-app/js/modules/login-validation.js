@@ -15,7 +15,8 @@ document.addEventListener('input', () => {
 // function if the account is validated
 function validatedResponse(response) {
   if (response['token'] == 'null') {
-    alert('nonexistent account');
+    invalidUsername();
+    console.log('invalid username');
     return;
   }
 
@@ -54,7 +55,8 @@ function validateAccount() {
 // Error function
 function invalidUsername() {
   // if (username not in database or somethin) {}
-  loginError.textContent = '';
+  loginError.classList.remove('hide');
+  loginError.textContent = 'Invalid Account';
 }
 
 function invalidPassword() {

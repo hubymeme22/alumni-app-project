@@ -15,7 +15,7 @@ $timed_sess_db = new mysqli('localhost', 'db_user', 'mysqlpassword%2020', 'timed
 $user_database = new mysqli('localhost', 'db_user', 'mysqlpassword%2020', 'alumni_db');
 
 // max and min time before updating the node
-$MAX_TIME_INTERVAL = 60;
+$MAX_TIME_INTERVAL = 1200;
 $MIN_TIME_INTERVAL = 10;
 
 // salt that will be used throughout the hash checking

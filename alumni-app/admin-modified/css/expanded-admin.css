@@ -229,7 +229,7 @@ div.course-form div.form-container {
 }
 
 div.course-form div.course-list-container {
-    height: calc(100% - 36px);
+    height: calc(70% - 36px);
     width: 100%;
     /* background-color: white; */
 
@@ -262,4 +262,27 @@ div.course-list-table tbody {
     color: black;
     text-align: center;
     overflow-y: auto;
+}
+
+div.prev-next-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.prev-next-container div.aligner {
+    /* background-color: black; */
+    width: 80%;
+}
+
+div.aligner button {
+    background-color: #342C2D;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+div.aligner button:active {
+    background-color: white;
+    color: black;
 }

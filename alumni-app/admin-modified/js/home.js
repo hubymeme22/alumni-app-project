@@ -17,6 +17,7 @@ const users_section = document.getElementById('users-section');
 const btnLst = [home, course, alumni, jobs, events, users];
 const sctnLst = [home_section, course_section, alumni_section, jobs_section, events_section, users_section];
 
+// Functions for displays
 function removeSelectedExcept(target) {
     btnLst.forEach(element => {
         if (element == target)
@@ -35,10 +36,26 @@ function hideSectionExcept(target) {
     });
 }
 
+function displayCourse(id, coursename) {
+    const tabledata_container = document.getElementsByTagName('tbody')[0];
+    const row = document.createElement('tr');
+    const col_id = document.createElement('td');
+    const col_course = document.createElement('td');
+    const col_edits = document.createElement('td');
+
+    col_edits.innerHTML = '<a href="">Edit</a><a href="">Delete</a>';
+    row.appendChild(col_id);
+    row.appendChild(col_course);
+    row.appendChild(col_edits);
+
+    tabledata_container.appendChild(row);
+}
+
 // initial design of ui
 removeSelectedExcept(home);
 hideSectionExcept(home_section);
 
+// button event listeners
 home.onclick = () => {
     removeSelectedExcept(home);
     hideSectionExcept(home_section);
@@ -68,3 +85,9 @@ users.onclick = () => {
     removeSelectedExcept(users);
     hideSectionExcept(users_section);
 }
+
+// retrieving data from database
+function acceptedCallback(response) {
+}
+
+request_POST('/admin-modified/admin-apis/add_courses.php', {})

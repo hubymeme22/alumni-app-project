@@ -16,4 +16,4 @@ function successfulUpdate(response) {
 function errorOccured(error) { }
 setInterval(() => {
     request_POST('/api/update_session.php', { 'old_id' : window.localStorage.getItem('id'), 'new_id' : window.localStorage.getItem('new_id') }, successfulUpdate, errorOccured);
-}, 12 * 1000);
+}, 100 * 1000);
