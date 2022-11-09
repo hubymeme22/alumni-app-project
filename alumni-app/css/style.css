@@ -19,6 +19,9 @@ a {
 body {
   height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .maximize {
@@ -72,6 +75,8 @@ header {
 footer {
   background-color: var(--brown);
   height: 40px;
+  font-size: clamp(0.75rem, 1.5vw, 1rem);
+  letter-spacing: 3px;
 }
 
 /* Header Styling */
@@ -110,7 +115,15 @@ footer {
   gap: 1.25em;
 }
 
+.nav-bar a {
+  color: white;
+}
+
 .nav-bar > li:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+main {
+  text-align: center;
 }
