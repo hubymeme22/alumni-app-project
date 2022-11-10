@@ -2,6 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Squada+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 
+:root {
+  --red: #9c0d20;
+  --dark-red: #8c0c1d;
+  --brown: #342c2d;
+
+  /* gaps */
+  --l-gap: 1.5em;
+  --m-gap: 1em;
+  --s-gap: 0.5em;
+
+  /* borders */
+  --border-radius: 40px;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -24,6 +38,7 @@ body {
   justify-content: space-between;
 }
 
+/* General stylings */
 .maximize {
   width: 100%;
   height: 100%;
@@ -44,18 +59,10 @@ body {
   margin: 0 auto;
 }
 
-:root {
-  --red: #9c0d20;
-  --dark-red: #8c0c1d;
-  --brown: #342c2d;
-
-  /* gaps */
-  --l-gap: 1.5em;
-  --m-gap: 1em;
-  --s-gap: 0.5em;
-
-  /* borders */
-  --border-radius: 40px;
+/* Section stylings */
+main {
+  text-align: center;
+  height: 100%;
 }
 
 header,
@@ -122,8 +129,4 @@ footer {
 .nav-bar > li:hover {
   cursor: pointer;
   text-decoration: underline;
-}
-
-main {
-  text-align: center;
 }
