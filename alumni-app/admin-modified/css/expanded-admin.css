@@ -222,6 +222,16 @@ div.course-form div.form-container button:active {
     color: black;
 }
 
+div.course-form div.form-container button.canceled {
+    background-color: #413e3f;
+    color: rgb(181, 176, 176);
+}
+
+div.course-form div.form-container button.canceled:active {
+    background-color: #413e3f;
+    color: rgb(181, 176, 176);
+}
+
 div.course-form div.form-container {
     padding: 20px;
     width: calc(100% - 40px);
@@ -283,6 +293,50 @@ div.aligner button {
 }
 
 div.aligner button:active {
+    background-color: white;
+    color: black;
+}
+
+div.aligner button.canceled {
+    background-color: #413e3f;
+    color: rgb(181, 176, 176);
+}
+
+div.aligner button.canceled:active {
+    background-color: #413e3f;
+    color: rgb(181, 176, 176);
+}
+
+div.popup {
+    height: 100%;
+    width: 100%;
+    background-color: #413e3f81;
+    position: absolute;
+    top: 0; left: 0;
+
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.message-container {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+div.message-container button {
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: green;
+}
+
+div.message-container button:active {
     background-color: white;
     color: black;
 }

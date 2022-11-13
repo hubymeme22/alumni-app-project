@@ -50,18 +50,6 @@ function getJobListing(){
 	}
 }
 
-// function that will get all the data in the joblist of specific user... returns the array
-function getJobListUser($user_id){
-	global $conn;
-	$query = $conn->query('SELECT * FROM careers WHERE id = "' . $user_id .'" ');
-	if(mysqli_num_rows($query) > 0){
-		while($row=mysqli_fetch_array($query)){
-			$datas[]=$row;
-		}
-		return $datas;
-	}
-
-}
 // function that will get all the job data.
  function getJobData($user_id){
 	// gets career using user_id
@@ -76,20 +64,6 @@ function getJobListUser($user_id){
 		}
 		return $datas;
 	}
-}
-// Get profile data of users in alumni list store in array 
-function getUserProfile(){
-	global $conn;
-	$query_string = 'SELECT * FROM alumnus_bio';
-	echo $query_string;
-	$query=$conn->query($query_string);
-	if(mysqli_num_rows($query) > 0){
-		while($row=mysqli_fetch_array($query)){
-			$datas[]=$row;
-		}
-		return $datas;
-	}
-
 }
 
 ///////////////////////////////////////////////
@@ -108,7 +82,43 @@ function getCourses() {
 	return $rows;
 }
 
+function getEvents() {
+	global $conn;
+	$query = $conn->query("SELECT * FROM events;");
+	$rows = array();
 
+	while ($rowdata = $query->fetch_row()) {
+		$rows[] = $rowdata;
+	}
+
+	return $rows;
+}
+
+// function that will get all the data in the joblist of specific user... returns the array
+function getJobList(){
+	global $conn;
+	$query = $conn->query("SELECT * FROM careers;");
+	$rows = array();
+
+	while ($rowdata = $query->fetch_row()) {
+		$rows[] = $rowdata;
+	}
+
+	return $rows;
+}
+
+// Get profile data of users in alumni list store in array 
+function getUserProfile(){
+	global $conn;
+	$query = $conn->query("SELECT * FROM alumnus_bio;");
+	$rows = array();
+
+	while ($rowdata = $query->fetch_row()) {
+		$rows[] = $rowdata;
+	}
+
+	return $rows;
+}
 
 ////////////////////////////////////////////////
 //  Functions for inserting data on database  //

@@ -16,7 +16,7 @@ $user_database = new mysqli('localhost', 'db_user', 'mysqlpassword%2020', 'alumn
 
 
 // max and min time before updating the node
-$MAX_TIME_INTERVAL = 60;
+$MAX_TIME_INTERVAL = 1200;
 $MIN_TIME_INTERVAL = 10;
 
 // salt that will be used throughout the hash checking
@@ -95,10 +95,10 @@ function validateToken($old_id, $new_id, $token) {
 	global $timed_sess_db;
 
 	clearExpired();
-	$query = $timed_sess_db->query("SELECT * FROM session_data WHERE id='$old_id' AND type='3';");
+	$query = $timed_sess_db->query("SELECT * FROM session_data WHERE id='$old_id' AND `type`='3';");
 	$result = $query->fetch_row();
 
-	if ($query->num_rows < 1) return false;
+	if ($query->num_rows < 1) return null;
 	if (($new_id == $result[1]) && ($result[4] == $token)) return true;
 	return false;
 }
