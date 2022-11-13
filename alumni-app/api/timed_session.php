@@ -16,7 +16,7 @@ $user_database = new mysqli('localhost', 'db_user', 'mysqlpassword%2020', 'alumn
 
 
 // max and min time before updating the node
-$MAX_TIME_INTERVAL = 1200;
+$MAX_TIME_INTERVAL = 86400;
 $MIN_TIME_INTERVAL = 10;
 
 // salt that will be used throughout the hash checking
