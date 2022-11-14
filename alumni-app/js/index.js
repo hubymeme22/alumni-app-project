@@ -94,16 +94,15 @@ if (window.matchMedia('(max-width: 600px)').matches) {
     background.classList.add('show');
     rightPart.classList.add('decay');
   }, 750);
-} else {
-  // Execute if in desktop
-  setTimeout(() => {
-    background.classList.add('show');
-    setTimeout(() => {
-      leftPart.classList.add('adjust');
-      rightPart.classList.add('adjust');
-    }, 300);
-  }, 750);
 }
+// Execute if in desktop
+setTimeout(() => {
+  background.classList.add('show');
+  setTimeout(() => {
+    leftPart.classList.add('adjust');
+    rightPart.classList.add('adjust');
+  }, 300);
+}, 750);
 
 // checks if the current token is vald then redirect
 // to landing page if valid
