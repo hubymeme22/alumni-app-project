@@ -8,10 +8,19 @@
 
     <script src="js/modified.js" defer></script>
     <script src="js/sessionUpdater.js" defer></script>
+    <script src="js/constant-token-check.js"></script>
     <script src="js/home.js" defer></script>
     <title>Admin (Expansion)</title>
 </head>
 <body>
+    <!-- MODIFIED ALERT POPUP -->
+    <div class="popup" id="popup">
+        <div class="message-container">
+            <h2 id="popup-message"></h2>
+            <button onclick="hidePopup()">Ok</button>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <h2 class="name">Alumni Dashboard</h2>
@@ -29,25 +38,25 @@
                     <div class="element-content">
                         <span>
                             <div class="box"></div>
-                            Total alumni: 
+                            Total alumni: (<p id="alumni_num"></p>)
                         </span>
                     </div>
                     <div class="element-content">
                         <span>
                             <div class="box"></div>
-                            Total Jobs: 
+                            Total Jobs: (<p id="jobs_num"></p>)
                         </span>
                     </div>
                     <div class="element-content">
                         <span>
                             <div class="box"></div>
-                            Upcoming Events: 
+                            Upcoming Events: (<p id="events_num"></p>)
                         </span>
                     </div>
                     <div class="element-content">
                         <span>
                             <div class="box"></div>
-                            N Course List: 
+                            Course List: (<p id="course_size"></p>)
                         </span>
                     </div>
                 </div>
@@ -62,10 +71,10 @@
                                 <div class="course-header">Course Form</div>
                                 <div class="form-container">
                                     Course
-                                    <input type="text" placeholder="course name/keywords">
+                                    <input type="text" id="course-input" placeholder="course name/keywords">
                                     <button>Search Course</button>
-                                    <button>Add Course</button>
-                                    <button>Update Course</button>
+                                    <button id="add-course">Add Course</button>
+                                    <button class="canceled">Update Course</button>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +94,7 @@
                                                 <th>Action</th>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>1</td>
                                                     <td>Computer Science</td>
                                                     <td><a href="">Edit</a> <a href="">Delete</a></td>
@@ -99,7 +108,7 @@
                                                     <td>3</td>
                                                     <td>Computer Engineerng</td>
                                                     <td><a href="">Edit</a> <a href="">Delete</a></td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -107,8 +116,8 @@
 
                                 <div class="prev-next-container">
                                     <div class="aligner">
-                                        <button>Prev</button>
-                                        <button>Next</button>    
+                                        <button id="prev_table">Prev</button>
+                                        <button id="next_table">Next</button>    
                                     </div>
                                 </div>
 

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5050/';
+const API_URL = window.location.origin + '/';
 
 // modified function for sending POST request
 function request_POST(url_path, json_data, accepted_callback, denied_callback) {

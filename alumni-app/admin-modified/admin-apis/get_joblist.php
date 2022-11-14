@@ -9,7 +9,7 @@ if (isset($_COOKIE['token'])) {
     $isValidated = validateToken($old_id, $new_id, $_COOKIE['token']);
 
     if ($isValidated) {
-        $courses_data = getCourses();
+        $courses_data = getJobList();
         echo json_encode(array('status' => 'ok', 'data' => $courses_data, 'size' => count($courses_data)));
     } else {
         echo json_encode(array('status' => 'invalid_token', 'data' => null, 'size' => 0));

@@ -6,6 +6,10 @@ const jobs = document.getElementById('btn-jobs');
 const events = document.getElementById('btn-events');
 const users = document.getElementById('btn-users');
 
+const addCourse = document.getElementById('add-course');
+const prevTbl = document.getElementById('prev_table');
+const nextTbl = document.getElementById('next_table');
+
 // section lists
 const home_section = document.getElementById('home-section');
 const course_section = document.getElementById('course-section');
@@ -16,6 +20,9 @@ const users_section = document.getElementById('users-section');
 
 const btnLst = [home, course, alumni, jobs, events, users];
 const sctnLst = [home_section, course_section, alumni_section, jobs_section, events_section, users_section];
+
+const server_side_data = {};
+let table_page = 0;
 
 // Functions for displays
 function removeSelectedExcept(target) {
@@ -51,19 +58,206 @@ function displayCourse(id, coursename) {
     tabledata_container.appendChild(row);
 }
 
+function displayPopup(message) {
+    document.getElementById('popup').style.display = "";
+    document.getElementById('popup-message').innerText = message;
+}
+
+function hidePopup() {
+    document.getElementById('popup').style.display = "none";
+}
+
+function initializeHomeValues() {
+    const courses = (response) => {
+        if (response['status'] == 'ok') {
+            document.getElementById('course_size').innerText = response['size'];
+            server_side_data['courses'] = response['data'];
+        }
+    }
+
+    const events = (response) => {
+        if (response['status'] == 'ok') {
+            document.getElementById('events_num').innerText = response['size'];
+            server_side_data['events'] = response['data'];
+        }
+    }
+
+    const alumni = (response) => {
+        if (response['status'] == 'ok') {
+            document.getElementById('alumni_num').innerText = response['size'];
+            server_side_data['alumni'] = response['data'];
+        }
+    }
+
+    const jobs = (response) => {
+        if (response['status'] == 'ok') {
+            document.getElementById('jobs_num').innerText = response['size'];
+            server_side_data['jobs'] = response['data'];
+        }
+    }
+
+    request_POST('/admin-modified/admin-apis/get_courses.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id')}, courses, () => {})
+    request_POST('/admin-modified/admin-apis/get_events.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id')}, events, () => {})
+    request_POST('/admin-modified/admin-apis/get_alumni.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id')}, alumni, () => {})
+    request_POST('/admin-modified/admin-apis/get_joblist.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id')}, jobs, () => {})
+}
+
+function initializeCourseValues() {
+    initializeHomeValues();
+
+    const table_body = document.getElementsByTagName('tbody')[0];
+    table_body.innerHTML = '';
+    table_page = 0;
+
+    nextTbl.classList.add('canceled');
+    prevTbl.classList.add('canceled');
+    if (server_side_data['courses'].length > 3)
+        nextTbl.classList.remove('canceled');
+
+    if (server_side_data['courses'] != null) {
+        server_side_data['courses'].forEach((element, index) => {
+            if (index > 2)
+                return
+
+            // push all the courses on the table
+            const tr = document.createElement('tr');
+            const td_id = document.createElement('td');
+            const td_course = document.createElement('td');
+            const td_action = document.createElement('td');
+
+            td_id.innerText = element[0];
+            td_course.innerText = element[1];
+            td_action.innerHTML = `<a href="">Edit</a> <a href="">Delete</a>`;
+
+            tr.appendChild(td_id);
+            tr.appendChild(td_course);
+            tr.appendChild(td_action);
+
+            table_body.appendChild(tr);
+        });
+    }
+}
+
+function addNewCourse() {
+    const courseInp = document.getElementById('course-input');
+
+    function added(response) {
+        if (!response['valid_token']) {
+            alert('Session Expired');
+            return;
+        }
+
+        if (response['added']) {
+            displayPopup('Course Added!');
+            initializeCourseValues();
+            courseInp.value = '';
+        }
+    }
+
+    if (courseInp.value == '')
+        return;
+
+    request_POST('/admin-modified/admin-apis/add_course.php', {'course': courseInp.value, 'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id')}, added, () => {});
+}
+
+// display the next 3 courses
+function nextTable() {
+    // limits the button to go to next table page
+    const next_table_page = (table_page + 3);
+    if (next_table_page > server_side_data['courses'].length)
+        return;
+
+    // remove the canceled prevTbl design
+    if (prevTbl.classList.contains('canceled'))
+        prevTbl.classList.remove('canceled');
+
+    // display on interface is only limited to 3 rows of courses
+    const table_body = document.getElementsByTagName('tbody')[0];
+    table_body.innerHTML = '';
+    if (server_side_data['courses'] != null) {
+        server_side_data['courses'].forEach((element, index) => {
+            if (index >= next_table_page && index < (next_table_page + 3)) {
+                const tr = document.createElement('tr');
+                const td_id = document.createElement('td');
+                const td_course = document.createElement('td');
+                const td_action = document.createElement('td');
+
+                td_id.innerText = element[0];
+                td_course.innerText = element[1];
+                td_action.innerHTML = `<a href="">Edit</a> <a href="">Delete</a>`;
+
+                tr.appendChild(td_id);
+                tr.appendChild(td_course);
+                tr.appendChild(td_action);
+
+                table_body.appendChild(tr);
+            }
+        });
+
+        table_page = next_table_page;
+        if ((table_page + 3) >= server_side_data['courses'].length) {
+            nextTbl.classList.add('canceled');
+        }
+    }
+}
+
+// display the last 3 courses
+function prevTable() {
+    // limits the button to go to next table page
+    const next_table_page = (table_page - 3);
+    if (table_page <= 0) {
+        prevTbl.classList.add('canceled');
+        return;
+    }
+
+    // remove the canceled nextTbl design
+    if (nextTbl.classList.contains('canceled'))
+        nextTbl.classList.remove('canceled');
+
+    // display on interface is only limited to 3 rows of courses
+    const table_body = document.getElementsByTagName('tbody')[0];
+    table_body.innerHTML = '';
+    if (server_side_data['courses'] != null) {
+        server_side_data['courses'].forEach((element, index) => {
+            if (index >= next_table_page && index < (next_table_page + 3)) {
+                const tr = document.createElement('tr');
+                const td_id = document.createElement('td');
+                const td_course = document.createElement('td');
+                const td_action = document.createElement('td');
+
+                td_id.innerText = element[0];
+                td_course.innerText = element[1];
+                td_action.innerHTML = `<a href="">Edit</a> <a href="">Delete</a>`;
+
+                tr.appendChild(td_id);
+                tr.appendChild(td_course);
+                tr.appendChild(td_action);
+
+                table_body.appendChild(tr);
+            }
+        });
+
+        table_page = next_table_page;
+    }
+}
+
 // initial design of ui
 removeSelectedExcept(home);
 hideSectionExcept(home_section);
+initializeHomeValues();
+hidePopup();
 
 // button event listeners
 home.onclick = () => {
     removeSelectedExcept(home);
     hideSectionExcept(home_section);
+    initializeHomeValues();
 }
 
 course.onclick = () => {
     removeSelectedExcept(course);
     hideSectionExcept(course_section);
+    initializeCourseValues();
 }
 
 alumni.onclick = () => {
@@ -86,8 +280,16 @@ users.onclick = () => {
     hideSectionExcept(users_section);
 }
 
-// retrieving data from database
-function acceptedCallback(response) {
+addCourse.onclick = () => {
+    addNewCourse();
 }
 
-request_POST('/admin-modified/admin-apis/add_courses.php', {})
+nextTbl.onclick = () => {
+    nextTable();
+}
+
+prevTbl.onclick = () => {
+    prevTable();
+}
+
+token_check('#', '/admin-modified/index.html');

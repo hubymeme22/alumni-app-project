@@ -1,4 +1,4 @@
-// const API_URL = 'http://localhost:5050/';
+const API_URL = window.location.origin + '/';
 
 // modified function for sending POST request
 function request_POST(url_path, json_data, accepted_callback, denied_callback) {
@@ -15,7 +15,7 @@ function request_POST(url_path, json_data, accepted_callback, denied_callback) {
     });
 
     // sends the request to the server
-    fetch(url_path, {
+    fetch(API_URL + url_path, {
         method: 'POST',
         mode: 'cors',
         credentials: 'same-origin',
@@ -42,7 +42,7 @@ function request_GET(url_path='') {
         url_path = url_path.slice(1);
 
     // sends the request to the server
-    fetch(url_path, {credentials: 'same-origin'});
+    fetch(API_URL + url_path, {credentials: 'same-origin'});
 }
 
 // this one is made for timed session on the server-side

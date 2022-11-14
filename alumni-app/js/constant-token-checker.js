@@ -3,10 +3,8 @@
 function responseCallback(redirect_link_true, redirect_link_false) {
     return (response) => {
         if (response['validated'] == true) {
-            // alert("SHEET");
             window.location.href = redirect_link_true;
         } else {
-            // alert("OH NO");
             window.location.href = redirect_link_false;
         }
     }
