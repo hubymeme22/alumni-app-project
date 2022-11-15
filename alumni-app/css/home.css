@@ -1,5 +1,11 @@
 :root {
-  --box-size: 200px;
+  --box-size: 150px;
+}
+
+header {
+  position: absolute;
+  width: 100%;
+  z-index: 3;
 }
 
 /* Landing page styling */
@@ -11,7 +17,7 @@ section {
 /* Image slider images */
 .image-slider {
   position: relative;
-  height: 75vh;
+  height: 100vh;
 }
 
 .slides {
@@ -42,38 +48,25 @@ section {
   text-align: center;
   font-family: Squada One;
   font-size: 2em;
-  background-color: pink;
 }
 
 /* News */
 .news > .container,
 .events > .container {
   justify-content: center;
-  background-color: aqua;
   display: flex;
-  gap: 50px;
+  gap: var(--m-gap);
 }
 
 .box {
   min-width: var(--box-size);
   height: var(--box-size);
   border: 1px solid black;
+  background-color: rgb(197, 197, 197);
 }
 
 @media only screen and (max-width: 600px) {
   :root {
     --box-size: 100px;
-  }
-
-  .news > .container,
-  .events > .container {
-    background-color: aqua;
-    display: block;
-  }
-
-  .box {
-    width: 150px;
-    height: 150px;
-    border: 1px solid black;
   }
 }
