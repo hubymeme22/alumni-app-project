@@ -4,6 +4,12 @@
     font-family: 'Poppins';
 }
 
+.centered-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 body {
     background-color: #F0F0F0;
 }
@@ -23,6 +29,32 @@ header {
 
 button {
     cursor: pointer;
+}
+
+button.verified {
+    background-color: green;
+    border-radius: 10%;
+    border: none;
+    color: white;
+}
+
+button.pending {
+    background-color: yellow;
+    border-radius: 10%;
+    border: none;
+    color: white;
+}
+
+button.on-hold {
+    background-color: orange;
+    border-radius: 10%;
+    border: none;
+    color: white;
+}
+
+button.verified:active, button.pending:active {
+    background-color: white;
+    color: black;
 }
 
 header div.container {
@@ -139,6 +171,7 @@ section div.contents {
     border: 1px solid black;
     background-color: transparent;
     padding: 20px;
+    overflow: auto;
 }
 
 div.element-content {
@@ -305,6 +338,87 @@ div.aligner button.canceled {
 div.aligner button.canceled:active {
     background-color: #413e3f;
     color: rgb(181, 176, 176);
+}
+
+div.table-container {
+    height: 450px;
+    width: 90%;
+    background-color: green;
+}
+
+div.table-container div.table-header {
+    width: calc(100% - 20px);
+    padding: 10px;
+    color: white;
+    background-color: #650612;
+}
+
+div.table-container div.table-body-container {
+    width: 100%;
+    height: calc(100% - (20px + 23px));
+    display: flex;
+}
+
+div.main-table-container {
+    height: 80%;
+    width: 90%;
+    /* background-color: greenyellow; */
+}
+
+div.main-table-header {
+    height: 10%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% 30% 30% 30%;
+    align-items: center;
+    background-color: #413e3f;
+    color: white;
+}
+
+div.main-table-header div {
+    width: 100%;
+    text-align: center;
+    background-color: transparent;
+}
+
+div.main-table-body {
+    height: 80%;
+    width: 100%;
+    overflow-y: auto;
+    background-color: white;
+}
+
+div.main-table-body div.semi-container {
+    height: auto;
+    width: 100%;
+}
+
+div.main-table-body div.body-content-grid {
+    width: 100%;
+    display: grid;
+    background-color: white;
+    grid-template-columns: 10% 30% 30% 30%;
+    align-items: center;
+    cursor: pointer;
+}
+
+div.main-table-body div.body-content-grid:hover {
+    background-color: rgb(154, 154, 154);
+}
+
+div.main-table-body div.body-content-grid div {
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: transparent;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+div.main-table-control {
+    height: 10%;
+    width: 100%;
+    background-color: black;
 }
 
 div.popup {

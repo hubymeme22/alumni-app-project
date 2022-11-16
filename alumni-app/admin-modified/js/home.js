@@ -7,6 +7,7 @@ const events = document.getElementById('btn-events');
 const users = document.getElementById('btn-users');
 
 const addCourse = document.getElementById('add-course');
+const updateCourse = document.getElementById('update-course');
 const prevTbl = document.getElementById('prev_table');
 const nextTbl = document.getElementById('next_table');
 
@@ -58,9 +59,13 @@ function displayCourse(id, coursename) {
     tabledata_container.appendChild(row);
 }
 
-function displayPopup(message) {
+// callback param: will be executed after the user clicked "ok" button
+// by default, it will only hide the popup.
+function displayPopup(message, callback=hidePopup) {
     document.getElementById('popup').style.display = "";
     document.getElementById('popup-message').innerText = message;
+
+    document.getElementById('popup-button').onclick = callback;
 }
 
 function hidePopup() {
@@ -125,9 +130,9 @@ function initializeCourseValues() {
             const td_course = document.createElement('td');
             const td_action = document.createElement('td');
 
-            td_id.innerText = element[0];
+            td_id.innerText = index + 1;
             td_course.innerText = element[1];
-            td_action.innerHTML = `<a href="">Edit</a> <a href="">Delete</a>`;
+            td_action.innerHTML = `<a onclick="editTrigger(${index}, ${element[0]})" href="javascript: return false;">Edit</a> <a onclick="deleteTrigger(${element[0]})" href="javascript: return false;">Delete</a>`;
 
             tr.appendChild(td_id);
             tr.appendChild(td_course);
@@ -136,6 +141,67 @@ function initializeCourseValues() {
             table_body.appendChild(tr);
         });
     }
+}
+
+function initializeAlumniValues() {
+    initializeHomeValues();
+    const alumniDataContainer = document.getElementById('alumni-body-container');
+    const alumniList = server_side_data['alumni'];
+
+    // append the data to the table
+    alumniDataContainer.innerHTML = '';
+    alumniList.forEach((element, index) => {
+        const body_container = document.createElement('div');
+        const index_data = document.createElement('div');
+        const name = document.createElement('div');
+        const course = document.createElement('div');
+        const status = document.createElement('div');
+
+        const course_id = element[6];
+        let course_name;
+        let account_status;
+
+        // use the course that contains the ff. course_id
+        const course_list = server_side_data['courses'];
+        for (let i = 0; i < course_list.length; i++) {
+            if (course_list[i][0] == course_id) {
+                course_name = course_list[i][1];
+                break;
+            }
+        }
+
+        body_container.classList.add('body-content-grid');
+        index_data.innerText = (index + 1);
+        name.innerText = element[7];
+        course.innerText = course_name;
+
+        // sets the user account status
+        const status_button = document.createElement('button');
+        switch(element[10]) {
+            case '1':
+                status_button.onclick = () => { holdAccount(element[0], status_button) };
+                status_button.classList.add('verified');
+                status_button.innerText = 'verified';
+                break;
+            case '2':
+                status_button.onclick = () => { verifyAccount(element[0], status_button) };
+                status_button.classList.add('on-hold');
+                status_button.innerText = 'on-hold';
+                break;
+            default:
+                status_button.onclick = () => { verifyAccount(element[0], status_button) };
+                status_button.classList.add('pending');
+                status_button.innerText = 'pending';
+                break;
+        }
+
+        status.appendChild(status_button);
+        body_container.appendChild(index_data);
+        body_container.appendChild(name);
+        body_container.appendChild(course);
+        body_container.appendChild(status);
+        alumniDataContainer.appendChild(body_container);
+    });
 }
 
 function addNewCourse() {
@@ -160,6 +226,55 @@ function addNewCourse() {
     request_POST('/admin-modified/admin-apis/add_course.php', {'course': courseInp.value, 'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id')}, added, () => {});
 }
 
+function editTrigger(idx, id) {
+    const inpt = document.getElementById('course-input');
+
+    updateCourse.classList.remove('canceled');
+    addCourse.classList.add('canceled');
+    inpt.value = server_side_data['courses'][idx][1];
+
+    function accepted(response) {
+        if (response['update_status'] == 'updated') {
+            displayPopup('Course Updated!', () => {
+                hidePopup();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            });
+            inpt.value = '';
+        }
+    }
+
+    addCourse.onclick = () => {};
+    updateCourse.onclick = () => {
+        // send server request for updating this course
+        request_POST('/admin-modified/admin-apis/update_course.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id'), 'course_id': id, 'new_course_name': inpt.value}, accepted, () => {});
+
+        // reset
+        updateCourse.onclick = () => {};
+        updateCourse.classList.add('canceled');
+        addCourse.onclick = addNewCourse;
+        addCourse.classList.remove('canceled');
+    }
+}
+
+
+function deleteTrigger(id) {
+    function accepted(response) {
+        if (response['delete_status'] == 'deleted') {
+            displayPopup('Course Deleted!', () => {
+                hidePopup();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            });
+        }
+    }
+
+    // send server request for deleting this course
+    request_POST('/admin-modified/admin-apis/delete_course.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id'), 'course_id': id}, accepted, () => {});
+}
+
 // display the next 3 courses
 function nextTable() {
     // limits the button to go to next table page
@@ -182,9 +297,9 @@ function nextTable() {
                 const td_course = document.createElement('td');
                 const td_action = document.createElement('td');
 
-                td_id.innerText = element[0];
+                td_id.innerText = index + 1;
                 td_course.innerText = element[1];
-                td_action.innerHTML = `<a href="">Edit</a> <a href="">Delete</a>`;
+                td_action.innerHTML = `<a onclick="editTrigger(${index}, ${element[0]})" href="javascript: return false;">Edit</a> <a onclick="deleteTrigger(${element[0]})" href="javascript: return false;">Delete</a>`;
 
                 tr.appendChild(td_id);
                 tr.appendChild(td_course);
@@ -225,9 +340,9 @@ function prevTable() {
                 const td_course = document.createElement('td');
                 const td_action = document.createElement('td');
 
-                td_id.innerText = element[0];
+                td_id.innerText = index + 1;
                 td_course.innerText = element[1];
-                td_action.innerHTML = `<a href="">Edit</a> <a href="">Delete</a>`;
+                td_action.innerHTML = `<a onclick="editTrigger(${index}, ${element[0]})" href="javascript: return false;">Edit</a> <a onclick="deleteTrigger(${element[0]})" href="javascript: return false;">Delete</a>`;
 
                 tr.appendChild(td_id);
                 tr.appendChild(td_course);
@@ -238,6 +353,27 @@ function prevTable() {
         });
 
         table_page = next_table_page;
+    }
+}
+
+function verifyAccount(id, self_element) {
+    self_element.classList.remove('on-hold');
+    self_element.classList.remove('pending');
+    self_element.classList.add('verified');
+    self_element.innerText = 'verified';
+
+    self_element.onclick = () => {
+        holdAccount(id, self_element);
+    }
+}
+
+function holdAccount(id, self_element) {
+    self_element.classList.remove('verified');
+    self_element.classList.add('on-hold');
+    self_element.innerText = 'on-hold';
+
+    self_element.onclick = () => {
+        verifyAccount(id, self_element);
     }
 }
 
@@ -263,6 +399,7 @@ course.onclick = () => {
 alumni.onclick = () => {
     removeSelectedExcept(alumni);
     hideSectionExcept(alumni_section);
+    initializeAlumniValues();
 }
 
 jobs.onclick = () => {
