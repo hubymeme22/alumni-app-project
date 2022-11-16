@@ -1,8 +1,16 @@
 # Alumni web app
 
-A simple alumni app project by team2 that can be used as a future reference for the university's alumni web-app Although the admin panel part is reverse engineered, the entire web-app is made entirely from scratch.
+A simple alumni app project by team *magbabagsakanDito* that can be used as a future reference for the university's alumni web-app. This alumni app includes the client side (for the alumni) and administrators' that is made from bottom up.
 
-Front-end repository can be seen [here](https://github.com/Sanjero20/alumni-app-ui). Older version and experiments on this repository can be seen [here](https://github.com/MrAgui/AlumniWeb).
+Front-end repository can be seen [here](https://github.com/Sanjero20/alumni-app-ui). Older version and experiments on this repository can be seen [here](https://github.com/MrAgui/AlumniWeb). Mobile version of this project can be seen [here](https://github.com/gioshwua/AlmuniApp-Mobile).
+
+### Admininistrator Sample
+![administrator-side](./tmp-images/admin.gif)
+
+### Alumni Sample
+![alumni-side](./tmp-images/client.gif)
+
+
 
 <br>
 
@@ -17,9 +25,9 @@ If using apache, all files on `alumni` folder can be simply pasted on `/var/www/
 
 If using php, simply start the server on alumni directory:
 
-> `~$ cd alumni`
+`~$ cd alumni`
 
-> `~$ php -S localhost:80`
+`~$ php -S localhost:80`
 
 and access the local web app on http://localhost/
 
@@ -28,13 +36,13 @@ and access the local web app on http://localhost/
 # About us
 ## Developers
 
-- Aguilar, Karl
+- [Aguilar, Karl](https://github.com/MrAgui)
 
-- Espinola I, Hubert
+- [Espinola I, Hubert](https://github.com/hubymeme22)
 
-- Reaño, Kenneth Joshua
+- [Reaño, Kenneth Joshua](https://github.com/gioshwua)
 
-- Santos, Angelo
+- [Santos, Angelo](https://github.com/Sanjero20)
 
 ## Designers
 
