@@ -55,16 +55,11 @@ body {
 }
 
 .container {
-  width: min(85%, 1000px);
+  width: min(85%, 1100px);
   margin: 0 auto;
 }
 
 /* Section stylings */
-main {
-  text-align: center;
-  height: 100%;
-}
-
 header,
 footer {
   color: white;
@@ -77,13 +72,17 @@ header {
   background-color: var(--red);
   height: 50px;
   padding: 5px 0;
+  display: flex;
+  align-items: center;
 }
 
 footer {
   background-color: var(--brown);
   height: 40px;
+  padding: 5px 0;
   font-size: clamp(0.75rem, 1.5vw, 1rem);
   letter-spacing: 3px;
+  text-align: center;
 }
 
 /* Header Styling */
@@ -119,6 +118,7 @@ footer {
 
 .nav-bar {
   display: flex;
+  align-items: center;
   gap: 1.25em;
 }
 
@@ -129,4 +129,70 @@ footer {
 .nav-bar > li:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.hamburger,
+.close {
+  display: none;
+}
+
+/* Hamburger Menu */
+@media only screen and (max-width: 600px) {
+  header,
+  footer {
+    padding: 0.5em 0;
+  }
+
+  footer {
+    font-size: 0.75em;
+  }
+
+  header {
+    flex-direction: column;
+  }
+
+  nav {
+    display: flex;
+  }
+
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transform: translate(100%);
+    transition: all 300ms ease-in-out;
+  }
+
+  .nav-bar.show {
+    transform: translateX(0);
+  }
+
+  .nav-bar > li {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+
+  .nav {
+    position: relative;
+  }
+
+  .hamburger,
+  .close {
+    display: block;
+    z-index: 3;
+  }
+
+  .hide {
+    display: none;
+  }
 }
