@@ -1,0 +1,79 @@
+:root {
+  --box-size: 200px;
+}
+
+/* Landing page styling */
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image slider images */
+.image-slider {
+  position: relative;
+  height: 75vh;
+}
+
+.slides {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1000ms ease-in-out;
+  transition-delay: 100ms;
+}
+
+.slides.active {
+  z-index: 1;
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
+.slides > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.title {
+  padding: 1em 0;
+  text-align: center;
+  font-family: Squada One;
+  font-size: 2em;
+  background-color: pink;
+}
+
+/* News */
+.news > .container,
+.events > .container {
+  justify-content: center;
+  background-color: aqua;
+  display: flex;
+  gap: 50px;
+}
+
+.box {
+  min-width: var(--box-size);
+  height: var(--box-size);
+  border: 1px solid black;
+}
+
+@media only screen and (max-width: 600px) {
+  :root {
+    --box-size: 100px;
+  }
+
+  .news > .container,
+  .events > .container {
+    background-color: aqua;
+    display: block;
+  }
+
+  .box {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+  }
+}
