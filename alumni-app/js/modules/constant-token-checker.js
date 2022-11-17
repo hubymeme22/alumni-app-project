@@ -1,3 +1,5 @@
+import { request_POST } from "./modified.js";
+
 // this function checks if the token of the user is valid
 // if not valid, it will redirect the page to the inputed route
 function responseCallback(redirect_link_true, redirect_link_false) {
@@ -20,3 +22,5 @@ function errorResponseCallback(redirect_link_false) {
 function token_check(redirect_link_true='#', redirect_link_false='#') {
     request_POST('/api/verify.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id')}, responseCallback(redirect_link_true, redirect_link_false), errorResponseCallback(redirect_link_false));
 }
+
+export {token_check};

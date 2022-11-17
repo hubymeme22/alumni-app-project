@@ -42,4 +42,5 @@ function md5(inputString) {
     }
     return rh(a)+rh(b)+rh(c)+rh(d);
   }
-  
+
+export {md5};

@@ -45,17 +45,4 @@ function request_GET(url_path='') {
     fetch(API_URL + url_path, {credentials: 'same-origin'});
 }
 
-// this one is made for timed session on the server-side
-function sessionTiming() {
-    /*
-    const if_accepted = (data) => {
-        // process data
-    };
-
-    const if_not_accepted = (data) => {
-        // oof.
-    }
-
-    request_POST('update_session', {}, if_accepted, if_not_accepted);
-    */
-}
+export { request_POST, request_GET };
