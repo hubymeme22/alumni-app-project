@@ -17,11 +17,11 @@ Front-end repository can be seen [here](https://github.com/Sanjero20/alumni-app-
 # Setup for local environment
 ## Database Setup
 
-For setting up your database, you can go to `alumni/database` folder and load the `alumni_db.sql`. After loading, make sure to change the credential and database name values in `alumni/admin/db_connect.php` properly connect to the database.
+For setting up your database, you can go to `alumni-app/database` folder and load the `revised_alumni_db.sql`. After loading, make sure to change the credential and database name values in `alumni-app/global_setup.php` properly connect to the database.
 
 ## Server setup
 
-If using apache, all files on `alumni` folder can be simply pasted on `/var/www/html` folder.
+If using apache, all files on `alumni-app` folder can be simply pasted on `/var/www/html` folder.
 
 If using php, simply start the server on alumni directory:
 
