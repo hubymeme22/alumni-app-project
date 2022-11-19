@@ -357,21 +357,39 @@ function prevTable() {
 }
 
 function verifyAccount(id, self_element) {
-    self_element.classList.remove('on-hold');
-    self_element.classList.remove('pending');
-    self_element.classList.add('verified');
-    self_element.innerText = 'verified';
-
-    self_element.onclick = () => {
-        holdAccount(id, self_element);
+    function accepted(response) {
+        if (response['activated']) {
+            self_element.classList.remove('on-hold');
+            self_element.classList.remove('pending');
+            self_element.classList.add('verified');
+            self_element.innerText = 'verified';
+            self_element.onclick = () => {
+                holdAccount(id, self_element);
+            }
+        } else {
+            displayPopup('Account Not Activated');
+        }
     }
+
+    request_POST('/admin-modified/admin-apis/activate_alumni.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id'), 'id': id}, accepted, () => {});
 }
 
 function holdAccount(id, self_element) {
-    self_element.classList.remove('verified');
-    self_element.classList.add('on-hold');
-    self_element.innerText = 'on-hold';
+    function accepted(response) {
+        if (response['hold']) {
+            self_element.classList.remove('verified');
+            self_element.classList.add('on-hold');
+            self_element.innerText = 'on-hold';
+            self_element.innerText = 'on-hold';
+            self_element.onclick = () => {
+                verifyAccount(id, self_element);
+            }
+        } else {
+            displayPopup('Cannot Hold Account');
+        }
+    }
 
+    request_POST('/admin-modified/admin-apis/hold_alumni.php', {'old_id': window.localStorage.getItem('id'), 'new_id': window.localStorage.getItem('new_id'), 'id': id}, accepted, () => {});
     self_element.onclick = () => {
         verifyAccount(id, self_element);
     }

@@ -174,6 +174,26 @@ function updateCourse($id, $courseName) {
 	return false;
 }
 
+function activateAccount($id) {
+	global $conn;
+	$query = $conn->query("UPDATE alumnus_bio SET status='1' WHERE id='$id';");
+
+	if ($query)
+		return true;
+
+	return false;
+}
+
+function holdAccount($id) {
+	global $conn;
+	$query = $conn->query("UPDATE alumnus_bio SET status='2' WHERE id='$id';");
+
+	if ($query)
+		return true;
+
+	return false;
+}
+
 function deleteCourse($id) {
 	global $conn;
 	$query = $conn->query("DELETE FROM courses WHERE id='$id'");
