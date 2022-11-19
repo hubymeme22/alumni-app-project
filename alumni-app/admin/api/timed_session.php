@@ -10,7 +10,7 @@
 * By: Hubert F. Espinola I
 */
 
-include ('../global-setup.php');
+include('../../global-setup.php');
 
 ////////////////////////
 //  HELPER FUNCTIONS  //
@@ -71,6 +71,7 @@ function addNewSessionDB($user, $pass) {
 
 	$current_epoch = time();
 	$current_token = hash_hmac('sha256', "$user$pass$old_id$current_epoch", $SALT);
+
 	$user_type = $conn->query("SELECT type from users WHERE username='$user' AND password='$pass';");
 	$user_type = $user_type->fetch_array()[0];
 	$inserted = $timed_sess_db->query("INSERT INTO session_data (id, new_id, user, pass, token, epoch_created, type) VALUES ('$old_id', '$old_id', '$user', '$pass', '$current_token', '$current_epoch', '$user_type')");
@@ -85,10 +86,10 @@ function validateToken($old_id, $new_id, $token) {
 	global $timed_sess_db;
 
 	clearExpired();
-	$query = $timed_sess_db->query("SELECT * FROM session_data WHERE id='$old_id' AND `type`='3';");
+	$query = $timed_sess_db->query("SELECT * FROM session_data WHERE id='$old_id' AND type='1';");
 	$result = $query->fetch_row();
 
-	if ($query->num_rows < 1) return null;
+	if ($query->num_rows < 1) return false;
 	if (($new_id == $result[1]) && ($result[4] == $token)) return true;
 	return false;
 }

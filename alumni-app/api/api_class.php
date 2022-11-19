@@ -1,97 +1,41 @@
 <?php
-include ('../admin/db_connect.php');
-include ('./timed_session.php');
 
+include ('./timed_session.php');
 
 // this class is inspired by the concept of JWT for handling sessions
 // This one's sum stupid ugly-ass code (will fix soon)
 // Created By: Hubert F. Espinola I
-class TokenHandler {
-	function __construct($salt) {
-		global $SALT;
 
-		$SALT = $salt;
-		$this->salt = $salt;
-	}
+// logs in the credentials and authorize if valid
+function login($user, $pass) {
+	global $conn;
+	$query = $conn->query("SELECT * FROM users WHERE username='$user' AND password='$pass' AND type='3'");
 
-	// logs in the credentials and authorize if valid
-	function login($user, $pass) {
-		global $conn;
-		$query = $conn->query("SELECT * FROM users WHERE username='$user' AND password='$pass' AND type='3'");
+	// check if the username and password
+	// are existing and valid
+	if ($query->num_rows <= 0)
+		return array('token' => 'null', 'id'=> 'null');
 
-		// check if the username and password
-		// are existing and valid
-		if ($query->num_rows <= 0)
-			return array('token' => 'null', 'id'=> 'null');
+	// check if the user is authorized
 
-		// check if the user is authorized
-
-		// generates a valid token and id for this user
-		return createSession($user, $pass);
-	}
-
-	// validates token for authorization
-	function validateToken($token, $oldid, $newid) {
-		return validateToken((int)$oldid, (int)$newid, $token);
-	}
+	// generates a valid token and id for this user
+	return createSession($user, $pass);
 }
 
-
-function getJobListing(){
-	// gets all job availbale
+function signup($user, $email, $pass) {
 	global $conn;
-    $query = $conn->query('SELECT * FROM careers');
-	// $result = mysqli_query($conn, $query);
-    // $datas = mysqli_fetch_array($query);
-	if (mysqli_num_rows($query) > 0) {
-		// use while loop to get all data in 
-		while($row=mysqli_fetch_array($query)){
-			$datas[]=$row;
-		}
-		return $datas;
-	}
-}
+	$query = $conn->query("SELECT * FROM users WHERE username='$email' AND type='3'");
 
-// function that will get all the data in the joblist of specific user... returns the array
-function getJobListUser($user_id){
-	global $conn;
-	$query = $conn->query('SELECT * FROM careers WHERE id = "' . $user_id .'" ');
-	if(mysqli_num_rows($query) > 0){
-		while($row=mysqli_fetch_array($query)){
-			$datas[]=$row;
-		}
-		return $datas;
-	}
+	// format
+	$format = array('existing' => false, 'status' => 'created');
 
-}
-// function that will get all the job data.
- function getJobData($user_id){
-	// gets career using user_id
-	// get job data posting by a specific user
-	global $conn;
-	$query_string='SELECT job_title FROM careers WHERE id = "' . $user_id .'" ';
-	echo $query_string;
-	$query=$conn->query($query_string);
-	if(mysqli_num_rows($query) > 0){
-		while($row=mysqli_fetch_array($query)){
-			$datas[]=$row;
-		}
-		return $datas;
+	// an account using the email already exists
+	if ($query->num_rows >= 0) {
+		$format['existing'] = true;
+		return $format;
+	} else {
+		$query = $conn->query("INSERT INTO users (name, username, password, type, auto_generated_pass) VALUES ('$user', '$email', '');");
 	}
-}
-// Get profile data of users in alumni list store in array 
-function getUserProfile(){
-	global $conn;
-	$query_string = 'SELECT * FROM alumnus_bio';
-	echo $query_string;
-	$query=$conn->query($query_string);
-	if(mysqli_num_rows($query) > 0){
-		while($row=mysqli_fetch_array($query)){
-			$datas[]=$row;
-		}
-		return $datas;
-	}
-
 }
 
 // registers the given user
@@ -118,8 +62,5 @@ function registerUser($email, $password, $first, $middle, $last, $gender, $batch
 	return true;
 
 }
-
-// will be used throughout the api
-$sessionHandler = new TokenHandler('jeezRickSanchez');
 
 ?>
