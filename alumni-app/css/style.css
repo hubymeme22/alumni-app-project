@@ -31,7 +31,6 @@ a {
 }
 
 body {
-  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -77,12 +76,16 @@ header {
 }
 
 footer {
+  margin-top: 2em;
   background-color: var(--brown);
   height: 40px;
   padding: 5px 0;
-  font-size: clamp(0.75rem, 1.5vw, 1rem);
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-align: center;
+}
+
+main {
+  min-height: 100vh;
 }
 
 /* Header Styling */
