@@ -17,13 +17,13 @@
     <div class="popup" id="popup">
         <div class="message-container">
             <h2 id="popup-message"></h2>
-            <button onclick="hidePopup()">Ok</button>
+            <button id="popup-button">Ok</button>
         </div>
     </div>
 
     <header>
         <div class="container">
-            <h2 class="name">Alumni Dashboard</h2>
+            <h2 class="name">Admin Dashboard</h2>
             <div class="drop-down-container">
                 <button class="drop-down">Admin</button>
             </div>
@@ -74,7 +74,7 @@
                                     <input type="text" id="course-input" placeholder="course name/keywords">
                                     <button>Search Course</button>
                                     <button id="add-course">Add Course</button>
-                                    <button class="canceled">Update Course</button>
+                                    <button id="update-course" class="canceled">Update Course</button>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +127,52 @@
                 </div>
             </section>
 
-            <section class="alumni-list" id="alumni-section" hidden></section>
+            <section class="alumni-list" id="alumni-section" hidden>
+                <div class="contents centered-all">
+                    <div class="table-container">
+                        <div class="table-header">
+                            Alumni List
+                        </div>
+                        <div class="table-body-container centered-all">
+
+                            <!-- Modified table made out of div -->
+                            <div class="main-table-container">
+                                <div class="main-table-header">
+                                    <div>ID</div>
+                                    <div>Username</div>
+                                    <div>Course</div>
+                                    <div>Status</div>
+                                </div>
+                                <div class="main-table-body">
+                                    <div class="semi-container" id="alumni-body-container">
+                                        <div class="body-content-grid">
+                                            <div>1</div>
+                                            <div>Hubert F. Espinola I</div>
+                                            <div>BS Computer Science</div>
+                                            <div>verified</div>
+                                        </div>
+                                        <div class="body-content-grid">
+                                            <div>2</div>
+                                            <div>Angelo Noel C. Santos</div>
+                                            <div>BS Computer Science</div>
+                                            <div>verified</div>
+                                        </div>
+                                        <div class="body-content-grid">
+                                            <div>3</div>
+                                            <div>Kenneth Joshua O. Reano</div>
+                                            <div>BS Computer Science</div>
+                                            <div>verified</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="main-table-control"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="jobs" id="jobs-section" hidden></section>
             <section class="events" id="events-section" hidden></section>
             <section class="users" id="users-section" hidden></section>

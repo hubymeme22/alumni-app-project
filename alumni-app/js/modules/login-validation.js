@@ -1,5 +1,7 @@
-// Login validation module
+import { request_POST } from "./modified.js";
+import { md5 } from "./md5.js";
 
+// Login validation module
 const username = document.getElementById('login-username');
 const password = document.getElementById('login-password');
 
@@ -26,12 +28,12 @@ function validatedResponse(response) {
   }
 
   // save the token and id on cookie
-  document.cookie = `token=${response['token']};`;
+  document.cookie = `token=${response['token']}; path=/`;
   window.localStorage.setItem('id', response['id']);
   window.localStorage.setItem('new_id', response['id']);
 
   // redirect to landing page
-  window.location.href = '/landing.html';
+  window.location.href = '/pages/home.html';
 
 }
 

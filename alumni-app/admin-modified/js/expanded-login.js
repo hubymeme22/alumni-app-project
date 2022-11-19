@@ -28,7 +28,7 @@ function accepted(data) {
 
         window.localStorage.setItem('id', data['id']);
         window.localStorage.setItem('new_id', data['id']);
-        document.cookie = `token=${data['token']};`;
+        document.cookie = `token=${data['token']}; path=/`;
         window.location.href = '/admin-modified/home.html';
 }
 

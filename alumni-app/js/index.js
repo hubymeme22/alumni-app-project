@@ -1,5 +1,6 @@
 import * as signup from './modules/signup-validation.js';
 import * as login from './modules/login-validation.js';
+import { token_check } from './modules/constant-token-checker.js';
 
 const background = document.querySelector('.background');
 
@@ -106,4 +107,4 @@ setTimeout(() => {
 
 // checks if the current token is vald then redirect
 // to landing page if valid
-token_check('/landing.html');
+token_check('/pages/home.html');

@@ -161,6 +161,49 @@ function addCourse($course_name) {
 	return true;
 }
 
+//////////////////////////////////////////////
+//  Functions for editting data on database //
+//////////////////////////////////////////////
+function updateCourse($id, $courseName) {
+	global $conn;
+	$query = $conn->query("UPDATE courses SET course='$courseName' WHERE id='$id';");
+
+	if ($query)
+		return true;
+
+	return false;
+}
+
+function activateAccount($id) {
+	global $conn;
+	$query = $conn->query("UPDATE alumnus_bio SET status='1' WHERE id='$id';");
+
+	if ($query)
+		return true;
+
+	return false;
+}
+
+function holdAccount($id) {
+	global $conn;
+	$query = $conn->query("UPDATE alumnus_bio SET status='2' WHERE id='$id';");
+
+	if ($query)
+		return true;
+
+	return false;
+}
+
+function deleteCourse($id) {
+	global $conn;
+	$query = $conn->query("DELETE FROM courses WHERE id='$id'");
+
+	if ($query)
+		return true;
+
+	return false;
+}
+
 
 // will be used throughout the api
 $sessionHandler = new AdminTokenHandler('jeezRickSanchez');

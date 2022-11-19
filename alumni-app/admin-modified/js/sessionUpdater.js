@@ -6,7 +6,7 @@
 function successfulUpdate(response) {
     // updates cookies and increment new id
     if (response['update_status'] == 'updated') {
-        document.cookie = `token=${response['new_token']};`;
+        document.cookie = `token=${response['new_token']}; path=/`;
 
         const new_id = window.localStorage.getItem('new_id');
         window.localStorage.setItem('new_id', parseInt(new_id) + 1);
