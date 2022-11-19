@@ -28,7 +28,7 @@ function validatedResponse(response) {
   }
 
   // save the token and id on cookie
-  document.cookie = `token=${response['token']};`;
+  document.cookie = `token=${response['token']}; path=/`;
   window.localStorage.setItem('id', response['id']);
   window.localStorage.setItem('new_id', response['id']);
 
