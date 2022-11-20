@@ -14,6 +14,8 @@
 
   /* borders */
   --border-radius: 40px;
+
+  --container-width: min(85%, 1100px);
 }
 
 * {
@@ -51,7 +53,7 @@ body {
 }
 
 .container {
-  width: min(85%, 1100px);
+  width: var(--container-width);
   margin: 0 auto;
 }
 
