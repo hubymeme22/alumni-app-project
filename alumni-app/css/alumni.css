@@ -1,0 +1,92 @@
+:root {
+  --card-height: 200px;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+main {
+  padding: 1em;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-container {
+  width: var(--container-width);
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-rows: repeat(2, var(--card-height));
+  padding: 1.5em;
+  gap: 1em;
+}
+
+.title {
+  font-weight: 700;
+}
+
+/* CARD COMPONENT */
+.alumni-card {
+  font-size: smaller;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1em;
+  height: var(--card-height);
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75em;
+  border-radius: 10px;
+}
+
+.alumni-desc {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.socials {
+  width: 125px;
+  padding: 0.5em;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #181d1c;
+}
+
+.socials i {
+  color: white;
+}
+
+.profile-img {
+  background-color: white;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid rgb(0, 0, 0, 0.5);
+}
+
+@media only screen and (max-width: 600px) {
+  .content-container {
+    width: 100%;
+    grid-template-columns: 1fr;
+    padding: 0;
+    border: 0;
+  }
+
+  .alumni-card {
+    padding: 0.5em;
+  }
+}
