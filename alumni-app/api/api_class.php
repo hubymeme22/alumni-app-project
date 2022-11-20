@@ -9,58 +9,121 @@ include ('./timed_session.php');
 // logs in the credentials and authorize if valid
 function login($user, $pass) {
 	global $conn;
+
+	$return_format = array('token' => 'null', 'verified' => false, 'existing' => false, 'id' => 0);
 	$query = $conn->query("SELECT * FROM users WHERE username='$user' AND password='$pass' AND type='3'");
 
 	// check if the username and password
 	// are existing and valid
 	if ($query->num_rows <= 0)
-		return array('token' => 'null', 'id'=> 'null');
+		return $return_format;
 
-	// check if the user is authorized
+	// check if the user is verified
+	$query = $conn->query("SELECT * FROM alumnus_bio WHERE email='$user' AND status='1'");
+	if ($query->num_rows <= 0) {
+		$return_format['existing'] = true;
+		return $return_format;
+	}
+
+	$return_format['existing'] = true;
+	$return_format['verified'] = true;
 
 	// generates a valid token and id for this user
-	return createSession($user, $pass);
+	$sessionCreated = createSession($user, $pass);
+	$return_format['token'] = $sessionCreated['token'];
+	$return_format['id'] = $sessionCreated['id'];
+	return $return_format;
 }
 
 function signup($user, $email, $pass) {
 	global $conn;
+
 	$query = $conn->query("SELECT * FROM users WHERE username='$email' AND type='3'");
+	$format = array('existing' => false, 'status' => 'not_created');
 
-	// format
-	$format = array('existing' => false, 'status' => 'created');
-
-	// an account using the email already exists
-	if ($query->num_rows >= 0) {
+	// the account already exists
+	if ($query->num_rows > 0) {
 		$format['existing'] = true;
 		return $format;
-	} else {
-		$query = $conn->query("INSERT INTO users (name, username, password, type, auto_generated_pass) VALUES ('$user', '$email', '');");
 	}
+
+	// save the account to the database
+	$query = $conn->query("INSERT INTO alumnus_bio (name, sex, batch, course_id, email, avatar, employment_status, status, facebook_link, twitter_link, linkedin_link, github_link) VALUES ('$user', 'Female', '2020', '1', '$email', '', 'Unemployed', '3', '#', '#', '#', '#');");
+	if ($query) $format['status'] = 'created';
+
+	$userList = getUserProfile();
+	$lastUserID = $userList[count($userList) - 1][0];
+
+	$query = $conn->query("INSERT INTO users (name, username, password, type, auto_generated_pass, alumnus_id) VALUES ('$user', '$email', '$pass', '3', '', '$lastUserID');");
+	if ($query) $format['status'] = 'created';
+
+	return $format;
 }
 
-// registers the given user
-function registerUser($email, $password, $first, $middle, $last, $gender, $batch, $course_id, $fb, $tw, $lnkdin, $gthb, $avatar) {
-	// register these data to the database (initialize to unverified)
+///////////////////////////////////////////////
+//  Functions for getting data (client part)  //
+///////////////////////////////////////////////
+function getEvents() {
 	global $conn;
+	$query = $conn->query("SELECT * FROM events;");
+	$rows = array();
 
-	// by default, the value of status = 0 (unverified)
-	$date_created = date('Y-m-d');
+	while ($rowdata = $query->fetch_row()) {
+		$rows[] = $rowdata;
+	}
 
-	// checks if the account is already registered
-	$query = $conn->query("SELECT * FROM users WHERE username='$email';");
-	if ($query->num_rows >= 1)
-		return false;
+	return $rows;
+}
 
-	// adds the account to alumnus list, and credentials to users table
-	// autoincrement alumnus_id??? (will try later)
-	$query = $conn->query("INSERT INTO alumnus_bio (firstname, middlename, lastname, gender, batch, course_id, email, connected_to, avatar, status, date_created, facebook_link, twitter_link, linkedin_link, github_link) VALUES ('$first', '$middle', '$last', '$gender', '$batch', '$course_id', '$email', '', '$avatar', '0', '$date_created', '$fb', '$tw', '$lnkdin', '$gthb');");
-	if ($query) return false;
+// function that will get all the data in the joblist of specific user... returns the array
+function getJobList() {
+	global $conn;
+	$query = $conn->query("SELECT * FROM jobs;");
+	$rows = array();
 
-	$query = $conn->query("INSERT INTO users (name, username, password, type, auto_generated_pass) VALUES ('$first $middle $last', '$email', '$password', '3', '', );");
-	if ($query) return false;
+	while ($rowdata = $query->fetch_row()) {
+		$data = array(
+			"id" => $rowdata[0],
+			"header" => $rowdata[1],
+			"company" => $rowdata[2],
+			"address" => $rowdata[3],
+			"md_content" => $rowdata[4]
+		);
 
-	return true;
+		$rows[] = $data;
+	}
 
+	return $rows;
+}
+
+// Get profile data of users in alumni list store in array 
+function getAlumni() {
+	global $conn;
+	$query = $conn->query("SELECT * FROM alumnus_bio;");
+	$rows = array();
+
+	while ($rowdata = $query->fetch_row()) {
+		$data = array(
+			"id" => $rowdata[0],
+			"name" => $rowdata[1],
+			"sex" => $rowdata[2],
+			"batch" => $rowdata[3],
+			"course_id" => $rowdata[4],
+			"email" => $rowdata[5],
+			"img" => $rowdata[6],
+			"employmentStatus" => $rowdata[7],
+			"links" => array(
+				"facebook" => $rowdata[10],
+				"twitter" => $rowdata[11],
+				"linkedin" => $rowdata[12],
+				"github" => $rowdata[13]
+			),
+		);
+
+		$rows[] = $data;
+	}
+
+	return $rows;
 }
 
 ?>

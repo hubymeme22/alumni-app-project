@@ -160,7 +160,7 @@ function initializeAlumniValues() {
         const course = document.createElement('div');
         const status = document.createElement('div');
 
-        const course_id = element[6];
+        const course_id = element[4];
         let course_name;
         let account_status;
 
@@ -175,12 +175,12 @@ function initializeAlumniValues() {
 
         body_container.classList.add('body-content-grid');
         index_data.innerText = (index + 1);
-        name.innerText = element[7];
+        name.innerText = element[1];
         course.innerText = course_name;
 
         // sets the user account status
         const status_button = document.createElement('button');
-        switch(element[10]) {
+        switch(element[8]) {
             case '1':
                 status_button.onclick = () => { holdAccount(element[0], status_button) };
                 status_button.classList.add('verified');
@@ -217,7 +217,12 @@ function addNewCourse() {
         }
 
         if (response['added']) {
-            displayPopup('Course Added!');
+            displayPopup('Course Added!', () => {
+                hidePopup();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            });
             initializeCourseValues();
             courseInp.value = '';
         }

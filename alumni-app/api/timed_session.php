@@ -76,7 +76,7 @@ function addNewSessionDB($user, $pass) {
 	$inserted = $timed_sess_db->query("INSERT INTO session_data (id, new_id, user, pass, token, epoch_created, type) VALUES ('$old_id', '$old_id', '$user', '$pass', '$current_token', '$current_epoch', '$user_type')");
 
 	if ($inserted)
-		return array('token' => $current_token, 'id'=> $old_id);
+		return array('token' => $current_token, 'id' => $old_id);
 	return null;
 }
 
