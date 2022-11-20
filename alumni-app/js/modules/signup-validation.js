@@ -1,5 +1,7 @@
-// Signup validation module
+import { request_POST } from './modified.js';
+import { md5 } from './md5.js';
 
+// Signup validation module
 // Input Fields
 const username = document.getElementById('username');
 const email = document.getElementById('email');
@@ -129,12 +131,27 @@ function registerAccount() {
   if (isValid === false) return;
 
   const account = getAllInputValues();
+  account['password'] = md5(account['password']);
   resetForm();
 
   /* 
     TODO: Send to Database for checking
     ? If approved, continue to questionnaire page
   */
+
+  function accepted(response) {
+    if (response['status'] == 'created') {
+      alert('account created');
+      return;
+    }
+  
+    if (response['existing']) {
+      alert('Account already used');
+      return;
+    }
+  }
+
+  request_POST('/api/signup.php', account, accepted, () => {});
 }
 
 function getAllInputValues() {

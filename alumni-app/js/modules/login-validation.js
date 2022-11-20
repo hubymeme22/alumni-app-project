@@ -16,8 +16,13 @@ document.addEventListener('input', () => {
 
 // function if the account is validated
 function validatedResponse(response) {
+  if (!response['verified']) {
+    invalidUsername('Account not verified');
+    return;
+  }
+
   if (response['token'] == 'null') {
-    invalidUsername();
+    invalidUsername('Invalid Account');
     console.log('invalid username');
     return;
   }
@@ -55,10 +60,10 @@ function validateAccount() {
 }
 
 // Error function
-function invalidUsername() {
+function invalidUsername(message) {
   // if (username not in database or somethin) {}
   loginError.classList.remove('hide');
-  loginError.textContent = 'Invalid Account';
+  loginError.textContent = message;
 }
 
 function invalidPassword() {

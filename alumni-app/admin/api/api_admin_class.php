@@ -111,7 +111,7 @@ function addCourse($course_name) {
 		return false;
 
 	// the course to be added is valid (does not exist)
-	$conn->query("INSERT INTO courses (course, about) VALUES ('$course_name', '');");
+	$conn->query("INSERT INTO courses (course) VALUES ('$course_name');");
 	return true;
 }
 
