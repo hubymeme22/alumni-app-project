@@ -25,7 +25,7 @@ main {
   border: 1px solid black;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   grid-template-rows: repeat(2, var(--card-height));
   padding: 1.5em;
   gap: 1em;
@@ -37,6 +37,7 @@ main {
 
 /* CARD COMPONENT */
 .alumni-card {
+  font-size: smaller;
   width: 100%;
   box-sizing: border-box;
   padding: 1em;
@@ -45,14 +46,14 @@ main {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 0.75em;
+  border-radius: 10px;
 }
 
 .alumni-desc {
-  background-color: pink;
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 1em;
 }
 
 .socials {
@@ -60,9 +61,8 @@ main {
   padding: 0.5em;
   border-radius: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 1em;
   background-color: #181d1c;
 }
 
@@ -71,13 +71,16 @@ main {
 }
 
 .profile-img {
+  background-color: white;
   width: 100px;
   height: 100px;
-  border: 1px solid black;
+  border-radius: 50%;
+  border: 1px solid rgb(0, 0, 0, 0.5);
 }
 
 @media only screen and (max-width: 600px) {
   .content-container {
+    width: 100%;
     grid-template-columns: 1fr;
     padding: 0;
     border: 0;
