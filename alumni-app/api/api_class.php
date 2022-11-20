@@ -97,13 +97,30 @@ function getJobList() {
 }
 
 // Get profile data of users in alumni list store in array 
-function getUserProfile(){
+function getAlumni() {
 	global $conn;
 	$query = $conn->query("SELECT * FROM alumnus_bio;");
 	$rows = array();
 
 	while ($rowdata = $query->fetch_row()) {
-		$rows[] = $rowdata;
+		$data = array(
+			"id" => $rowdata[0],
+			"name" => $rowdata[1],
+			"sex" => $rowdata[2],
+			"batch" => $rowdata[3],
+			"course_id" => $rowdata[4],
+			"email" => $rowdata[5],
+			"img" => $rowdata[6],
+			"employmentStatus" => $rowdata[7],
+			"links" => array(
+				"facebook" => $rowdata[10],
+				"twitter" => $rowdata[11],
+				"linkedin" => $rowdata[12],
+				"github" => $rowdata[13]
+			),
+		);
+
+		$rows[] = $data;
 	}
 
 	return $rows;
