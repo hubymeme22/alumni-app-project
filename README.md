@@ -19,6 +19,29 @@ Front-end repository can be seen [here](https://github.com/Sanjero20/alumni-app-
 
 For setting up your database, you can go to `alumni-app/database` folder and load the `revised_alumni_db.sql`. After loading, make sure to change the credential and database name values in `alumni-app/global_setup.php` properly connect to the database.
 
+### setup alumni database on mysql terminal:
+
+```
+/alumni-app/database~$ mysql -u <mysqlusername> -p
+Enter password:
+mysql> CREATE DATABASE alumni_db;
+mysql> use alumni_db;
+mysql> source revised_alumni_db.sql;
+
+```
+
+### setup session handler database on mysql terminal:
+```
+/alumni-app/database~$ mysql -u <mysqlusername> -p
+Enter password:
+mysql> CREATE DATABASE timed_session;
+mysql> use timed_session;
+mysql> source timed_session.db;
+
+```
+
+<br>
+
 ## Server setup
 
 If using apache, all files on `alumni-app` folder can be simply pasted on `/var/www/html` folder.
