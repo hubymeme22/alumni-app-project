@@ -103,6 +103,9 @@ function getAlumni() {
 	$rows = array();
 
 	while ($rowdata = $query->fetch_row()) {
+		if ($rowdata[8] != 1)
+			continue;
+
 		$data = array(
 			"id" => $rowdata[0],
 			"name" => $rowdata[1],
