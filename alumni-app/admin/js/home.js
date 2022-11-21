@@ -28,6 +28,8 @@ const sctnLst = [home_section, course_section, alumni_section, jobs_section, eve
 const server_side_data = {};
 let table_page = 0;
 
+console.log(server_side_data);
+
 // Functions for displays
 function removeSelectedExcept(target) {
     btnLst.forEach(element => {
@@ -132,10 +134,27 @@ function initializeCourseValues() {
             const td_id = document.createElement('td');
             const td_course = document.createElement('td');
             const td_action = document.createElement('td');
+            const edit_a = document.createElement('a');
+            const delete_a = document.createElement('a');
+
+            edit_a.onclick = () => {
+                editTrigger(index, element[0]);
+            };
+
+            delete_a.onclick = () => {
+                deleteTrigger(element[0]);
+            }
+
+            edit_a.innerText = 'Edit ';
+            edit_a.href = 'javascript: return false';
+            delete_a.innerText = ' Delete';
+            delete_a.href = 'javascript: return false';
 
             td_id.innerText = index + 1;
             td_course.innerText = element[1];
-            td_action.innerHTML = `<a onclick="editTrigger(${index}, ${element[0]})" href="javascript: return false;">Edit</a> <a onclick="deleteTrigger(${element[0]})" href="javascript: return false;">Delete</a>`;
+            td_action.appendChild(edit_a);
+            td_action.appendChild(delete_a);
+            // td_action.innerHTML = `<a onclick="javascript: editTrigger(${index}, ${element[0]})" href="javascript: return false;">Edit</a> <a onclick="deleteTrigger(${element[0]})" href="javascript: return false;">Delete</a>`;
 
             tr.appendChild(td_id);
             tr.appendChild(td_course);
@@ -205,6 +224,33 @@ function initializeAlumniValues() {
         body_container.appendChild(status);
         alumniDataContainer.appendChild(body_container);
     });
+}
+
+function initializeJobsValues() {
+    initializeHomeValues();
+    const jobsDataContainer = document.getElementById('jobs-body-container');
+    const jobList = server_side_data['jobs'];
+
+    jobsDataContainer.innerHTML = '';
+    jobsDataContainer.forEach((element, indexs) => {
+        const body_container = document.createElement('div');
+        const index_data = document.createElement('div');
+        const header = document.createElement('div');
+        const company = document.createElement('div');
+        const address = document.createElement('div');
+
+        index_data.innerText = element[0];
+        header.innerText = element[1];
+        company.innerText = element[2];
+        address.innerText = element[3];
+
+        body_container.appendChild(index_data);
+        body_container.appendChild(header);
+        body_container.appendChild(company);
+        body_container.appendChild(address);
+        jobsDataContainer.appendChild(body_container);
+    });
+
 }
 
 function addNewCourse() {
@@ -431,6 +477,7 @@ alumni.onclick = () => {
 jobs.onclick = () => {
     removeSelectedExcept(jobs);
     hideSectionExcept(jobs_section);
+    initializeJobsValues();
 }
 
 events.onclick = () => {
