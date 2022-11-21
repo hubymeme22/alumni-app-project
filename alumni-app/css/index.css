@@ -1,5 +1,12 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
 /* Splash Screen */
 .background {
+  height: 100vh;
   position: absolute;
   background-image: url('/assets/images/bsu-background.jpg');
   background-repeat: no-repeat;
@@ -16,6 +23,7 @@
 /* Login UI and SignUp UI */
 .auth-page {
   position: relative;
+  height: auto;
 }
 
 .auth-page > .container {
