@@ -51,8 +51,8 @@ function signup($user, $email, $pass) {
 	$query = $conn->query("INSERT INTO alumnus_bio (name, sex, batch, course_id, email, avatar, employment_status, status, facebook_link, twitter_link, linkedin_link, github_link) VALUES ('$user', 'Female', '2020', '1', '$email', '', 'Unemployed', '3', '#', '#', '#', '#');");
 	if ($query) $format['status'] = 'created';
 
-	$userList = getUserProfile();
-	$lastUserID = $userList[count($userList) - 1][0];
+	$userList = getAlumni();
+	$lastUserID = $userList[count($userList) - 1]['id'];
 
 	$query = $conn->query("INSERT INTO users (name, username, password, type, auto_generated_pass, alumnus_id) VALUES ('$user', '$email', '$pass', '3', '', '$lastUserID');");
 	if ($query) $format['status'] = 'created';
@@ -103,6 +103,9 @@ function getAlumni() {
 	$rows = array();
 
 	while ($rowdata = $query->fetch_row()) {
+		if ($rowdata[8] != 1)
+			continue;
+
 		$data = array(
 			"id" => $rowdata[0],
 			"name" => $rowdata[1],
