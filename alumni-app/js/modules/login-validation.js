@@ -16,14 +16,13 @@ document.addEventListener('input', () => {
 
 // function if the account is validated
 function validatedResponse(response) {
-  if (!response['verified']) {
-    invalidUsername('Account not verified');
+  if (!response['existing']) {
+    invalidUsername('Invalid Account');
     return;
   }
 
-  if (response['token'] == 'null') {
-    invalidUsername('Invalid Account');
-    console.log('invalid username');
+  if (!response['verified']) {
+    invalidUsername('Account not verified');
     return;
   }
 
