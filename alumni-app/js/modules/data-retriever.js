@@ -18,4 +18,12 @@ function getAlumni(accepted=(data) => {}, rejected=(error) => {}) {
     request_POST('/api/alumni.php', data, accepted, rejected);
 }
 
-export { getJobs, getAlumni };
+function searchAlumni(name, accepted=(data) => {}, rejected=(error) => {}) {
+    const data = {
+        'old_id': window.localStorage.getItem('id'),
+        'new_id': window.localStorage.getItem('new_id'),
+        'name_search': name};
+    request_POST('/api/alumni.php', data, accepted, rejected);
+}
+
+export { getJobs, getAlumni, searchAlumni };

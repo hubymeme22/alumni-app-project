@@ -6,10 +6,14 @@ header('Content-type: application/json');
 if (isset($_COOKIE['token'])) {
     $old_id = $_POST['old_id'];
     $new_id = $_POST['new_id'];
+
+    $name_search = '';
+    if (isset($_POST['name_search'])) $name_search = $_POST['name_search'];
+
     $isValidated = validateToken($old_id, $new_id, $_COOKIE['token']);
 
     if ($isValidated) {
-        $courses_data = getAlumni();
+        $courses_data = getAlumni($name_search);
         echo json_encode(array('status' => 'ok', 'data' => $courses_data, 'size' => count($courses_data)));
     } else {
         echo json_encode(array('status' => 'invalid_token', 'data' => null, 'size' => 0));

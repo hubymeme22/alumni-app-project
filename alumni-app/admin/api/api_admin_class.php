@@ -62,9 +62,9 @@ function getJobList(){
 }
 
 // Get profile data of users in alumni list store in array 
-function getUserProfile(){
+function getUserProfile($search='') {
 	global $conn;
-	$query = $conn->query("SELECT * FROM alumnus_bio;");
+	$query = $conn->query("SELECT * FROM alumnus_bio WHERE name LIKE '%$search%';");
 	$rows = array();
 
 	while ($rowdata = $query->fetch_row()) {
