@@ -14,6 +14,12 @@ const updateCourse = document.getElementById('update-course');
 const prevTbl = document.getElementById('prev_table');
 const nextTbl = document.getElementById('next_table');
 
+const jobPost = document.getElementById('btn-job-post');
+const jobPrev = document.getElementById('btn-job-preview');
+const jobCancel = document.getElementById('btn-job-cancel');
+
+const addJob = document.getElementById('add-job');
+
 // section lists
 const home_section = document.getElementById('home-section');
 const course_section = document.getElementById('course-section');
@@ -49,19 +55,36 @@ function hideSectionExcept(target) {
     });
 }
 
-function displayCourse(id, coursename) {
-    const tabledata_container = document.getElementsByTagName('tbody')[0];
-    const row = document.createElement('tr');
-    const col_id = document.createElement('td');
-    const col_course = document.createElement('td');
-    const col_edits = document.createElement('td');
+// function displayCourse(id, coursename) {
+//     const tabledata_container = document.getElementsByTagName('tbody')[0];
+//     const row = document.createElement('tr');
+//     const col_id = document.createElement('td');
+//     const col_course = document.createElement('td');
+//     const col_edits = document.createElement('td');
 
-    col_edits.innerHTML = '<a href="">Edit</a><a href="">Delete</a>';
-    row.appendChild(col_id);
-    row.appendChild(col_course);
-    row.appendChild(col_edits);
+//     col_edits.innerHTML = '<a href="">Edit</a><a href="">Delete</a>';
+//     row.appendChild(col_id);
+//     row.appendChild(col_course);
+//     row.appendChild(col_edits);
 
-    tabledata_container.appendChild(row);
+//     tabledata_container.appendChild(row);
+// }
+
+// hides the jobForm
+function hideJobForm() {
+    document.querySelector('.answer-sheet-container').style.display = 'none';
+    document.getElementById('inpt-job-company').value = '';
+    document.getElementById('inpt-job-address').value = '';
+    document.getElementById('inpt-job-header').value = '';
+    document.getElementById('inpt-job-content').textContent = '';
+
+    jobCancel.onclick = () => {};
+}
+
+// displays the job posting form
+function displayJobForm() {
+    document.querySelector('.answer-sheet-container').style.display = '';
+    jobCancel.onclick = hideJobForm;
 }
 
 // callback param: will be executed after the user clicked "ok" button
@@ -232,7 +255,7 @@ function initializeJobsValues() {
     const jobList = server_side_data['jobs'];
 
     jobsDataContainer.innerHTML = '';
-    jobsDataContainer.forEach((element, indexs) => {
+    jobList.forEach((element) => {
         const body_container = document.createElement('div');
         const index_data = document.createElement('div');
         const header = document.createElement('div');
@@ -243,6 +266,8 @@ function initializeJobsValues() {
         header.innerText = element[1];
         company.innerText = element[2];
         address.innerText = element[3];
+
+        body_container.classList.add('body-content-grid');
 
         body_container.appendChild(index_data);
         body_container.appendChild(header);
@@ -500,6 +525,39 @@ nextTbl.onclick = () => {
 
 prevTbl.onclick = () => {
     prevTable();
+}
+
+jobPost.onclick = () => {
+    function accepted(response) {
+        if (response['added']) {
+            displayPopup('Job Added!');
+        } else {
+            displayPopup('Error occured in adding course');
+        }
+    }
+
+    const company = document.getElementById('inpt-job-company').value;
+    const address = document.getElementById('inpt-job-address').value;
+    const header = document.getElementById('inpt-job-header').value;
+    const content = document.getElementById('inpt-job-content').value;
+    console.log(content);
+
+    if (company == '' || address == '' || header == '' || content == '') {
+        displayPopup('Input Not Complete!');
+        return;
+    }
+
+    const data = {
+        'old_id': window.localStorage.getItem('id'),
+        'new_id': window.localStorage.getItem('new_id'),
+        'company': company, 'address': address,
+        'header': header, 'content': content};
+
+    request_POST('/admin/api/add_job.php', data, accepted, () => {});
+}
+
+addJob.onclick = () => {
+    displayJobForm();
 }
 
 token_check('#', '/admin/index.html');

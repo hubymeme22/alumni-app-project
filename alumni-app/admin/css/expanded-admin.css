@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
 
 * {
     font-family: 'Poppins';
@@ -416,9 +418,33 @@ div.main-table-body div.body-content-grid div {
 }
 
 div.main-table-control {
-    height: 10%;
-    width: 100%;
+    height: calc(10% - 10px);
+    width: calc(100% - 20px);
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     background-color: black;
+    display: flex;
+    align-items: center;
+}
+
+div.main-table-control > button {
+    height: 40px;
+    width: 40px;
+    margin-top: -30px;
+    padding: 0px;
+    color: white;
+    border: none;
+    border-radius: 50%;
+}
+
+div.main-table-control > button.add {
+    background-color: rgb(26, 147, 48);
+}
+
+div.main-table-control > button:active {
+    background-color: white;
+    color: black;
 }
 
 div.popup {
@@ -451,6 +477,98 @@ div.message-container button {
 }
 
 div.message-container button:active {
+    background-color: white;
+    color: black;
+}
+
+div.answer-sheet-container {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.answer-sheet {
+    /* height: 80%; */
+    /* width: 70%; */
+    border-radius: 10px;
+    background-color: white;
+}
+
+div.answer-sheet > div.header {
+    width: calc(100% - 20px);
+    padding: 10px;
+    background-color: #342C2D;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: white;
+}
+
+div.answer-sheet > div.header > h2 {
+    margin: 0;
+}
+
+div.answer-sheet > div.content {
+    width: calc(100% - 20px);
+    padding: 20px;
+    font-family:'Roboto Mono';
+}
+
+div.answer-sheet > div.content > input {
+    border-radius: 5px;
+    padding: 3px;
+    width: 50%;
+    border: 1px solid rgb(43, 43, 43);
+}
+
+div.answer-sheet > div.content > input:focus {
+    outline: none;
+}
+
+div.answer-sheet > div.content > input.header {
+    font-weight: bold;
+    width: calc(100% - 26px);
+}
+
+div.answer-sheet > div.content > textarea {
+    width: calc(100% - 23px);
+    height: 150px;
+
+    max-width: calc(100% - 23px);
+    max-height: 150px;
+}
+
+div.answer-sheet > div.footer {
+    width: calc(100% - 20px);
+    padding: 10px;
+}
+
+div.answer-sheet > div.footer > button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+div.answer-sheet > div.footer > button.post {
+    background-color: green;
+}
+
+div.answer-sheet > div.footer > button.cancel {
+    background-color: red;
+}
+
+div.answer-sheet > div.footer > button.preview {
+    background-color: rgb(62, 62, 60);
+}
+
+div.answer-sheet > div.footer > button:active {
     background-color: white;
     color: black;
 }

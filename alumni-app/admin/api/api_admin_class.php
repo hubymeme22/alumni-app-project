@@ -115,6 +115,17 @@ function addCourse($course_name) {
 	return true;
 }
 
+// adds a new job to the database
+function addJob($company, $header, $address, $mdContent) {
+	global $conn;
+
+	// the course to be added is valid (does not exist)
+	$response = $conn->query("INSERT INTO jobs (company, header, address, md_content) VALUES ('$company', '$header', '$address', '$mdContent');");
+	if ($response)
+		return true;
+	return false;
+}
+
 //////////////////////////////////////////////
 //  Functions for editting data on database //
 //////////////////////////////////////////////
