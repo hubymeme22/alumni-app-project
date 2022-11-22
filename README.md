@@ -48,7 +48,7 @@ If using apache, all files on `alumni-app` folder can be simply pasted on `/var/
 
 If using php, simply start the server on alumni directory:
 
-`~$ cd alumni`
+`~$ cd alumni-app`
 
 `~$ php -S localhost:80`
 
