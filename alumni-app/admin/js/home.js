@@ -14,6 +14,12 @@ const updateCourse = document.getElementById('update-course');
 const prevTbl = document.getElementById('prev_table');
 const nextTbl = document.getElementById('next_table');
 
+const jobPost = document.getElementById('btn-job-post');
+const jobPrev = document.getElementById('btn-job-preview');
+const jobCancel = document.getElementById('btn-job-cancel');
+
+const addJob = document.getElementById('add-job');
+
 // section lists
 const home_section = document.getElementById('home-section');
 const course_section = document.getElementById('course-section');
@@ -27,6 +33,8 @@ const sctnLst = [home_section, course_section, alumni_section, jobs_section, eve
 
 const server_side_data = {};
 let table_page = 0;
+
+console.log(server_side_data);
 
 // Functions for displays
 function removeSelectedExcept(target) {
@@ -47,19 +55,36 @@ function hideSectionExcept(target) {
     });
 }
 
-function displayCourse(id, coursename) {
-    const tabledata_container = document.getElementsByTagName('tbody')[0];
-    const row = document.createElement('tr');
-    const col_id = document.createElement('td');
-    const col_course = document.createElement('td');
-    const col_edits = document.createElement('td');
+// function displayCourse(id, coursename) {
+//     const tabledata_container = document.getElementsByTagName('tbody')[0];
+//     const row = document.createElement('tr');
+//     const col_id = document.createElement('td');
+//     const col_course = document.createElement('td');
+//     const col_edits = document.createElement('td');
 
-    col_edits.innerHTML = '<a href="">Edit</a><a href="">Delete</a>';
-    row.appendChild(col_id);
-    row.appendChild(col_course);
-    row.appendChild(col_edits);
+//     col_edits.innerHTML = '<a href="">Edit</a><a href="">Delete</a>';
+//     row.appendChild(col_id);
+//     row.appendChild(col_course);
+//     row.appendChild(col_edits);
 
-    tabledata_container.appendChild(row);
+//     tabledata_container.appendChild(row);
+// }
+
+// hides the jobForm
+function hideJobForm() {
+    document.querySelector('.answer-sheet-container').style.display = 'none';
+    document.getElementById('inpt-job-company').value = '';
+    document.getElementById('inpt-job-address').value = '';
+    document.getElementById('inpt-job-header').value = '';
+    document.getElementById('inpt-job-content').textContent = '';
+
+    jobCancel.onclick = () => {};
+}
+
+// displays the job posting form
+function displayJobForm() {
+    document.querySelector('.answer-sheet-container').style.display = '';
+    jobCancel.onclick = hideJobForm;
 }
 
 // callback param: will be executed after the user clicked "ok" button
@@ -132,10 +157,27 @@ function initializeCourseValues() {
             const td_id = document.createElement('td');
             const td_course = document.createElement('td');
             const td_action = document.createElement('td');
+            const edit_a = document.createElement('a');
+            const delete_a = document.createElement('a');
+
+            edit_a.onclick = () => {
+                editTrigger(index, element[0]);
+            };
+
+            delete_a.onclick = () => {
+                deleteTrigger(element[0]);
+            }
+
+            edit_a.innerText = 'Edit ';
+            edit_a.href = 'javascript: return false';
+            delete_a.innerText = ' Delete';
+            delete_a.href = 'javascript: return false';
 
             td_id.innerText = index + 1;
             td_course.innerText = element[1];
-            td_action.innerHTML = `<a onclick="editTrigger(${index}, ${element[0]})" href="javascript: return false;">Edit</a> <a onclick="deleteTrigger(${element[0]})" href="javascript: return false;">Delete</a>`;
+            td_action.appendChild(edit_a);
+            td_action.appendChild(delete_a);
+            // td_action.innerHTML = `<a onclick="javascript: editTrigger(${index}, ${element[0]})" href="javascript: return false;">Edit</a> <a onclick="deleteTrigger(${element[0]})" href="javascript: return false;">Delete</a>`;
 
             tr.appendChild(td_id);
             tr.appendChild(td_course);
@@ -205,6 +247,35 @@ function initializeAlumniValues() {
         body_container.appendChild(status);
         alumniDataContainer.appendChild(body_container);
     });
+}
+
+function initializeJobsValues() {
+    initializeHomeValues();
+    const jobsDataContainer = document.getElementById('jobs-body-container');
+    const jobList = server_side_data['jobs'];
+
+    jobsDataContainer.innerHTML = '';
+    jobList.forEach((element) => {
+        const body_container = document.createElement('div');
+        const index_data = document.createElement('div');
+        const header = document.createElement('div');
+        const company = document.createElement('div');
+        const address = document.createElement('div');
+
+        index_data.innerText = element[0];
+        header.innerText = element[1];
+        company.innerText = element[2];
+        address.innerText = element[3];
+
+        body_container.classList.add('body-content-grid');
+
+        body_container.appendChild(index_data);
+        body_container.appendChild(header);
+        body_container.appendChild(company);
+        body_container.appendChild(address);
+        jobsDataContainer.appendChild(body_container);
+    });
+
 }
 
 function addNewCourse() {
@@ -431,6 +502,7 @@ alumni.onclick = () => {
 jobs.onclick = () => {
     removeSelectedExcept(jobs);
     hideSectionExcept(jobs_section);
+    initializeJobsValues();
 }
 
 events.onclick = () => {
@@ -453,6 +525,39 @@ nextTbl.onclick = () => {
 
 prevTbl.onclick = () => {
     prevTable();
+}
+
+jobPost.onclick = () => {
+    function accepted(response) {
+        if (response['added']) {
+            displayPopup('Job Added!');
+        } else {
+            displayPopup('Error occured in adding course');
+        }
+    }
+
+    const company = document.getElementById('inpt-job-company').value;
+    const address = document.getElementById('inpt-job-address').value;
+    const header = document.getElementById('inpt-job-header').value;
+    const content = document.getElementById('inpt-job-content').value;
+    console.log(content);
+
+    if (company == '' || address == '' || header == '' || content == '') {
+        displayPopup('Input Not Complete!');
+        return;
+    }
+
+    const data = {
+        'old_id': window.localStorage.getItem('id'),
+        'new_id': window.localStorage.getItem('new_id'),
+        'company': company, 'address': address,
+        'header': header, 'content': content};
+
+    request_POST('/admin/api/add_job.php', data, accepted, () => {});
+}
+
+addJob.onclick = () => {
+    displayJobForm();
 }
 
 token_check('#', '/admin/index.html');

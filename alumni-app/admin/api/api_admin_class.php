@@ -62,9 +62,9 @@ function getJobList(){
 }
 
 // Get profile data of users in alumni list store in array 
-function getUserProfile(){
+function getUserProfile($search='') {
 	global $conn;
-	$query = $conn->query("SELECT * FROM alumnus_bio;");
+	$query = $conn->query("SELECT * FROM alumnus_bio WHERE name LIKE '%$search%';");
 	$rows = array();
 
 	while ($rowdata = $query->fetch_row()) {
@@ -113,6 +113,17 @@ function addCourse($course_name) {
 	// the course to be added is valid (does not exist)
 	$conn->query("INSERT INTO courses (course) VALUES ('$course_name');");
 	return true;
+}
+
+// adds a new job to the database
+function addJob($company, $header, $address, $mdContent) {
+	global $conn;
+
+	// the course to be added is valid (does not exist)
+	$response = $conn->query("INSERT INTO jobs (company, header, address, md_content) VALUES ('$company', '$header', '$address', '$mdContent');");
+	if ($response)
+		return true;
+	return false;
 }
 
 //////////////////////////////////////////////

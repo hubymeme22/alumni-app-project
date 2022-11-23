@@ -19,6 +19,29 @@
         </div>
     </div>
 
+    <!-- FORM POPUP -->
+    <div class="answer-sheet-container" style="display: none;">
+        <div class="answer-sheet">
+            <div class="header">
+                <h2>Job Sheet</h2>
+            </div>
+            <div class="content">
+                Company: <input type="text" placeholder="Ex. Accenture" id="inpt-job-company"><br><br>
+                Address: <input type="text" placeholder="Ex. Jupiter St., GCH" id="inpt-job-address">
+                <br><br><br>
+                <input type="text" class="header" placeholder="Job Header Title" id="inpt-job-header">
+                <br><br>
+                <textarea placeholder="Job contents - in MarkDown" id="inpt-job-content"></textarea>
+
+            </div>
+            <div class="footer">
+                <button class="post" id="btn-job-post">Post Job</button>
+                <button class="preview" id="btn-job-preview">Preview</button>
+                <button class="cancel" id="btn-job-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <h2 class="name">Admin Dashboard</h2>
@@ -171,7 +194,42 @@
                 </div>
             </section>
 
-            <section class="jobs" id="jobs-section" hidden></section>
+            <section class="jobs" id="jobs-section" hidden>
+                <div class="contents centered-all">
+                    <div class="table-container">
+                        <div class="table-header">
+                            Job List
+                        </div>
+                        <div class="table-body-container centered-all">
+
+                            <!-- Modified table made out of div -->
+                            <div class="main-table-container">
+                                <div class="main-table-header">
+                                    <div>ID</div>
+                                    <div>Header</div>
+                                    <div>Company</div>
+                                    <div>Address</div>
+                                </div>
+                                <div class="main-table-body">
+                                    <div class="semi-container" id="jobs-body-container">
+                                        <div class="body-content-grid">
+                                            <div>1</div>
+                                            <div>Backend and Frontend developers</div>
+                                            <div>Accenture</div>
+                                            <div>B3 L163, Hacienda Hill, Palo Alto, Calamba City, Laguna</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="main-table-control">
+                                    <button class="add" id="add-job">+</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="events" id="events-section" hidden></section>
             <section class="users" id="users-section" hidden></section>
 
