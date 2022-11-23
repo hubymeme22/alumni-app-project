@@ -60,6 +60,8 @@ body {
 /* Section stylings */
 header,
 footer {
+  width: 100%;
+  position: absolute;
   color: white;
   display: flex;
   justify-content: center;
@@ -67,14 +69,15 @@ footer {
 }
 
 header {
+  top: 0;
   background-color: var(--red);
-  height: 50px;
+  height: 55px;
   padding: 5px 0;
-  display: flex;
-  align-items: center;
 }
 
 footer {
+  bottom: 0;
+  z-index: 5;
   background-color: var(--brown);
   height: 40px;
   padding: 5px 0;
@@ -83,7 +86,9 @@ footer {
 }
 
 main {
-  padding: 1em 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 4em 0;
 }
 
 /* Header Styling */
