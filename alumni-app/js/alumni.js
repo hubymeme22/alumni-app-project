@@ -1,7 +1,7 @@
 import { token_check } from './modules/constant-token-checker.js';
 import { getAlumni } from './modules/data-retriever.js';
 
-// token_check('#', '/index.html');
+token_check('#', '/index.html');
 
 const CONTENT_CONTAINER = document.querySelector('.content-container');
 
@@ -31,7 +31,7 @@ function createClone(data) {
 
   facebook.href = data.links.facebook;
   twitter.href = data.links.twitter;
-  linkedIn.href = data.links.linkedIn;
+  linkedIn.href = data.links.linkedin;
   github.href = data.links.github;
 
   CONTENT_CONTAINER.appendChild(clone);
