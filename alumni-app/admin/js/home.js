@@ -530,9 +530,17 @@ prevTbl.onclick = () => {
 jobPost.onclick = () => {
     function accepted(response) {
         if (response['added']) {
-            displayPopup('Job Added!');
+            displayPopup('Job Added!', () => {
+                hidePopup();
+                hideJobForm();
+                window.location.reload();
+            });
         } else {
-            displayPopup('Error occured in adding course');
+            displayPopup('Error occured in adding course', () => {
+                hidePopup();
+                hideJobForm();
+                window.location.reload();
+            });
         }
     }
 
@@ -551,7 +559,7 @@ jobPost.onclick = () => {
         'old_id': window.localStorage.getItem('id'),
         'new_id': window.localStorage.getItem('new_id'),
         'company': company, 'address': address,
-        'header': header, 'content': content};
+        'header': header, 'md_content': content};
 
     request_POST('/admin/api/add_job.php', data, accepted, () => {});
 }
