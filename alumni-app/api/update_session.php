@@ -1,6 +1,7 @@
 <?php
 
 include('./timed_session.php');
+include('./allow-cross-origin.php');
 
 header('Content-type: application/json');
 if (isset($_POST['new_id']) && isset($_POST['old_id']) && isset($_COOKIE['token'])) {
