@@ -1,6 +1,7 @@
 <?php
 
 include ('./timed_session.php');
+include ('./allow-cross-origin.php');
 
 // this class is inspired by the concept of JWT for handling sessions
 // This one's sum stupid ugly-ass code (will fix soon)
