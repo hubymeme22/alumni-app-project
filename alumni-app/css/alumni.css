@@ -5,9 +5,11 @@
 }
 
 main {
+  padding-top: 4.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.45em;
 }
 
 .content-container {

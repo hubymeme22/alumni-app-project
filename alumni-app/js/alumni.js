@@ -1,5 +1,5 @@
 import { token_check } from './modules/constant-token-checker.js';
-import { getAlumni } from './modules/data-retriever.js';
+import { getAlumni, searchAlumni } from './modules/data-retriever.js';
 
 token_check('#', '/index.html');
 
@@ -37,9 +37,39 @@ function createClone(data) {
   CONTENT_CONTAINER.appendChild(clone);
 }
 
-getAlumni(response => {
-  const info = response.data;
-  info.forEach(alumni => {
-    createClone(alumni);
+const searchBar = document.getElementById('searchBar');
+const searchBarForm = document.querySelector('.search-bar');
+
+searchBarForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+});
+
+searchBar.addEventListener('input', () => {
+  let name = searchBar.value;
+  if (name.trim() == '') {
+    renderAllAlumni();
+    return;
+  }
+
+  searchAlumni(name, (response) => {
+    const info = response.data;
+    CONTENT_CONTAINER.innerHTML = '';
+    info.forEach((alumni) => {
+      createClone(alumni);
+    });
   });
 });
+
+function renderAllAlumni() {
+  CONTENT_CONTAINER.innerHTML = '';
+  getAlumni((response) => {
+    console.log(response);
+    const info = response.data;
+    info.forEach((alumni) => {
+      createClone(alumni);
+    });
+  });
+}
+
+// Driver Code
+renderAllAlumni();
