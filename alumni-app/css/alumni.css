@@ -23,6 +23,21 @@ main {
   gap: 1em;
 }
 
+.content-container.alert {
+  width: var(--container-width);
+  height: calc(var(--card-height) * 2 + 4.1em);
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.alert > img {
+  height: 90%;
+}
+
 .title {
   font-weight: 700;
 }

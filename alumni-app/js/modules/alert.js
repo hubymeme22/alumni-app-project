@@ -1,5 +1,5 @@
 //
-const searchingImg = '../../assets/illustrations/search.png';
+const notFoundImg = '../../assets/illustrations/not-found.png';
 const constructionImg = '../../assets/illustrations/under-construction.png';
 
 function underConstruction(container) {
@@ -11,4 +11,18 @@ function underConstruction(container) {
   container.appendChild(img);
 }
 
-export { underConstruction };
+function noAlumniFound(container) {
+  const img = document.createElement('img');
+  const h1 = document.createElement('h1');
+
+  img.src = notFoundImg;
+  // img.classList.add('alert');
+  h1.textContent = 'No Alumni Found';
+
+  container.innerHTML = '';
+  container.classList.add('alert');
+  container.appendChild(img);
+  container.appendChild(h1);
+}
+
+export { underConstruction, noAlumniFound };

@@ -1,18 +1,23 @@
 import { token_check } from './modules/constant-token-checker.js';
 import { getAlumni, searchAlumni } from './modules/data-retriever.js';
 
+import { noAlumniFound } from './modules/alert.js';
+
 token_check('#', '/index.html');
 
 const CONTENT_CONTAINER = document.querySelector('.content-container');
 
-// variables
 let temp = document.getElementById('alumni-template');
+
+// Illustrations and Icons URL
 const maleIcon = '../assets/illustrations/male-avatar.png';
 const femaleIcon = '../assets/illustrations/female-avatar.png';
+const emptyIcon = '../assets/illustrations/not-found.png';
 
 // Functions
 function renderAllAlumni() {
   CONTENT_CONTAINER.innerHTML = '';
+  CONTENT_CONTAINER.classList.remove('alert');
   getAlumni((response) => {
     console.log(response);
     const info = response.data;
@@ -82,10 +87,17 @@ searchBar.addEventListener('input', () => {
 
   searchAlumni(name, (response) => {
     const info = response.data;
-    CONTENT_CONTAINER.innerHTML = '';
-    info.forEach((alumni) => {
-      createClone(alumni);
-    });
+
+    if (info.length <= 0) {
+      noAlumniFound(CONTENT_CONTAINER);
+      return;
+    } else {
+      CONTENT_CONTAINER.innerHTML = '';
+      CONTENT_CONTAINER.classList.remove('alert');
+      info.forEach((alumni) => {
+        createClone(alumni);
+      });
+    }
   });
 });
 
