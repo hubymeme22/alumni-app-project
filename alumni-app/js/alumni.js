@@ -3,7 +3,7 @@ import { getAlumni, searchAlumni } from './modules/data-retriever.js';
 
 import { noAlumniFound } from './modules/alert.js';
 
-token_check('#', '/index.html');
+// token_check('#', '/index.html');
 
 const CONTENT_CONTAINER = document.querySelector('.content-container');
 
@@ -12,14 +12,11 @@ let temp = document.getElementById('alumni-template');
 // Illustrations and Icons URL
 const maleIcon = '../assets/illustrations/male-avatar.png';
 const femaleIcon = '../assets/illustrations/female-avatar.png';
-const emptyIcon = '../assets/illustrations/not-found.png';
-
 // Functions
 function renderAllAlumni() {
   CONTENT_CONTAINER.innerHTML = '';
   CONTENT_CONTAINER.classList.remove('alert');
   getAlumni((response) => {
-    console.log(response);
     const info = response.data;
     info.forEach((alumni) => {
       createClone(alumni);
