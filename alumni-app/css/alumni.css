@@ -1,12 +1,15 @@
 :root {
   --card-height: 200px;
+  --grey: #d9d9d9;
+  --border-radius: 25px;
 }
 
 main {
+  padding-top: 4.5em;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  gap: 0.45em;
 }
 
 .content-container {
@@ -14,10 +17,25 @@ main {
   border: 1px solid black;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
   grid-template-rows: repeat(2, var(--card-height));
   padding: 1.5em;
   gap: 1em;
+}
+
+.content-container.alert {
+  width: var(--container-width);
+  height: calc(var(--card-height) * 2 + 4.1em);
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.alert > img {
+  height: 90%;
 }
 
 .title {
@@ -30,7 +48,7 @@ main {
   width: 100%;
   padding: 1em;
   height: var(--card-height);
-  background-color: #d9d9d9;
+  background-color: var(--grey);
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -60,23 +78,96 @@ main {
 }
 
 .profile-img {
-  background-color: white;
+  zoom: 20px;
+  object-fit: contain;
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 1px solid rgb(0, 0, 0, 0.5);
+  border: 1px solid rgb(0, 0, 0, 0.2);
 }
 
-@media only screen and (max-width: 600px) {
-  .content-container {
-    height: 100vh;
+/* Search bar */
+.title-container {
+  position: relative;
+  width: var(--container-width);
+}
+
+.search-bar {
+  width: 100%;
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.search-bar > input {
+  height: 100%;
+  position: relative;
+  padding: 0.5em 1em;
+  padding-right: 3.5em;
+  background-color: var(--grey);
+  border: 0;
+  border-radius: var(--border-radius);
+  outline: 0;
+}
+
+.search-bar > button {
+  height: 100%;
+  padding: 0 0.75em;
+  padding-right: 1em;
+  background-color: var(--red);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  position: absolute;
+  border: 0;
+  color: white;
+  outline: 0;
+}
+
+@media only screen and (max-width: 1100px) {
+  .title-container {
+    justify-content: flex-start;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .title-container {
+    border-bottom: 1px solid var(--brown);
+    margin-bottom: 0.5em;
+    padding: 0.5em 0;
+    width: 90%;
+    text-align: center;
+    display: block;
+  }
+
+  .search-bar {
     width: 100%;
+    position: relative;
+  }
+
+  .search-bar > input {
+    width: 100%;
+  }
+
+  .content-container {
+    width: 90%;
     grid-template-columns: 1fr;
     padding: 0;
     border: 0;
   }
 
+  .content-container.alert {
+    height: 100%;
+    border: 0;
+  }
+
   .alumni-card {
     padding: 0.5em;
+  }
+
+  .alert > img {
+    width: 90%;
+    height: auto;
   }
 }
