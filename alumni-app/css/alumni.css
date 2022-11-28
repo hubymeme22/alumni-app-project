@@ -63,11 +63,12 @@ main {
 }
 
 .profile-img {
-  background-color: white;
+  zoom: 20px;
+  object-fit: contain;
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 1px solid rgb(0, 0, 0, 0.5);
+  border: 1px solid rgb(0, 0, 0, 0.2);
 }
 
 /* Search bar */

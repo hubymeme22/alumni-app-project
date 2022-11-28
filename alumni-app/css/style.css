@@ -143,6 +143,13 @@ main {
   display: none;
 }
 
+/* Illustrations */
+.alert {
+  margin: 0 auto;
+  width: auto;
+  height: 50vh;
+}
+
 /* Hamburger Menu */
 @media only screen and (max-width: 600px) {
   footer {
@@ -212,5 +219,10 @@ main {
 
   .hide {
     display: none;
+  }
+
+  .alert {
+    width: 100%;
+    height: auto;
   }
 }
