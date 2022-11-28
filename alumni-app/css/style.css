@@ -48,6 +48,13 @@ body {
   align-items: center;
 }
 
+.center-all-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .hide {
   display: none;
 }

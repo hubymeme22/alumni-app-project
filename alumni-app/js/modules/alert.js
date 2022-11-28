@@ -4,11 +4,17 @@ const constructionImg = '../../assets/illustrations/under-construction.png';
 
 function underConstruction(container) {
   const img = document.createElement('img');
+  const h1 = document.createElement('h1');
+
   img.src = constructionImg;
   img.classList.add('alert');
+
+  h1.textContent = 'Under Construction';
+
   container.innerHTML = '';
-  container.classList.add('center-all');
+  container.classList.add('center-all-col');
   container.appendChild(img);
+  container.appendChild(h1);
 }
 
 function noAlumniFound(container) {
@@ -16,7 +22,6 @@ function noAlumniFound(container) {
   const h1 = document.createElement('h1');
 
   img.src = notFoundImg;
-  // img.classList.add('alert');
   h1.textContent = 'No Alumni Found';
 
   container.innerHTML = '';
