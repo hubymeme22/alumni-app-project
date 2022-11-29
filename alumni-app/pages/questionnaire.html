@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questionnaire</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/questionnaire.css" />
+  </head>
+  <body>
+    <div class="background"></div>
+
+    <main class="flex-col">
+      <h1 class="title">ALUMNI QUESTIONNAIRE</h1>
+
+      <form class="container">
+        <section>
+          <div>
+            <h1>Personal Details</h1>
+            <p>
+              Your personal details are used to verify the validity of your
+              response and will not be passed on the third party organizations.
+            </p>
+          </div>
+
+          <fieldset class="question flex-col">
+            <label for="firstName">Given / First Name</label>
+            <input type="text" id="firstName" required />
+          </fieldset>
+
+          <fieldset class="question flex-col">
+            <label for="firstName">Family / Last Name</label>
+            <input type="text" id="firstName" required />
+          </fieldset>
+
+          <fieldset class="question flex-col">
+            <label for="email"> Email Address</label>
+            <input type="email" id="email" required />
+          </fieldset>
+
+          <fieldset class="question">
+            <label for="age">Age</label>
+            <input type="number" id="age" required />
+          </fieldset>
+        </section>
+
+        <!-- prettier-ignore -->
+        <section>
+          <h1>Educational History</h1>
+          
+          <fieldset class="question radio-q">
+            <p> What is the most recent degree you completed at the university? </p>
+            <input type="radio" id="undergrad" name="education" value="undergrad"/>
+            <label for="undergrad"> Undergraduate Program(s) </label>
+
+            <br>
+            
+            <input type="radio" id="masters" name="education" value="masters"/>
+            <label for="masters"> Masters Program(s) </label>
+
+            <br>
+
+            <input type="radio" id="phd" name="education" value="phd"/>
+            <label for="phd"> PhD Program(s) </label>
+
+            <br>
+
+            <input type="radio" id="mba" name="education" value="mba"/>
+            <label for="mba"> MBA Program(s) </label>
+
+            <br>
+            
+            <input type="radio" id="executive" name="education" value="executive"/>
+            <label for="executive"> Executive Education </label>
+          </fieldset>
+      </section>
+
+        <!-- prettier-ignore -->
+        <section>
+          <h1>Employment Status</h1>
+          <fieldset class="question radio-q">
+            <p>
+              What was your position regarding empoyment in the 12 months after
+              you graduated (including permanent contract, casual and
+              self-employment)?
+
+              <br />
+              <br />
+
+              Please select the response which BEST DESCRIBES your position:
+            </p>
+
+            <input type="radio" id="full-time" name="employment" value="fulltime" />
+            <label for="full-time"> in full time work (i.e working 35 hours a week or more) </label>
+
+            <br />
+
+            <input type="radio" id="part-time" name="employment" value="parttime" />
+            <label for="part-time"> in part part-time work (i.e working fewer than 35 hours a week) </label>
+
+            <br />
+
+            <input type="radio" id="unemployed" name="employment" value="unemployed" />
+            <label for="unemployed"> unemployed but seeking employment </label>
+
+            <br>
+
+            <input type="radio" id="unavailable" name="employment" value="unavailable" />
+            <label for="unavailable"> not available for work for reasons such as ill health, military service, travel, further study, etc. </label>
+
+          </fieldset>
+        </section>
+
+        <div class="buttons">
+          <button class="btn btn-clr" type="button">CLEAR ALL</button>
+          <button class="btn" type="submit">SUBMIT</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
