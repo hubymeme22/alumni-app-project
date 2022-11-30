@@ -4,11 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
     <title>BSU Alumni</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/index.css">
-    <script src="https://kit.fontawesome.com/5f33a2223c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script
+      src="https://kit.fontawesome.com/5f33a2223c.js"
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="js/index.js"></script>
   </head>
   <body>
@@ -24,26 +27,26 @@
           <form action="" class="auth-form login" id="login-form">
             <legend>LOGIN</legend>
 
-              <fieldset>
-                <label for="username"> Username </label>
+            <fieldset>
+              <label for="email"> Email </label>
               <div class="inputs">
-                <input type="text" name="username" id="login-username">
+                <input type="email" name="email" id="login-email" />
                 <i class="fa-solid fa-circle-user"></i>
               </div>
             </fieldset>
-            
+
             <fieldset>
               <label for="password"> Password </label>
               <div class="inputs">
-                <input type="password" name="password" id="login-password"/>
+                <input type="password" name="password" id="login-password" />
                 <i class="fa-solid fa-lock"></i>
               </div>
             </fieldset>
 
-            <div class="error hide" id="login-error" >* User does not exist</div>
-          
+            <div class="error hide" id="login-error">* User does not exist</div>
+
             <button type="submit" class="login-btn">LOGIN</button>
-            
+
             <p class="new-account">
               Don't have an account?
               <span id="create-acc">Sign Up</span>
@@ -54,7 +57,7 @@
           <!-- Signup form -->
           <form action="" class="auth-form signup hide" id="signup-form">
             <legend>SIGN UP</legend>
-        
+
             <fieldset>
               <label for="username"> Username </label>
               <div class="inputs">
@@ -63,16 +66,21 @@
               </div>
               <div class="error user-msg"></div>
             </fieldset>
-        
+
             <fieldset>
               <label for="email"> Email </label>
               <div class="inputs">
-                <input type="email" name="email" id="email" autocomplete="off" />
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  autocomplete="off"
+                />
                 <i class="fa-solid fa-envelope"></i>
               </div>
               <div class="error email-msg"></div>
             </fieldset>
-        
+
             <fieldset>
               <label for="pass"> Password </label>
               <div class="inputs">
@@ -81,7 +89,7 @@
               </div>
               <div class="error pass-msg"></div>
             </fieldset>
-        
+
             <fieldset>
               <label for="cpass"> Confirm Password </label>
               <div class="inputs">
@@ -90,9 +98,9 @@
               </div>
               <div class="error cpass-msg"></div>
             </fieldset>
-        
+
             <button type="submit" class="signup-btn">SIGN UP</button>
-          
+
             <p class="have-account">
               Already have an account?
               <span id="login-acc">Log In</span>
@@ -102,7 +110,10 @@
         </div>
         <div class="right center-all">
           <img src="/assets/images/bsu-logo.png" alt="bsu-logo" />
-          <h1>WELCOME <br> <span> SPARTANS! </span> </h1>
+          <h1>
+            WELCOME <br />
+            <span> SPARTANS! </span>
+          </h1>
         </div>
       </section>
     </main>

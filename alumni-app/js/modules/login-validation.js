@@ -1,8 +1,8 @@
-import { request_POST } from "./modified.js";
-import { md5 } from "./md5.js";
+import { request_POST } from './modified.js';
+import { md5 } from './md5.js';
 
 // Login validation module
-const username = document.getElementById('login-username');
+const username = document.getElementById('login-email');
 const password = document.getElementById('login-password');
 
 const loginError = document.getElementById('login-error');
@@ -38,7 +38,6 @@ function validatedResponse(response) {
 
   // redirect to landing page
   window.location.href = '/pages/home.html';
-
 }
 
 // function if the account is no
@@ -55,7 +54,12 @@ function validateAccount() {
   }
 
   // Enter to landing page if credential matched the database
-  request_POST('/api/login.php', {'username': username.value, 'password': md5(password.value)}, validatedResponse, invalidResponse);
+  request_POST(
+    '/api/login.php',
+    { username: username.value, password: md5(password.value) },
+    validatedResponse,
+    invalidResponse
+  );
 }
 
 // Error function
