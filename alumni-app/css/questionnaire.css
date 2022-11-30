@@ -127,3 +127,26 @@ input[type='number'] {
   background-color: white;
   color: black;
 }
+
+.flex-row > fieldset {
+  width: 50%;
+  display: flex;
+  gap: 0.5em;
+}
+
+.flex-row {
+  box-sizing: border-box;
+  display: flex;
+  gap: 1em;
+}
+
+@media only screen and (max-width: 400px) {
+  .flex-row {
+    flex-direction: column;
+  }
+
+  .flex-row > fieldset {
+    box-sizing: border-box;
+    width: 100%;
+  }
+} ;
