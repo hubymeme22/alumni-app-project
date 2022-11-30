@@ -88,6 +88,7 @@ input[type='text'],
 input[type='email'],
 input[type='number'] {
   width: 100%;
+  padding: 0.25em;
 }
 
 .radio-q > p {
@@ -131,6 +132,7 @@ input[type='number'] {
 .flex-row > fieldset {
   width: 50%;
   display: flex;
+  align-items: center;
   gap: 0.5em;
 }
 

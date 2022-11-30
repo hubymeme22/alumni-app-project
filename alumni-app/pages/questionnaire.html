@@ -7,6 +7,7 @@
     <title>Questionnaire</title>
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="../css/questionnaire.css" />
+    <script type="module" src="../js/questionnaire.js"></script>
   </head>
   <body>
     <div class="background"></div>
@@ -14,8 +15,8 @@
     <main class="flex-col">
       <h1 class="title">ALUMNI QUESTIONNAIRE</h1>
 
-      <form class="container">
-        <section>
+      <form id="questionnaire" class="container">
+        <section id="Personal-Details">
           <div>
             <h1>Personal Details</h1>
             <p>
@@ -30,24 +31,24 @@
           </fieldset>
 
           <fieldset class="question flex-col">
-            <label for="firstName">Family / Last Name</label>
-            <input type="text" id="firstName" required />
+            <label for="lastName">Family / Last Name</label>
+            <input type="text" id="lastName" required />
           </fieldset>
 
           <fieldset class="question flex-col">
-            <label for="email"> Email Address</label>
+            <label for="email">Email Address</label>
             <input type="email" id="email" required />
           </fieldset>
 
           <div class="flex-row">
             <fieldset class="question">
               <label for="age">Age</label>
-              <input type="number" id="age" required />
+              <input type="number" id="age" value="18" required />
             </fieldset>
 
             <fieldset class="question">
               <label for="sex">Sex</label>
-              <select name="sex" id="">
+              <select name="sex" id="sex">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
@@ -56,12 +57,12 @@
         </section>
 
         <!-- prettier-ignore -->
-        <section>
+        <section id="Education-History">
           <h1>Educational History</h1>
           
           <fieldset class="question radio-q">
             <p> What is the most recent degree you completed at the university? </p>
-            <input type="radio" id="undergrad" name="education" value="undergrad"/>
+            <input type="radio" id="undergrad" name="education" value="undergrad" required/>
             <label for="undergrad"> Undergraduate Program(s) </label>
 
             <br>
@@ -87,7 +88,7 @@
       </section>
 
         <!-- prettier-ignore -->
-        <section>
+        <section id="Employment-Status">
           <h1>Employment Status</h1>
           <fieldset class="question radio-q">
             <p>
@@ -101,7 +102,7 @@
               Please select the response which BEST DESCRIBES your position:
             </p>
 
-            <input type="radio" id="full-time" name="employment" value="fulltime" />
+            <input type="radio" id="full-time" name="employment" value="fulltime" required/>
             <label for="full-time"> in full time work (i.e working 35 hours a week or more) </label>
 
             <br />
@@ -123,8 +124,10 @@
         </section>
 
         <div class="buttons">
-          <button class="btn btn-clr" type="button">CLEAR ALL</button>
-          <button class="btn" type="submit">SUBMIT</button>
+          <button id="clearBtn" class="btn btn-clr" type="button">
+            CLEAR ALL
+          </button>
+          <button id="submitBtn" class="btn" type="submit">SUBMIT</button>
         </div>
       </form>
     </main>
