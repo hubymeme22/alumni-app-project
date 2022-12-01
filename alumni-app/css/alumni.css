@@ -5,7 +5,8 @@
 }
 
 main {
-  padding-top: 4.5em;
+  padding-top: 5em;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,6 +14,7 @@ main {
 }
 
 .content-container {
+  height: 70vh;
   width: var(--container-width);
   border: 1px solid black;
   box-sizing: border-box;
@@ -21,6 +23,7 @@ main {
   grid-template-rows: repeat(2, var(--card-height));
   padding: 1.5em;
   gap: 1em;
+  overflow-y: scroll;
 }
 
 .content-container.alert {
@@ -132,13 +135,17 @@ main {
 }
 
 @media only screen and (max-width: 750px) {
+  main {
+    padding-top: 4.5em;
+  }
+
   .title-container {
     border-bottom: 1px solid var(--brown);
     margin-bottom: 0.5em;
     padding: 0.5em 0;
-    width: 90%;
     text-align: center;
     display: block;
+    width: 90%;
   }
 
   .search-bar {
@@ -151,9 +158,9 @@ main {
   }
 
   .content-container {
-    width: 90%;
+    width: 100%;
     grid-template-columns: 1fr;
-    padding: 0;
+    padding: 0 1em;
     border: 0;
   }
 
