@@ -1,5 +1,5 @@
 :root {
-  --img-size: 150px;
+  --img-size: 130px;
 }
 
 main {
@@ -26,15 +26,15 @@ section {
 }
 
 .background-photo {
-  z-index: 0;
+  width: 100%;
   top: 0;
   left: 0;
+  z-index: 0;
   position: absolute;
-  width: 100%;
-  height: calc(var(--img-size) / 1.5);
-  background-color: var(--red);
+  height: calc(var(--img-size) / 1.5 + 1em);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  background-color: lightslategrey;
 }
 
 .username {
@@ -42,11 +42,13 @@ section {
 }
 
 .profile {
+  border: 1px;
+  height: 70vh;
   transform: scale(0.9);
+  overflow-y: scroll;
   padding: 1.5em;
   background-color: white;
   width: var(--container-width);
-  border: 1px;
   position: relative;
   border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
@@ -77,10 +79,10 @@ textarea {
 }
 
 textarea.editable {
-  padding: 0.5em 0.75em;
+  padding: 0.1em 0em;
   pointer-events: all;
-  border: 1px solid black;
-  outline: 1;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  outline: 0;
 }
 
 .link {
@@ -92,15 +94,40 @@ textarea.editable {
 .link > i {
   background-color: #181d1c;
   color: white;
-  padding: 0.5em;
+  padding: 0.25em;
   font-size: 1.25em;
   min-width: 20px;
   max-width: 20px;
   border-radius: 3px;
 }
 
+.link > textarea {
+  width: 40%;
+}
+
 .socials {
   display: flex;
   flex-direction: column;
   gap: 0.25em;
+}
+
+.upper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-btn {
+  height: 3em;
+  width: 125px;
+  z-index: 1;
+  border: 1px;
+  background-color: var(--red);
+  color: white;
+  border-radius: 20px;
+}
+
+#about-me.editable {
+  resize: vertical;
+  height: fit-content;
 }
