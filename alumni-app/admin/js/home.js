@@ -18,6 +18,11 @@ const jobPost = document.getElementById('btn-job-post');
 const jobPrev = document.getElementById('btn-job-preview');
 const jobCancel = document.getElementById('btn-job-cancel');
 
+// const editAlum = document.getElementById('btn-alum-edit');
+// const updateAlum = document.getElementById('btn-alum-update');
+// const deleteAlum = document.getElementById('btn-alum-delete');
+const closeAlum  = document.getElementById('btn-alum-close');
+
 const addJob = document.getElementById('add-job');
 
 // section lists
@@ -55,20 +60,9 @@ function hideSectionExcept(target) {
     });
 }
 
-// function displayCourse(id, coursename) {
-//     const tabledata_container = document.getElementsByTagName('tbody')[0];
-//     const row = document.createElement('tr');
-//     const col_id = document.createElement('td');
-//     const col_course = document.createElement('td');
-//     const col_edits = document.createElement('td');
-
-//     col_edits.innerHTML = '<a href="">Edit</a><a href="">Delete</a>';
-//     row.appendChild(col_id);
-//     row.appendChild(col_course);
-//     row.appendChild(col_edits);
-
-//     tabledata_container.appendChild(row);
-// }
+function hideInformation() {
+    document.getElementById('alumni-info').style.display = 'none';
+}
 
 // hides the jobForm
 function hideJobForm() {
@@ -87,12 +81,130 @@ function displayJobForm() {
     jobCancel.onclick = hideJobForm;
 }
 
+// display the user information on the screen
+function displayInformation(id, element) {
+    element.onclick = () => {
+        // when the row is clicked, info abt this user will be displayed
+        const id_input = document.getElementById('alum-id');
+        const sex_input = document.getElementById('alum-sex');
+        const batch_input = document.getElementById('alum-batch');
+        const course_input = document.getElementById('alum-course');
+        const email_input = document.getElementById('alum-email');
+        const employ_input = document.getElementById('alum-employment');
+        const name = document.getElementById('alumni-name');
+        const status = document.getElementById('alum-status');
+        const avatar = document.getElementById('alum-avatar');
+
+        const alumni_data = server_side_data['alumni'][id];
+        const course_data = server_side_data['courses'];
+
+        name.innerText = alumni_data[1];
+        id_input.value = alumni_data[0];
+        sex_input.value = alumni_data[2];
+        batch_input.value = alumni_data[3];
+        email_input.value = alumni_data[5];
+        employ_input.value = alumni_data[7];
+
+        course_data.forEach((element, index) => {
+            if (alumni_data[4] == element[1]) {
+                course_input.value = element[0];
+                return;
+            }
+        });
+
+        switch(alumni_data[8]) {
+            case "1":
+                status.innerText = 'Verified';
+                break;
+            case "2":
+                status.innerText = 'On Hold';
+                break;
+            default:
+                status.innerText = 'Pending';
+        }
+
+        console.log(alumni_data[2]);
+
+        if (alumni_data[2] != 'Male') avatar.src = '/assets/illustrations/female-avatar.png';
+        else avatar.src = '/assets/illustrations/male-avatar.png';
+
+        // display the information
+        document.getElementById('alumni-info').style.display = '';
+    };
+}
+
+// // edits the information on the userinfo
+// function editAlumInfo() {
+//     const id_input = document.getElementById('alum-id');
+//     const sex_input = document.getElementById('alum-sex');
+//     const batch_input = document.getElementById('alum-batch');
+//     const course_input = document.getElementById('alum-course');
+//     const email_input = document.getElementById('alum-email');
+//     const employ_input = document.getElementById('alum-employment');
+
+//     // allow admin to edit the inputs
+//     id_input.readOnly = false;
+//     sex_input.readOnly = false;
+//     batch_input.readOnly = false;
+//     course_input.readOnly = false;
+//     email_input.readOnly = false;
+//     employ_input.readOnly = false;
+
+//     // allow the update button to be clicked
+//     updateAlum.classList.remove('disabled');
+//     updateAlum.classList.add('update');
+
+//     // assigns process when alumni update is added
+//     updateAlum.onclick = () => {
+//         const updatedInfo = {
+//             'old_id': window.localStorage.getItem('id'),
+//             'new_id': window.localStorage.getItem('new_id'),
+//             'id': id_input.value,
+//             'sex': sex_input.value,
+//             'batch': batch_input.value,
+//             'course': course_input.value,
+//             'email': email_input.value,
+//             'employment': employ_input.value
+//         };
+
+//         const accepted = (response) => {
+//             if (response['update_session'] == 'updated') {
+//                 displayPopup('Info Updated!', () => {
+//                     hidePopup();
+//                     setTimeout(() => {
+//                         window.location.reload();
+//                     }, 500);                    
+//                 });
+//             }
+//         };
+
+//         const rejected = (error) => {
+//             displayPopup('Info Not Updated', () => {
+//                 hidePopup();
+//                 hideInformation();
+//             });
+//         };
+
+//         request_POST('/admin/api/update_alum_info.php', updatedInfo, accepted, rejected);
+//         updateAlum.classList.remove('update');
+//         updateAlum.classList.add('disabled');
+
+//         id_input.readOnly = true;
+//         sex_input.readOnly = true;
+//         batch_input.readOnly = true;
+//         course_input.readOnly = true;
+//         email_input.readOnly = true;
+//         employ_input.readOnly = true;
+
+//         updateAlum.onclick = () => {};
+//     };
+// }
+
 // callback param: will be executed after the user clicked "ok" button
 // by default, it will only hide the popup.
 function displayPopup(message, callback=hidePopup) {
     document.getElementById('popup').style.display = "";
     document.getElementById('popup-message').innerText = message;
-
     document.getElementById('popup-button').onclick = callback;
 }
 
@@ -138,7 +250,7 @@ function initializeHomeValues() {
 function initializeCourseValues() {
     initializeHomeValues();
 
-    const table_body = document.getElementsByTagName('tbody')[0];
+    const table_body = document.getElementsByTagName('tbody')[1];
     table_body.innerHTML = '';
     table_page = 0;
 
@@ -219,6 +331,10 @@ function initializeAlumniValues() {
         index_data.innerText = (index + 1);
         name.innerText = element[1];
         course.innerText = course_name;
+
+        displayInformation(index, index_data);
+        displayInformation(index, name);
+        displayInformation(index, course);
 
         // sets the user account status
         const status_button = document.createElement('button');
@@ -442,6 +558,8 @@ function verifyAccount(id, self_element) {
             self_element.classList.remove('pending');
             self_element.classList.add('verified');
             self_element.innerText = 'verified';
+
+            initializeHomeValues();
             self_element.onclick = () => {
                 holdAccount(id, self_element);
             }
@@ -460,6 +578,8 @@ function holdAccount(id, self_element) {
             self_element.classList.add('on-hold');
             self_element.innerText = 'on-hold';
             self_element.innerText = 'on-hold';
+
+            initializeHomeValues();
             self_element.onclick = () => {
                 verifyAccount(id, self_element);
             }
@@ -567,5 +687,8 @@ jobPost.onclick = () => {
 addJob.onclick = () => {
     displayJobForm();
 }
+
+closeAlum.onclick = hideInformation;
+// editAlum.onclick = editAlumInfo;
 
 token_check('#', '/admin/index.html');

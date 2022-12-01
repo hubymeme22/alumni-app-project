@@ -33,6 +33,26 @@ button {
     cursor: pointer;
 }
 
+button.edit {
+    background-color: rgb(25, 25, 171);
+    color: white;
+}
+
+button.update {
+    background-color: green;
+    color: white;
+}
+
+button.delete, button.cancel {
+    background-color: rgb(150, 51, 51);
+    color: white;
+}
+
+button.disabled {
+    background-color: rgb(46, 72, 46);
+    color: rgb(181, 179, 179);
+}
+
 button.verified {
     background-color: green;
     border-radius: 10%;
@@ -569,6 +589,125 @@ div.answer-sheet > div.footer > button.preview {
 }
 
 div.answer-sheet > div.footer > button:active {
+    background-color: white;
+    color: black;
+}
+
+div.student-popup {
+    height: calc(95% - 50px);
+    width: 60%;
+    border-radius: 20px;
+    background-color: white;
+}
+
+div.student-popup > .header {
+    padding: 15px;
+    width: calc(100% - 30px);
+    color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #342C2D;
+    border: 1px solid #342C2D;
+}
+
+div.student-popup > .header > h2 {
+    font-size: 25px;
+    margin: 0;
+}
+
+div.student-popup > .body {
+    height: calc(100% - 68px - 60px);
+    width: calc(100% - 60px);
+    padding: 30px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    display: grid;
+    grid-template-rows: 30% 60% 10%;
+    /* background-color: rgba(0, 128, 0, 0.472); */
+}
+
+div.student-popup > .body > .img-container {
+    /* background-color: black; */
+    text-align: center;
+}
+
+div.student-popup > .body > .img-container > img {
+    border-radius: 50%;
+    height: 160px;
+    width: 160px;
+}
+
+div.student-popup > .body > .table-userinfo-container {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+div.student-popup > .body > .table-userinfo-container > table.userinfo {
+    height: 95%;
+    width: 50%;
+    background-color: #342C2D;
+}
+
+table.userinfo > tbody > tr > th {
+    background-color: #650612;
+    color: white;
+}
+
+table.userinfo > tbody > tr > td {
+    background-color: white;
+    color: black;
+}
+
+table.userinfo > tbody > tr > td.fixed {
+    padding-left: 20px;
+}
+
+table.userinfo > tbody > tr > td > input {
+    padding-left: 20px;
+    border: none;
+    height: 100%;
+    font-size: 12pt;
+    width: calc(100% - 21px);
+}
+
+table.userinfo > tbody > tr > td > input:focus {
+    outline: none;
+}
+
+div.student-popup > .body > .userinfo-btn-container {
+    /* background-color: rgb(157, 16, 16); */
+    width: 95%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+div.userinfo-btn-container > .functionalities {
+    display: flex;
+    align-items: center;
+}
+
+div.userinfo-btn-container > .basic {
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+div.userinfo-btn-container > .button-design > button {
+    padding: 15px;
+    width: 100px;
+    border: none;
+    border-radius: 10px;
+    margin: 3px;
+}
+
+div.userinfo-btn-container > .button-design > button:active {
     background-color: white;
     color: black;
 }

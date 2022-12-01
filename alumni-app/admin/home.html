@@ -42,6 +42,69 @@
         </div>
     </div>
 
+    <!-- STUDENT DEETS POPUP -->
+    <div class="answer-sheet-container" id="alumni-info" style="display: none;">
+        <div class="student-popup">
+            <div class="header">
+                <h2>Alumni Information</h2>
+            </div>
+            <div class="body">
+                <div class="img-container">
+                    <img id="alum-avatar" src="/assets/illustrations/male-avatar.png">
+                    <h2 id="alumni-name">Hubert F. Espinola I</h2>
+                </div>
+                <div class="table-userinfo-container">
+                    <table class="userinfo">
+                        <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <td><input type="text" name="course-userinfo" id="alum-id" value="1" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>Sex</th>
+                                <td><input type="text" name="course-userinfo" id="alum-sex" value="Male" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>Batch</th>
+                                <td><input type="text" name="course-userinfo" id="alum-batch" value="2022" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>Course</th>
+                                <td><input type="text" name="course-userinfo" id="alum-course" value="BS Computer Science" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td><input type="text" name="course-userinfo" id="alum-email" value="hubert@g.batstate-u.edu.ph" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>Employment</th>
+                                <td><input type="text" name="course-userinfo" id="alum-employment" value="Unemployed" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td class="fixed" id="alum-status">Verified</td>
+                            </tr>
+                            <tr>
+                                <th>Links</th>
+                                <td class="fixed"><button>...</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="userinfo-btn-container">
+                    <div class="functionalities button-design">
+                        <!-- <button class="edit" id="btn-alum-edit">Edit</button>
+                        <button class="disabled" id="btn-alum-update">Update</button>
+                        <button class="delete" id="btn-alum-delete">Delete</button> -->
+                    </div>
+                    <div class="basic button-design">
+                        <button class="cancel" id="btn-alum-close">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <h2 class="name">Admin Dashboard</h2>
@@ -237,7 +300,7 @@
             </section>
 
             <section class="users" id="users-section" hidden>
-                <div class="contents">
+                <div class="contents centered-all">
                     <div class="table-container">
                         <div class="table-header">
                             Job List
