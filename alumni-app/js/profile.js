@@ -4,4 +4,5 @@ import { underConstruction } from './modules/alert.js';
 token_check('#', '/index.html');
 
 const main = document.querySelector('main');
-underConstruction(main);
+// underConstruction(main);
+

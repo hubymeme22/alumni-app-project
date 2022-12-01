@@ -158,9 +158,9 @@ main {
   }
 
   .content-container {
-    width: 100%;
+    width: 90%;
     grid-template-columns: 1fr;
-    padding: 0 1em;
+    padding: 0;
     border: 0;
   }
 
