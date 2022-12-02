@@ -25,6 +25,7 @@ section {
 
 .flex-row {
   display: flex;
+  align-items: center;
 }
 
 .hide {
@@ -81,10 +82,6 @@ section {
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.2);
   z-index: 1;
-}
-
-#profile-img {
-  content: url(../assets/illustrations/male-avatar.png);
 }
 
 textarea {
@@ -155,6 +152,7 @@ textarea.editable {
 }
 
 .cancel {
+  border: 1px solid rgb(0, 0, 0, 0.3);
   color: black;
 }
 
@@ -182,12 +180,13 @@ textarea.editable {
 
   .upper {
     flex-direction: column;
+    gap: 0.5em;
     align-items: flex-start;
     width: 100%;
   }
 
   #username {
-    width: 100%;
+    width: 95%;
   }
 
   .btn {
