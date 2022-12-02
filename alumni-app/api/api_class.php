@@ -36,10 +36,10 @@ function login($user, $pass) {
 	return $return_format;
 }
 
-function signup($user, $email, $pass) {
+function signup($firstname, $lastname, $username, $email, $pass, $sex, $age, $education, $employment, $course_id) {
 	global $conn;
 
-	$query = $conn->query("SELECT * FROM users WHERE username='$email' AND type='3'");
+	$query = $conn->query("SELECT * FROM users WHERE username='$email' OR email='$email' AND type='3'");
 	$format = array('existing' => false, 'status' => 'not_created');
 
 	// the account already exists
@@ -49,13 +49,13 @@ function signup($user, $email, $pass) {
 	}
 
 	// save the account to the database
-	$query = $conn->query("INSERT INTO alumnus_bio (name, sex, batch, course_id, email, avatar, employment_status, status, facebook_link, twitter_link, linkedin_link, github_link) VALUES ('$user', 'Female', '2020', '1', '$email', '', 'Unemployed', '3', '#', '#', '#', '#');");
+	$query = $conn->query("INSERT INTO alumnus_bio (first_name, last_name, sex, age, batch, course_id, email, avatar, employment_status, status, facebook_link, twitter_link, linkedin_link, github_link) VALUES ('$firstname', '$lastname', '$sex', '$age', '2020', '$course_id', '$email', '', '$employment', '3', '#', '#', '#', '#');");
 	if ($query) $format['status'] = 'created';
 
 	$userList = getAlumni();
 	$lastUserID = $userList[count($userList) - 1]['id'];
 
-	$query = $conn->query("INSERT INTO users (name, username, password, type, auto_generated_pass, alumnus_id) VALUES ('$user', '$email', '$pass', '3', '', '$lastUserID');");
+	$query = $conn->query("INSERT INTO users (email, username, password, type, auto_generated_pass, alumnus_id) VALUES ('$email', '$username', '$pass', '3', '', '$lastUserID');");
 	if ($query) $format['status'] = 'created';
 
 	return $format;
@@ -107,12 +107,16 @@ function getAlumni($name_search='') {
 		if ($rowdata[8] != 1)
 			continue;
 
+		// retrieve the course from another query
+		$course_id = $rowdata[4];
+		$course_retrieve = $conn->query("SELECT * FROM courses WHERE id='$course_id'");
+
 		$data = array(
 			"id" => $rowdata[0],
 			"name" => $rowdata[1],
 			"sex" => $rowdata[2],
 			"batch" => $rowdata[3],
-			"course_id" => $rowdata[4],
+			"course" => $course_retrieve->fetch_row()[1],
 			"email" => $rowdata[5],
 			"img" => $rowdata[6],
 			"employmentStatus" => $rowdata[7],
@@ -147,4 +151,20 @@ function getCourseList() {
 
 	return $rows;
 }
+
+/////////////////////////
+//  String sanitation  //
+/////////////////////////
+// sanitize string for different cases
+function sanitizeRawInput($input) {
+	$input = filter_var($input, FILTER_SANITIZE_ADD_SLASHES);
+	$input = filter_var($input, FILTER_SANITIZE_SPECIAL_CHARS);
+	return $input;
+}
+
+// sanitize string for email
+function sanitizeEmail($input) {
+	return filter_var($input, FILTER_SANITIZE_EMAIL);
+}
+
 ?>

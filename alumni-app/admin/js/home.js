@@ -98,12 +98,12 @@ function displayInformation(id, element) {
         const alumni_data = server_side_data['alumni'][id];
         const course_data = server_side_data['courses'];
 
-        name.innerText = alumni_data[1];
+        name.innerText = alumni_data[1] + ' ' + alumni_data[2];
         id_input.value = alumni_data[0];
-        sex_input.value = alumni_data[2];
-        batch_input.value = alumni_data[3];
-        email_input.value = alumni_data[5];
-        employ_input.value = alumni_data[7];
+        sex_input.value = alumni_data[3];
+        batch_input.value = alumni_data[5];
+        email_input.value = alumni_data[8];
+        employ_input.value = alumni_data[10];
 
         course_data.forEach((element, index) => {
             if (alumni_data[4] == element[1]) {
@@ -112,7 +112,7 @@ function displayInformation(id, element) {
             }
         });
 
-        switch(alumni_data[8]) {
+        switch(alumni_data[11]) {
             case "1":
                 status.innerText = 'Verified';
                 break;
@@ -125,7 +125,7 @@ function displayInformation(id, element) {
 
         console.log(alumni_data[2]);
 
-        if (alumni_data[2] != 'Male') avatar.src = '/assets/illustrations/female-avatar.png';
+        if (alumni_data[3] != 'Male') avatar.src = '/assets/illustrations/female-avatar.png';
         else avatar.src = '/assets/illustrations/male-avatar.png';
 
         // display the information
@@ -314,9 +314,8 @@ function initializeAlumniValues() {
         const course = document.createElement('div');
         const status = document.createElement('div');
 
-        const course_id = element[4];
+        const course_id = element[6];
         let course_name;
-        let account_status;
 
         // use the course that contains the ff. course_id
         const course_list = server_side_data['courses'];
@@ -329,7 +328,7 @@ function initializeAlumniValues() {
 
         body_container.classList.add('body-content-grid');
         index_data.innerText = (index + 1);
-        name.innerText = element[1];
+        name.innerText = element[1] + ' ' + element[2];
         course.innerText = course_name;
 
         displayInformation(index, index_data);
@@ -338,7 +337,7 @@ function initializeAlumniValues() {
 
         // sets the user account status
         const status_button = document.createElement('button');
-        switch(element[8]) {
+        switch(element[11]) {
             case '1':
                 status_button.onclick = () => { holdAccount(element[0], status_button) };
                 status_button.classList.add('verified');

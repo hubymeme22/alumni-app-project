@@ -2,11 +2,22 @@
 
 include ('./api_class.php');
 
-$username = $_POST['username'];
-$email = $_POST['email'];
-$password = filter_var($_POST['password'], FILTER_SANITIZE_ADD_SLASHES);
+$firstname = sanitizeRawInput($_POST['firstname']);
+$lastname = sanitizeRawInput($_POST['lastname']);
+$username = sanitizeRawInput($_POST['username']);
+$email = sanitizeEmail($_POST['email']);
+$password = sanitizeRawInput($_POST['password']);
+$sex = sanitizeRawInput($_POST['sex']);
+$age = sanitizeRawInput($_POST['age']);
+$education = sanitizeRawInput($_POST['education']);
+$employment = sanitizeRawInput($_POST['employment']);
+$course_id = sanitizeRawInput($_POST['course']);
 
-$response = signup($username, $email, $password);
+$response = signup(
+    $firstname, $lastname, $username,
+    $email, $password, $sex, $age,
+    $education, $employment, $course_id
+);
 
 header('Content-Type: application/json');
 echo json_encode($response);

@@ -9,7 +9,7 @@ include ('./timed_session.php');
 // logs in the credentials and authorize if valid
 function login($user, $pass) {
 	global $conn;
-	$query = $conn->query("SELECT * FROM users WHERE username='$user' AND password='$pass' AND type='1'");
+	$query = $conn->query("SELECT * FROM users WHERE username='$user' OR email='$user' AND password='$pass' AND type='1'");
 
 	// check if the username and password
 	// are existing and valid
@@ -64,7 +64,7 @@ function getJobList(){
 // Get profile data of users in alumni list store in array 
 function getUserProfile($search='') {
 	global $conn;
-	$query = $conn->query("SELECT * FROM alumnus_bio WHERE name LIKE '%$search%';");
+	$query = $conn->query("SELECT * FROM alumnus_bio WHERE first_name LIKE '%$search%' OR last_name LIKE '%$search%';");
 	$rows = array();
 
 	while ($rowdata = $query->fetch_row()) {
@@ -77,31 +77,6 @@ function getUserProfile($search='') {
 ////////////////////////////////////////////////
 //  Functions for inserting data on database  //
 ////////////////////////////////////////////////
-// registers the given user
-function registerUser($email, $password, $first, $middle, $last, $gender, $batch, $course_id, $fb, $tw, $lnkdin, $gthb, $avatar) {
-	// register these data to the database (initialize to unverified)
-	global $conn;
-
-	// by default, the value of status = 0 (unverified)
-	$date_created = date('Y-m-d');
-
-	// checks if the account is already registered
-	$query = $conn->query("SELECT * FROM users WHERE username='$email';");
-	if ($query->num_rows >= 1)
-		return false;
-
-	// adds the account to alumnus list, and credentials to users table
-	// autoincrement alumnus_id??? (will try later)
-	$query = $conn->query("INSERT INTO alumnus_bio (firstname, middlename, lastname, gender, batch, course_id, email, connected_to, avatar, status, date_created, facebook_link, twitter_link, linkedin_link, github_link) VALUES ('$first', '$middle', '$last', '$gender', '$batch', '$course_id', '$email', '', '$avatar', '0', '$date_created', '$fb', '$tw', '$lnkdin', '$gthb');");
-	if ($query) return false;
-
-	$query = $conn->query("INSERT INTO users (name, username, password, type, auto_generated_pass) VALUES ('$first $middle $last', '$email', '$password', '3', '', );");
-	if ($query) return false;
-
-	return true;
-
-}
-
 // adds course to the database
 function addCourse($course_name) {
 	global $conn;

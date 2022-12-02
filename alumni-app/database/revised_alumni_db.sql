@@ -9,7 +9,8 @@
 --
 CREATE TABLE `alumnus_bio` (
   `id` int(30) NOT NULL,
-  `name` varchar(200) NOT NULL,
+  `first_name` varchar(200) NOT NULL,
+  `last_name` varchar(200) NOT NULL,
   `sex` varchar(10) NOT NULL,
   `batch` year(4) NOT NULL,
   `course_id` int(30) NOT NULL,
@@ -21,8 +22,10 @@ CREATE TABLE `alumnus_bio` (
   `facebook_link` varchar(200) NOT NULL,
   `twitter_link` varchar(200) NOT NULL,
   `linkedin_link` varchar(200) NOT NULL,
-  `github_link` varchar(200) NOT NULL
-  
+  `github_link` varchar(200) NOT NULL,
+  `age` smallint NOT NULL,
+  `education` varchar(255) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -38,8 +41,8 @@ CREATE TABLE `courses` (
 --
 CREATE TABLE `users` (
   `id` int(30) NOT NULL,
-  `name` text NOT NULL,
   `username` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
   `password` text NOT NULL,
   `type` tinyint(1) NOT NULL DEFAULT 3 COMMENT '1=Admin,2=Alumni officer, 3=alumnus',
   `auto_generated_pass` text NOT NULL,
@@ -120,14 +123,14 @@ COMMIT;
 --
 -- Sample data for user account
 --
-INSERT INTO users (`id`, `name`, `username`, `password`, `type`, `auto_generated_pass`, `alumnus_id`)
-  VALUES ('2', 'Angelo Kenneth E. Amboy', 'harper@g.batstate-u.edu.ph', '3cc93e9a6741d8b40460457139cf8ced', '3', '', '2');
+INSERT INTO users (`id`, `email`, `username`, `password`, `type`, `auto_generated_pass`, `alumnus_id`)
+  VALUES ('2', 'harper@g.batstate-u.edu.ph', 'harper', '3cc93e9a6741d8b40460457139cf8ced', '3', '', '2');
 
-INSERT INTO alumnus_bio (`id`, `name`, `sex`, `batch`, `course_id`, `email`, `avatar`, `employment_status`, `status`, `facebook_link`, `twitter_link`, `linkedin_link`, `github_link`)
-  VALUES ('2', 'Angelo Kenneth E. Amboy', 'Male', '2020', '1', 'harper@g.batstate-u.edu.ph', '', 'Unemployed', '1', '#', '#', '#', '#');
+INSERT INTO alumnus_bio (`id`, `first_name`, `last_name`, `sex`, `education`, `age`, `batch`, `course_id`, `email`, `avatar`, `employment_status`, `status`, `facebook_link`, `twitter_link`, `linkedin_link`, `github_link`)
+  VALUES ('2', 'Angelo Kenneth', 'Amboy', 'Male', 'undergraduate', '99', '2020', '1', 'harper@g.batstate-u.edu.ph', '', 'Unemployed', '1', '#', '#', '#', '#');
 
 --
 -- Default admin credentials
 --
-INSERT INTO users (`id`, `name`, `username`, `password`, `type`, `auto_generated_pass`, `alumnus_id`)
+INSERT INTO users (`id`, `email`, `username`, `password`, `type`, `auto_generated_pass`, `alumnus_id`)
   VALUES ('1', 'admin', 'admin', '0192023a7bbd73250516f069df18b500', '1', '', '1');
