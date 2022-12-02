@@ -23,6 +23,14 @@ section {
   padding: 1.5em;
 }
 
+.flex-row {
+  display: flex;
+}
+
+.hide {
+  display: none;
+}
+
 .background {
   position: absolute;
   width: 100%;
@@ -49,7 +57,7 @@ section {
 .profile {
   margin-top: 1em;
   border: 1px;
-  height: 72vh;
+  height: 80vh;
   transform: scale(0.9);
   overflow-y: scroll;
   padding: 1.5em;
@@ -59,6 +67,10 @@ section {
   border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
 
 #profile-img {
@@ -78,7 +90,7 @@ section {
 textarea {
   box-sizing: border-box;
   pointer-events: none;
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid white;
   resize: none;
   outline: 0;
@@ -106,10 +118,6 @@ textarea.editable {
   border-radius: 3px;
 }
 
-.link > textarea {
-  width: 40%;
-}
-
 .socials {
   display: flex;
   flex-direction: column;
@@ -117,23 +125,37 @@ textarea.editable {
 }
 
 .upper {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.edit-btn {
+.btns {
+  gap: 0.5em;
+  position: absolute;
+  right: 0;
+}
+
+.btn {
   height: 3em;
   width: 125px;
   z-index: 1;
   border: 1px;
-  background-color: var(--red);
   color: white;
   border-radius: 20px;
 }
 
-.edit-btn.save {
+.edit {
+  background-color: var(--red);
+}
+
+.save {
   background-color: green;
+}
+
+.cancel {
+  color: black;
 }
 
 #about-me {
@@ -144,7 +166,15 @@ textarea.editable {
   resize: vertical;
 }
 
-@media only screen and (max-width: 400px) {
+#username,
+.link > div {
+  width: 100%;
+}
+.link > div > textarea {
+  width: 50%;
+}
+
+@media only screen and (max-width: 700px) {
   .profile {
     height: 80vh;
     width: 90vw;
@@ -160,8 +190,21 @@ textarea.editable {
     width: 100%;
   }
 
-  .edit-btn {
+  .btn {
     border-radius: 5px;
+    width: 100%;
+  }
+
+  .btns {
+    position: static;
+    width: 100%;
+  }
+
+  .btns > .btn {
+    width: 50%;
+  }
+
+  .link > div > textarea {
     width: 100%;
   }
 }
