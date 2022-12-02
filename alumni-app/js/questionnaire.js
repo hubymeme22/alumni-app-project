@@ -29,9 +29,11 @@ questionnaire.addEventListener('submit', (e) => {
 
   const toBeVerified = getAllAnswers()
   
-  // throw data to database :>
+  /*
+  TODO: throw data to database :>
+  */
+  
   console.log(toBeVerified)
-
   clearAll()
 });
 
@@ -57,3 +59,37 @@ function getAllAnswers() {
     employment: document.querySelector('input[name="employment"]:checked').value,
   };
 }
+
+// Retrieve courses to be displayed at questionnaire page
+
+// Sample data
+function getCourses() {
+  return [
+        {
+        id: 1,
+        course: 'Computer Science'
+        },
+        {
+          id: 2,
+          course: 'Information Technology'
+        },
+        {
+          id: 3,
+          course: 'Computer Engineer'
+        }
+  ]
+}
+
+const courseSelection = document.getElementById('course');
+const courses = getCourses();
+
+function addCourse(courseInfo) {
+  const opt = document.createElement('option');
+  opt.value = courseInfo.id;
+  opt.textContent = courseInfo.course;
+  courseSelection.appendChild(opt);
+}
+
+courses.forEach(course => {
+  addCourse(course);
+})
