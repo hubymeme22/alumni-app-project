@@ -33,6 +33,10 @@ function searchAlumni(name, accepted=(data) => {}, rejected=(error) => {}) {
     request_POST('/api/alumni.php', data, accepted, rejected);
 }
 
+function signUp(data, accepted=(data) => {}, rejected=(error) => {}) {
+    request_POST('/api/signup.php', data, accepted, rejected);
+}
+
 function checkEmail(username, accepted=(data) => {}, rejected=(error) => {}) {
     request_GET(`/api/username_availability.php?username=${username}`, accepted, rejected);
 }
@@ -42,5 +46,6 @@ export {
     getAlumni,
     searchAlumni,
     getCourses,
+    signUp,
     checkEmail
 };
