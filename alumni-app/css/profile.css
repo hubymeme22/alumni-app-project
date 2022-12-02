@@ -2,7 +2,12 @@
   --img-size: 130px;
 }
 
+header {
+  z-index: 5;
+}
+
 main {
+  position: relative;
   height: 100vh;
   z-index: 1;
   display: flex;
@@ -42,13 +47,14 @@ section {
 }
 
 .profile {
+  margin-top: 1em;
   border: 1px;
-  height: 70vh;
+  height: 72vh;
   transform: scale(0.9);
   overflow-y: scroll;
   padding: 1.5em;
   background-color: white;
-  width: var(--container-width);
+  min-width: 100%;
   position: relative;
   border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
@@ -73,13 +79,12 @@ textarea {
   box-sizing: border-box;
   pointer-events: none;
   width: 100%;
-  border: 1px;
-  outline: 0;
+  border: 1px solid white;
   resize: none;
+  outline: 0;
 }
 
 textarea.editable {
-  padding: 0.1em 0em;
   pointer-events: all;
   border: 1px solid rgba(0, 0, 0, 0.5);
   outline: 0;
@@ -127,7 +132,36 @@ textarea.editable {
   border-radius: 20px;
 }
 
+.edit-btn.save {
+  background-color: green;
+}
+
+#about-me {
+  height: fit-content;
+}
+
 #about-me.editable {
   resize: vertical;
-  height: fit-content;
+}
+
+@media only screen and (max-width: 400px) {
+  .profile {
+    height: 80vh;
+    width: 90vw;
+  }
+
+  .upper {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  #username {
+    width: 100%;
+  }
+
+  .edit-btn {
+    border-radius: 5px;
+    width: 100%;
+  }
 }
