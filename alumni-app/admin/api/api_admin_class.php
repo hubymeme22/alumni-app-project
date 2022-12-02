@@ -139,6 +139,16 @@ function updateCourse($id, $courseName) {
 	return false;
 }
 
+function updateAlumInfo($id, $sex, $batch, $course_id, $email, $employment) {
+	global $conn;
+	$query = $conn->query("UPDATE alumnus_bio SET employment_status='$employment',email='$email',course_id='$course_id',sex='$sex',batch='$batch' WHERE id='$id';");
+
+	if ($query)
+		return true;
+
+	return false;
+}
+
 function activateAccount($id) {
 	global $conn;
 	$query = $conn->query("UPDATE alumnus_bio SET status='1' WHERE id='$id';");

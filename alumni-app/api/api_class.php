@@ -130,4 +130,21 @@ function getAlumni($name_search='') {
 	return $rows;
 }
 
+// function that will get all the data in the joblist of specific user... returns the array
+function getCourseList() {
+	global $conn;
+	$query = $conn->query("SELECT * FROM courses;");
+	$rows = array();
+
+	while ($rowdata = $query->fetch_row()) {
+		$data = array(
+			"id" => $rowdata[0],
+			"course_name" => $rowdata[1]
+		);
+
+		$rows[] = $data;
+	}
+
+	return $rows;
+}
 ?>
