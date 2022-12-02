@@ -52,6 +52,7 @@ function getAllAnswers() {
     email: document.getElementById('email').value,
     age: document.getElementById('age').value,
     sex: document.getElementById('sex').value,
+    course: document.getElementById('course').value,
     education: document.querySelector('input[name="education"]:checked').value,
     employment: document.querySelector('input[name="employment"]:checked').value,
   };
