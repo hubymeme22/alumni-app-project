@@ -1,17 +1,15 @@
 import { token_check } from './modules/constant-token-checker.js';
 import { getAlumni, searchAlumni } from './modules/data-retriever.js';
+import { checkGender } from './modules/check-gender.js';
 
 import { noAlumniFound } from './modules/alert.js';
 
-// token_check('#', '/index.html');
+token_check('#', '/index.html');
 
 const CONTENT_CONTAINER = document.querySelector('.content-container');
 
 let temp = document.getElementById('alumni-template');
 
-// Illustrations and Icons URL
-const maleIcon = '../assets/illustrations/male-avatar.png';
-const femaleIcon = '../assets/illustrations/female-avatar.png';
 // Functions
 function renderAllAlumni() {
   CONTENT_CONTAINER.innerHTML = '';
@@ -22,14 +20,6 @@ function renderAllAlumni() {
       createClone(alumni);
     });
   });
-}
-
-function checkGender(sex) {
-  if (sex == 'Male') {
-    return maleIcon;
-  } else if (sex == 'Female') {
-    return femaleIcon;
-  }
 }
 
 function createClone(data) {
