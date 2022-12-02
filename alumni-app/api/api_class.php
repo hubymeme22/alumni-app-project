@@ -12,7 +12,10 @@ function login($user, $pass) {
 	global $conn;
 
 	$return_format = array('token' => 'null', 'verified' => false, 'existing' => false, 'id' => 0);
-	$query = $conn->query("SELECT * FROM users WHERE username='$user' AND password='$pass' AND type='3'");
+	$query = $conn->query("SELECT * FROM users WHERE 
+	email='$user' AND password='$pass' AND type='3'
+	OR
+	username='$user' AND password='$pass' AND type='3'");
 
 	// check if the username and password
 	// are existing and valid
@@ -100,11 +103,11 @@ function getJobList() {
 // Get profile data of users in alumni list store in array 
 function getAlumni($name_search='') {
 	global $conn;
-	$query = $conn->query("SELECT * FROM alumnus_bio WHERE name LIKE '%$name_search%';");
+	$query = $conn->query("SELECT * FROM alumnus_bio WHERE first_name LIKE '%$name_search%' OR last_name LIKE '%$name_search%';");
 	$rows = array();
 
 	while ($rowdata = $query->fetch_row()) {
-		if ($rowdata[8] != 1)
+		if ($rowdata[11] != 1)
 			continue;
 
 		// retrieve the course from another query

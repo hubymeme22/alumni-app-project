@@ -71,7 +71,7 @@ function addNewSessionDB($user, $pass) {
 
 	$current_epoch = time();
 	$current_token = hash_hmac('sha256', "$user$pass$old_id$current_epoch", $SALT);
-	$user_type = $conn->query("SELECT type from users WHERE username='$user' AND password='$pass';");
+	$user_type = $conn->query("SELECT type from users WHERE username='$user' AND password='$pass' OR email='$user' AND password='$pass';");
 	$user_type = $user_type->fetch_array()[0];
 	$inserted = $timed_sess_db->query("INSERT INTO session_data (id, new_id, user, pass, token, epoch_created, type) VALUES ('$old_id', '$old_id', '$user', '$pass', '$current_token', '$current_epoch', '$user_type')");
 
