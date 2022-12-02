@@ -56,9 +56,15 @@
           </div>
         </section>
 
-        <!-- prettier-ignore -->
         <section id="Education-History">
           <h1>Educational History</h1>
+
+          <fieldset class="question flex-row">
+            <p>Course graduated</p>
+            <select name="course" id="course" required>
+              <!-- Generate options based on the courses availble on the database -->
+            </select>
+          </fieldset>
           
           <fieldset class="question radio-q">
             <p> What is the most recent degree you completed at the university? </p>
@@ -87,7 +93,6 @@
           </fieldset>
       </section>
 
-        <!-- prettier-ignore -->
         <section id="Employment-Status">
           <h1>Employment Status</h1>
           <fieldset class="question radio-q">

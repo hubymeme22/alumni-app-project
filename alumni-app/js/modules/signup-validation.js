@@ -1,4 +1,4 @@
-import { request_POST } from './modified.js';
+import { checkEmail } from './data-retriever.js';
 import { md5 } from './md5.js';
 
 // Signup validation module
@@ -139,19 +139,46 @@ function registerAccount() {
     ? If approved, continue to questionnaire page
   */
 
-  function accepted(response) {
-    if (response['status'] == 'created') {
-      alert('account created');
-      return;
+  // check if the username or email are valid
+  const flag = [false, false];
+  const accept_email = (data) => {
+    if (data['existing']) {
+      emailError.textContent = 'Email already exists';
+    } else {
+      flag[0] = true;
+      if (flag[1]) {
+        window.localStorage.setItem('username', account['username']);
+        window.localStorage.setItem('password', account['password']);
+        window.localStorage.setItem('email', account['email']);
+        window.location.href = "/pages/questionnaire.html";
+      }
     }
-  
-    if (response['existing']) {
-      alert('Account already used');
-      return;
-    }
-  }
+  };
 
-  request_POST('/api/signup.php', account, accepted, () => {});
+  const accept_user = (data) => {
+    if (data['existing']) {
+      userError.textContent = 'Email already exists';
+    } else {
+      flag[1] = true;
+      if (flag[0]) {
+        window.localStorage.setItem('username', account['username']);
+        window.localStorage.setItem('password', account['password']);
+        window.localStorage.setItem('email', account['email']);
+        window.location.href = "/pages/questionnaire.html";
+      }
+    }
+  };
+
+  const reject_email = (error) => {
+    emailError.textContent = 'Server Error in checking';
+  };
+
+  const reject_user = (error) => {
+    userError.textContent = 'Server Error in checking';
+  };
+
+  checkEmail(account['email'], accept_email, reject_email);
+  checkEmail(account['username'], accept_user, reject_user);
 }
 
 function getAllInputValues() {

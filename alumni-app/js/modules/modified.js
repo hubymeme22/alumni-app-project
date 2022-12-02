@@ -36,13 +36,16 @@ function request_POST(url_path, json_data, accepted_callback, denied_callback) {
 }
 
 // modified function for sending GET request
-function request_GET(url_path='') {
+function request_GET(url_path='', accepted_callback=(data) => {}, rejected_callback=(error) => {}) {
     // checks the format of url entered
     if (url_path.charAt(0) == '/')
         url_path = url_path.slice(1);
 
     // sends the request to the server
-    fetch(API_URL + url_path, {credentials: 'same-origin'});
+    fetch(API_URL + url_path, {credentials: 'same-origin'})
+    .then((data) => { return data.json() })
+    .then(accepted_callback)
+    .catch(rejected_callback);
 }
 
 export { request_POST, request_GET };
