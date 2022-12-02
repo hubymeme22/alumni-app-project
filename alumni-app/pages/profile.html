@@ -14,6 +14,8 @@
     <script type="module" src="../js/profile.js"></script>
   </head>
   <body>
+    <div class="background"></div>
+
     <header>
       <div class="header container">
         <div class="hero">
@@ -38,7 +40,46 @@
       </div>
     </header>
 
-    <main>Profile</main>
+    <main class="container">
+      <div class="profile">
+          <div class="background-photo"></div>
+          <img src="" id="profile-img">
+          <div class="upper">
+            <div>
+              <h2>Erwin De Chavez</h3>
+              <textarea name="" id="username" rows="1" class="">@waterbender</textarea>
+              </div>
+              <button class="edit-btn">Edit Profile </button>
+            </div>
+
+          <h2>About Me</h2>
+          <textarea name="" id="about-me" rows="3" class="" placeholder="Add a description about yourself"></textarea>
+
+          <div class="socials">
+            <h2>Social Links</h2>
+            <div class="link">
+            <i class="fa-brands fa-facebook"></i>
+            <textarea name="" id="facebook" rows="1" placeholder="example.com"></textarea>
+          </div>
+
+          <div class="link">
+            <i class="fa-brands fa-twitter"></i>
+            <textarea name="" id="twitter" rows="1" placeholder="example.com"></textarea>
+          </div>
+
+          <div class="link">
+            <i class="fa-brands fa-linkedin"></i>
+            <textarea name="" id="linkedin" rows="1" placeholder="example.com"></textarea>
+          </div>
+          
+          <div class="link">
+            <i class="fa-brands fa-github"></i>
+            <textarea name="" id="github" rows="1" placeholder="example.com"  ></textarea>
+          </div>
+
+        </div>
+      </div>
+    </main>
 
     <footer>Leading Innovations, Transforming Lives, Building Nations</footer>
   </body>
