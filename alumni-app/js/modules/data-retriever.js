@@ -2,7 +2,7 @@
 // for retrieving data on the backend side of the API. The purpose
 // of this module is to simplify data retrieving on the front-end side
 
-import { request_POST } from './modified.js';
+import { request_POST, request_GET } from './modified.js';
 
 function getJobs(accepted=(data) => {}, rejected=(error) => {}) {
     const data = {
@@ -33,4 +33,14 @@ function searchAlumni(name, accepted=(data) => {}, rejected=(error) => {}) {
     request_POST('/api/alumni.php', data, accepted, rejected);
 }
 
-export { getJobs, getAlumni, searchAlumni, getCourses };
+function checkEmail(username, accepted=(data) => {}, rejected=(error) => {}) {
+    request_GET(`/api/username_availability.php?username=${username}`, accepted, rejected);
+}
+
+export {
+    getJobs,
+    getAlumni,
+    searchAlumni,
+    getCourses,
+    checkEmail
+};
