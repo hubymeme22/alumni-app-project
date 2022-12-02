@@ -9,7 +9,7 @@ include ('./timed_session.php');
 // logs in the credentials and authorize if valid
 function login($user, $pass) {
 	global $conn;
-	$query = $conn->query("SELECT * FROM users WHERE username='$user' OR email='$user' AND password='$pass' AND type='1'");
+	$query = $conn->query("SELECT * FROM users WHERE username='$user' AND password='$pass' AND type='1' OR email='$user' AND password='$pass' AND type='1'");
 
 	// check if the username and password
 	// are existing and valid
