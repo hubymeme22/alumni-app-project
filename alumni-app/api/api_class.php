@@ -52,7 +52,7 @@ function signup($firstname, $lastname, $username, $email, $pass, $sex, $age, $ed
 	}
 
 	// save the account to the database
-	$query = $conn->query("INSERT INTO alumnus_bio (first_name, last_name, sex, age, batch, course_id, email, avatar, employment_status, status, facebook_link, twitter_link, linkedin_link, github_link) VALUES ('$firstname', '$lastname', '$sex', '$age', '2020', '$course_id', '$email', '', '$employment', '3', '#', '#', '#', '#');");
+	$query = $conn->query("INSERT INTO alumnus_bio (first_name, last_name, sex, age, batch, course_id, email, avatar, employment_status, status, facebook_link, twitter_link, linkedin_link, github_link, education) VALUES ('$firstname', '$lastname', '$sex', '$age', '2020', '$course_id', '$email', '', '$employment', '3', '#', '#', '#', '#', '$education');");
 	if ($query) $format['status'] = 'created';
 
 	$userList = getAlumni();
@@ -161,7 +161,7 @@ function getCourseList() {
 // sanitize string for different cases
 function sanitizeRawInput($input) {
 	$input = filter_var($input, FILTER_SANITIZE_ADD_SLASHES);
-	$input = filter_var($input, FILTER_SANITIZE_SPECIAL_CHARS);
+	// $input = filter_var($input, FILTER_SANITIZE_SPECIAL_CHARS);
 	return $input;
 }
 

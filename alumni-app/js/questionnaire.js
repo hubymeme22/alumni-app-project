@@ -1,3 +1,5 @@
+import { signUp } from "./modules/data-retriever.js";
+
 const form = document.getElementById('questionnaire');
 
 // buttons
@@ -32,10 +34,39 @@ questionnaire.addEventListener('submit', (e) => {
   /*
   TODO: throw data to database :>
   */
-  
+
+  const accepted = (data) => {
+    if (data['existing']) {
+      alert('Account Already Exists!')
+      return;
+    }
+
+    if (data['status'] == 'created') {
+      alert('Account Created!');
+      window.location.replace('/index.html');
+    }
+  };
+
+  const rejected = (error) => {
+    alert('Error occured in server side');
+    return;
+  };
+
   console.log(toBeVerified)
+  signUp(toBeVerified, accepted, rejected);
   clearAll()
 });
+
+// checks and loads all the data
+// on the local storage
+const email = window.localStorage.getItem('email');
+const username = window.localStorage.getItem('username');
+const password = window.localStorage.getItem('password');
+
+if (email == null || username == null || password == null)
+  window.location.replace('/index.html');
+
+document.getElementById('email').value = email;
 
 function clearAll() {
   inputs.forEach((input) => {
@@ -57,6 +88,8 @@ function getAllAnswers() {
     course: document.getElementById('course').value,
     education: document.querySelector('input[name="education"]:checked').value,
     employment: document.querySelector('input[name="employment"]:checked').value,
+    username: window.localStorage.getItem('username'),
+    password: window.localStorage.getItem('password')
   };
 }
 
