@@ -125,7 +125,7 @@ function displayInformation(id, element) {
 
         console.log(alumni_data[2]);
 
-        if (alumni_data[3] != 'Male') avatar.src = '/assets/illustrations/female-avatar.png';
+        if (alumni_data[3].toUpperCase() != 'MALE') avatar.src = '/assets/illustrations/female-avatar.png';
         else avatar.src = '/assets/illustrations/male-avatar.png';
 
         // display the information
