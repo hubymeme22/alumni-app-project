@@ -2,8 +2,8 @@
 
 include ('./api_class.php');
 
-$firstname = sanitizeRawInput($_POST['firstname']);
-$lastname = sanitizeRawInput($_POST['lastname']);
+$firstname = sanitizeRawInput($_POST['firstName']);
+$lastname = sanitizeRawInput($_POST['lastName']);
 $username = sanitizeRawInput($_POST['username']);
 $email = sanitizeEmail($_POST['email']);
 $password = sanitizeRawInput($_POST['password']);

@@ -107,11 +107,11 @@ function getAlumni($name_search='') {
 	$rows = array();
 
 	while ($rowdata = $query->fetch_row()) {
-		if ($rowdata[11] != 1)
+		if ($rowdata[9] != 1)
 			continue;
 
 		// retrieve the course from another query
-		$course_id = $rowdata[4];
+		$course_id = $rowdata[5];
 		$course_retrieve = $conn->query("SELECT * FROM courses WHERE id='$course_id'");
 
 		$data = array(
