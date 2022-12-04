@@ -23,7 +23,8 @@ function login($user, $pass) {
 		return $return_format;
 
 	// check if the user is verified
-	$query = $conn->query("SELECT * FROM alumnus_bio WHERE email='$user' AND status='1'");
+	$alum_id = $query->fetch_row()[6];
+	$query = $conn->query("SELECT * FROM alumnus_bio WHERE id='$alum_id' AND status='1'");
 	if ($query->num_rows <= 0) {
 		$return_format['existing'] = true;
 		return $return_format;
@@ -42,7 +43,7 @@ function login($user, $pass) {
 function signup($firstname, $lastname, $username, $email, $pass, $sex, $age, $education, $employment, $course_id) {
 	global $conn;
 
-	$query = $conn->query("SELECT * FROM users WHERE username='$email' OR email='$email' AND type='3'");
+	$query = $conn->query("SELECT * FROM users WHERE username='$username' AND type='3' OR email='$email' AND type='3'");
 	$format = array('existing' => false, 'status' => 'not_created');
 
 	// the account already exists
@@ -55,9 +56,11 @@ function signup($firstname, $lastname, $username, $email, $pass, $sex, $age, $ed
 	$query = $conn->query("INSERT INTO alumnus_bio (first_name, last_name, sex, age, batch, course_id, email, avatar, employment_status, status, facebook_link, twitter_link, linkedin_link, github_link, education) VALUES ('$firstname', '$lastname', '$sex', '$age', '2020', '$course_id', '$email', '', '$employment', '3', '#', '#', '#', '#', '$education');");
 	if ($query) $format['status'] = 'created';
 
-	$userList = getAlumni();
-	$lastUserID = $userList[count($userList) - 1]['id'];
+	// retrieves the ID from the last account and use it as reference for users table
+	$query = $conn->query("SELECT id FROM alumnus_bio WHERE email='$email'");
+	$lastUserID = $query->fetch_row()[0];
 
+	// adds new account from the user
 	$query = $conn->query("INSERT INTO users (email, username, password, type, auto_generated_pass, alumnus_id) VALUES ('$email', '$username', '$pass', '3', '', '$lastUserID');");
 	if ($query) $format['status'] = 'created';
 
@@ -116,18 +119,20 @@ function getAlumni($name_search='') {
 
 		$data = array(
 			"id" => $rowdata[0],
-			"name" => $rowdata[1],
-			"sex" => $rowdata[2],
-			"batch" => $rowdata[3],
+			"firstName" => $rowdata[1],
+			"lastName" => $rowdata[2],
+			"name" => "$rowdata[1] $rowdata[2]",
+			"sex" => $rowdata[3],
+			"batch" => $rowdata[4],
 			"course" => $course_retrieve->fetch_row()[1],
-			"email" => $rowdata[5],
-			"img" => $rowdata[6],
-			"employmentStatus" => $rowdata[7],
+			"email" => $rowdata[6],
+			"avatar" => $rowdata[7],
+			"employmentStatus" => $rowdata[8],
 			"links" => array(
-				"facebook" => $rowdata[10],
-				"twitter" => $rowdata[11],
-				"linkedin" => $rowdata[12],
-				"github" => $rowdata[13]
+				"facebook" => $rowdata[11],
+				"twitter" => $rowdata[12],
+				"linkedin" => $rowdata[13],
+				"github" => $rowdata[14]
 			),
 		);
 
@@ -153,6 +158,61 @@ function getCourseList() {
 	}
 
 	return $rows;
+}
+
+// retrieves profile data by the use of token
+// as of now this retrieves the same data as the alumni
+// but in the future, more private (only user can read)
+// information will be retrieved here.
+function getProfileData($token) {
+	global $timed_sess_db;
+	global $conn;
+
+	// manual checking of token and user details
+	$format = array('status' => 'invalid_token', 'user_valid' => false, 'data' => array());
+	$query = $timed_sess_db->query("SELECT user FROM session_data WHERE token='$token';");
+
+	if ($query->num_rows == 0)
+		return $format;
+
+	$format['status'] = 'ok';
+	$useremail = $query->fetch_row()[0];
+	$query = $conn->query("SELECT alumnus_id FROM users WHERE email='$useremail' OR username='$useremail';");
+
+	if ($query->num_rows == 0)
+		return $format;
+
+	$format['user_valid'] = true;
+	$alumID = $query->fetch_row()[0];
+	$query = $conn->query("SELECT * FROM alumnus_bio where id='$alumID';");
+
+	// retrieve the course from another query
+	$data = $query->fetch_row();
+	$course_id = $data[5];
+	$course_retrieve = $conn->query("SELECT * FROM courses WHERE id='$course_id'");
+
+	// convert to more readable format
+	$format['data'] = array(
+		"id" => $data[0],
+		"firstName" => $data[1],
+		"lastName" => $data[2],
+		"name" => "$data[1] $data[2]",
+		"sex" => $data[3],
+		"batch" => $data[4],
+		"course" => $course_retrieve->fetch_row()[1],
+		"email" => $data[6],
+		"avatar" => $data[7],
+		"education" => $data[16],
+		"employmentStatus" => $data[8],
+		"links" => array(
+			"facebook" => $data[11],
+			"twitter" => $data[12],
+			"linkedin" => $data[13],
+			"github" => $data[14]
+		)
+	);
+
+	return $format;
 }
 
 /////////////////////////
