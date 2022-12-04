@@ -1,6 +1,7 @@
 import { token_check } from './modules/constant-token-checker.js';
 import { checkGender } from './modules/check-gender.js';
 import { getProfileData } from './modules/data-retriever.js';
+import { updateProfileData } from './modules/data-updater.js';
 
 token_check('#', '/index.html');
 
@@ -62,6 +63,18 @@ cancelBtn.addEventListener('click', () => {
   });
 });
 
+let sampleData = {
+  username: 'genderbender',
+  name: "Erwin De Chavez",
+  sex: 'Male',
+  links: {
+    facebook: '#',
+    twitter: '#',
+    linkedin: '#',
+    github: '#',
+  },
+};
+
 function generateInfo(user) {
   // Get data from database and adjust DOM elements contents
   const accepted = (response) => {
@@ -75,22 +88,15 @@ function generateInfo(user) {
 
     // adjust userdata
     document.getElementById('fullname').innerText = user.name;
+
+    // update local user data
+    sampleData = response['data'];
   };
 
   getProfileData(accepted);
 }
 
-const sampleData = {
-  username: 'genderbender',
-  name: "Erwin De Chavez",
-  sex: 'Male',
-  links: {
-    facebook: '#',
-    twitter: '#',
-    linkedin: '#',
-    github: '#',
-  },
-};
+
 
 generateInfo(sampleData);
 
@@ -106,18 +112,31 @@ function saveData() {
   const data = collectData();
 
   console.log(allTextBoxes[1]);
-  for (let i = 0; i < 4; i++) {
-    if (data.links[i] != '' || data.links[i] != '#') {
-      allTextBoxes[i].classList.add('hide');
-      allLinks[i].classList.remove('hide');
-      allLinks[i].href = `https://${data.links[i]}`;
-      allLinks[i].textContent = data.links[i];
-    }
 
-    if (data.links[i] == '') {
-      allTextBoxes[i].classList.remove('hide');
+  const accepted = (response) => {
+    for (let i = 0; i < 4; i++) {
+      if (data.links[i] != '' || data.links[i] != '#') {
+        allTextBoxes[i].classList.add('hide');
+        allLinks[i].classList.remove('hide');
+        allLinks[i].href = `https://${data.links[i]}`;
+        allLinks[i].textContent = data.links[i];
+      }
+  
+      if (data.links[i] == '') {
+        allTextBoxes[i].classList.remove('hide');
+      }
     }
-  }
+  };
+
+  const params = {
+    'id': sampleData['id'],
+    'username': data.username,
+    'facebook': data.links[0],
+    'twitter': data.links[1],
+    'linkedin': data.links[2],
+    'github': data.links[3]
+  };
+  updateProfileData(params, accepted);
 }
 
 function editData() {
