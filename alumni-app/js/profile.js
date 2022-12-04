@@ -1,5 +1,6 @@
 import { token_check } from './modules/constant-token-checker.js';
 import { checkGender } from './modules/check-gender.js';
+import { getProfileData } from './modules/data-retriever.js';
 
 token_check('#', '/index.html');
 
@@ -63,8 +64,14 @@ cancelBtn.addEventListener('click', () => {
 
 function generateInfo(user) {
   // Get data from database and adjust DOM elements contents
-  profileImg.src = checkGender(user.sex);
-  username.textContent = `${user.username}`;
+  // modify the default values
+  const accepted = (response) => {
+    console.log(response);
+    profileImg.src = checkGender(user.sex);
+    username.textContent = `${user.username}`;
+  };
+
+  getProfileData(accepted);
 }
 
 const sampleData = {

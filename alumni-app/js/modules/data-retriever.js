@@ -18,6 +18,13 @@ function getAlumni(accepted=(data) => {}, rejected=(error) => {}) {
     request_POST('/api/alumni.php', data, accepted, rejected);
 }
 
+function getProfileData(accepted=(data) => {}, rejected=(error) => {}) {
+    const data = {
+        'old_id': window.localStorage.getItem('id'),
+        'new_id': window.localStorage.getItem('new_id')};
+    request_POST('/api/profileData.php', data, accepted, rejected);
+}
+
 function getCourses(accepted=(data) => {}, rejected=(error) => {}) {
     const data = {
         'old_id': window.localStorage.getItem('id'),
@@ -44,6 +51,7 @@ function checkEmail(username, accepted=(data) => {}, rejected=(error) => {}) {
 export {
     getJobs,
     getAlumni,
+    getProfileData,
     searchAlumni,
     getCourses,
     signUp,
