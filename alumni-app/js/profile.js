@@ -150,5 +150,12 @@ function saveData() {
 generateInfo(sampleData);
 
 document.addEventListener('click', (e) => {
-  //
+  if (e.target.classList.contains('user-links')) {
+    const link = e.target;
+
+    if (link.value.length <= 0) return;
+
+    const url = `https://${link.id}.com/${link.value}`;
+    window.open(url);
+  }
 });

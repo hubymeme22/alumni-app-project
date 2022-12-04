@@ -88,16 +88,24 @@ textarea {
   outline: 0;
 }
 
-textarea.editable {
-  pointer-events: all;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  outline: 0;
+textarea:hover {
+  cursor: pointer;
 }
 
-.link {
+textarea:placeholder-shown {
+  cursor: default;
+}
+
+textarea.editable {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  outline: 0;
+  cursor: text;
+}
+
+textarea .link {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  /* gap: 0.5em; */
 }
 
 .link > i {
