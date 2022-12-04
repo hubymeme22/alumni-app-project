@@ -172,18 +172,19 @@ function getProfileData($token) {
 	$format = array('status' => 'invalid_token', 'user_valid' => false, 'data' => array());
 	$query = $timed_sess_db->query("SELECT user FROM session_data WHERE token='$token';");
 
-	if ($query->num_rows == 0)
+	if ($query->num_rows <= 0)
 		return $format;
 
 	$format['status'] = 'ok';
 	$useremail = $query->fetch_row()[0];
-	$query = $conn->query("SELECT alumnus_id FROM users WHERE email='$useremail' OR username='$useremail';");
+	$query = $conn->query("SELECT alumnus_id,username FROM users WHERE email='$useremail' OR username='$useremail';");
 
-	if ($query->num_rows == 0)
-		return $format;
-
+	if ($query->num_rows <= 0) return $format;
 	$format['user_valid'] = true;
-	$alumID = $query->fetch_row()[0];
+
+	$data = $query->fetch_row();
+	$alumID = $data[0]; $alumUsername = $data[1];
+
 	$query = $conn->query("SELECT * FROM alumnus_bio where id='$alumID';");
 
 	// retrieve the course from another query
@@ -204,6 +205,7 @@ function getProfileData($token) {
 		"avatar" => $data[7],
 		"education" => $data[16],
 		"employmentStatus" => $data[8],
+		"username" => $alumUsername,
 		"links" => array(
 			"facebook" => $data[11],
 			"twitter" => $data[12],
