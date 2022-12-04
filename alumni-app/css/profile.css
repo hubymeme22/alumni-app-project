@@ -82,6 +82,7 @@ section {
 }
 
 textarea {
+  width: fit-content;
   box-sizing: border-box;
   border: 1px solid white;
   resize: none;
@@ -90,22 +91,25 @@ textarea {
 
 textarea:hover {
   cursor: pointer;
-}
-
-textarea:placeholder-shown {
-  cursor: default;
+  text-decoration: underline;
 }
 
 textarea.editable {
   border: 1px solid rgba(0, 0, 0, 0.5);
   outline: 0;
   cursor: text;
+  text-decoration: none;
 }
 
 textarea .link {
   display: flex;
   align-items: center;
-  /* gap: 0.5em; */
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
 }
 
 .link > i {
@@ -160,19 +164,19 @@ textarea .link {
 }
 
 #about-me {
-  height: fit-content;
+  width: 100%;
+  min-height: 2em;
 }
 
 #about-me.editable {
   resize: vertical;
 }
 
-#username,
-.link > div {
-  width: 100%;
-}
-.link > div > textarea {
-  width: 50%;
+#username:hover,
+#about-me:hover,
+textarea:placeholder-shown {
+  text-decoration: none;
+  cursor: default;
 }
 
 @media only screen and (max-width: 700px) {

@@ -79,7 +79,6 @@ function generateInfo(user) {
   // Get data from database and adjust DOM elements contents
   const accepted = (response) => {
     // modify data, otherwise, use pseudo userdata
-    console.log(response);
     if (response['status'] == 'ok') user = response['data'];
 
     profileImg.src = checkGender(user.sex);
@@ -127,14 +126,6 @@ function checkLink(link) {
 function saveData() {
   const data = collectData();
 
-  console.log(allTextBoxes[1]);
-
-  const accepted = (response) => {
-    for (let i = 0; i < 4; i++) {
-      //
-    }
-  };
-
   const params = {
     id: sampleData['id'],
     username: data.username,
@@ -143,13 +134,15 @@ function saveData() {
     linkedin: data.links[2],
     github: data.links[3],
   };
-  updateProfileData(params, accepted);
+  updateProfileData(params);
 }
 
 // Driver Code
 generateInfo(sampleData);
 
 document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('editable')) return;
+
   if (e.target.classList.contains('user-links')) {
     const link = e.target;
 
