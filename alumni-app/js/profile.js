@@ -64,11 +64,17 @@ cancelBtn.addEventListener('click', () => {
 
 function generateInfo(user) {
   // Get data from database and adjust DOM elements contents
-  // modify the default values
   const accepted = (response) => {
+    // modify data, otherwise, use pseudo userdata
     console.log(response);
+    if (response['status'] == 'ok')
+      user = response['data']
+
     profileImg.src = checkGender(user.sex);
     username.textContent = `${user.username}`;
+
+    // adjust userdata
+    document.getElementById('fullname').innerText = user.name;
   };
 
   getProfileData(accepted);
@@ -76,6 +82,7 @@ function generateInfo(user) {
 
 const sampleData = {
   username: 'genderbender',
+  name: "Erwin De Chavez",
   sex: 'Male',
   links: {
     facebook: '#',

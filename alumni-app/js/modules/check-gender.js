@@ -5,7 +5,7 @@ const maleIcon = `${path}male-avatar.png`;
 const femaleIcon = `${path}female-avatar.png`;
 
 function checkGender(sex) {
-  if (sex == 'Male') {
+  if (sex.toUpperCase() == 'MALE') {
     return maleIcon;
   } else if (sex == 'Female') {
     return femaleIcon;
