@@ -23,12 +23,6 @@ const linkedIn = document.getElementById('linkedin');
 const github = document.getElementById('github');
 
 // links
-const facebookLink = document.getElementById('facebook-link');
-const twitterLink = document.getElementById('twitter-link');
-const linkedInLink = document.getElementById('linkedin-link');
-const githubLink = document.getElementById('github-link');
-
-const allLinks = [facebookLink, twitterLink, linkedInLink, githubLink];
 const allTextBoxes = [facebook, twitter, linkedIn, github];
 
 // Event Listeners
@@ -91,6 +85,12 @@ function generateInfo(user) {
     profileImg.src = checkGender(user.sex);
     username.textContent = `@${user.username}`;
 
+    // Adjust links
+    facebook.value = checkLink(user.links.facebook);
+    twitter.value = checkLink(user.links.twitter);
+    linkedIn.value = checkLink(user.links.linkedin);
+    github.value = checkLink(user.links.github);
+
     // adjust userdata
     document.getElementById('fullname').innerText = user.name;
 
@@ -103,11 +103,25 @@ function generateInfo(user) {
 
 function collectData() {
   const user = username.value.split('@');
+  const links = [];
+  // filter
+  allTextBoxes.forEach((box) => {
+    if (box.value.trim() == '') {
+      links.push('');
+    } else {
+      links.push(box.value);
+    }
+  });
+
   return {
     username: user[1],
     sex: 'Male',
-    links: [facebook.value, twitter.value, linkedIn.value, github.value],
+    links: links,
   };
+}
+
+function checkLink(link) {
+  return link == '#' ? '' : link;
 }
 
 function saveData() {
