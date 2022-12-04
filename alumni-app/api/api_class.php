@@ -217,6 +217,27 @@ function getProfileData($token) {
 	return $format;
 }
 
+///////////////////////////
+//  Client side updates  //
+///////////////////////////
+// basic user information update
+// simple user info. can be updated for now
+// but soon, additional info such as: birthdate
+// name, about me, etc. can be updated. (future implementation)
+function updateUserInfo($alumID, $username, $fb='#', $tw='#', $ln='#', $gt='#') {
+	global $conn;
+
+	$format = array('token' => 'valid', 'update_status' => 'not_updated', 'parameters' => 'correct');
+	$query = $conn->query("SELECT * FROM alumnus_bio WHERE id='$alumID';");
+	if ($query->num_rows <= 0)
+		return $format;
+
+	$query = $conn->query("UPDATE alumnus_bio SET username='$username', facebook_link='$fb', twitter_link='$tw', linkedin_link='$ln', github_link='$gt' WHERE id='$alumID'");
+	if ($query) $format['update_status'] = 'updated';
+
+	return $format;
+}
+
 /////////////////////////
 //  String sanitation  //
 /////////////////////////
