@@ -25,6 +25,7 @@ section {
 
 .flex-row {
   display: flex;
+
   align-items: center;
 }
 
@@ -49,10 +50,6 @@ section {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: lightslategrey;
-}
-
-.username {
-  font-style: italic;
 }
 
 .profile {
@@ -86,8 +83,6 @@ section {
 
 textarea {
   box-sizing: border-box;
-  pointer-events: none;
-  /* width: 100%; */
   border: 1px solid white;
   resize: none;
   outline: 0;
@@ -170,10 +165,6 @@ textarea.editable {
 }
 .link > div > textarea {
   width: 50%;
-}
-
-#username {
-  padding-top: 10px;
 }
 
 @media only screen and (max-width: 700px) {

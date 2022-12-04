@@ -32,15 +32,20 @@ const allLinks = [facebookLink, twitterLink, linkedInLink, githubLink];
 const allTextBoxes = [facebook, twitter, linkedIn, github];
 
 // Event Listeners
+username.addEventListener('input', (e) => {
+  if (username.value.length < 1) {
+    username.value = '@';
+  }
+});
+
 editBtn.addEventListener('click', () => {
   btnContainer.classList.remove('hide');
   editBtn.classList.add('hide');
 
   textBoxes.forEach((box) => {
     box.classList.add('editable');
+    box.readOnly = false;
   });
-
-  editData();
 });
 
 saveBtn.addEventListener('click', () => {
@@ -49,6 +54,7 @@ saveBtn.addEventListener('click', () => {
 
   textBoxes.forEach((box) => {
     box.classList.remove('editable');
+    box.readOnly = true;
   });
 
   saveData();
@@ -65,7 +71,7 @@ cancelBtn.addEventListener('click', () => {
 
 let sampleData = {
   username: 'genderbender',
-  name: "Erwin De Chavez",
+  name: 'Erwin De Chavez',
   sex: 'Male',
   links: {
     facebook: '#',
@@ -80,11 +86,10 @@ function generateInfo(user) {
   const accepted = (response) => {
     // modify data, otherwise, use pseudo userdata
     console.log(response);
-    if (response['status'] == 'ok')
-      user = response['data']
+    if (response['status'] == 'ok') user = response['data'];
 
     profileImg.src = checkGender(user.sex);
-    username.textContent = `${user.username}`;
+    username.textContent = `@${user.username}`;
 
     // adjust userdata
     document.getElementById('fullname').innerText = user.name;
@@ -96,13 +101,10 @@ function generateInfo(user) {
   getProfileData(accepted);
 }
 
-
-
-generateInfo(sampleData);
-
 function collectData() {
+  const user = username.value.split('@');
   return {
-    username: username.value,
+    username: user[1],
     sex: 'Male',
     links: [facebook.value, twitter.value, linkedIn.value, github.value],
   };
@@ -115,40 +117,24 @@ function saveData() {
 
   const accepted = (response) => {
     for (let i = 0; i < 4; i++) {
-      if (data.links[i] != '' || data.links[i] != '#') {
-        allTextBoxes[i].classList.add('hide');
-        allLinks[i].classList.remove('hide');
-        allLinks[i].href = `https://${data.links[i]}`;
-        allLinks[i].textContent = data.links[i];
-      }
-  
-      if (data.links[i] == '') {
-        allTextBoxes[i].classList.remove('hide');
-      }
+      //
     }
   };
 
   const params = {
-    'id': sampleData['id'],
-    'username': data.username,
-    'facebook': data.links[0],
-    'twitter': data.links[1],
-    'linkedin': data.links[2],
-    'github': data.links[3]
+    id: sampleData['id'],
+    username: data.username,
+    facebook: data.links[0],
+    twitter: data.links[1],
+    linkedin: data.links[2],
+    github: data.links[3],
   };
   updateProfileData(params, accepted);
 }
 
-function editData() {
-  showTextBoxes();
-}
+// Driver Code
+generateInfo(sampleData);
 
-function showTextBoxes() {
-  allLinks.forEach((link) => {
-    link.classList.add('hide');
-  });
-
-  allTextBoxes.forEach((box) => {
-    box.classList.remove('hide');
-  });
-}
+document.addEventListener('click', (e) => {
+  //
+});
