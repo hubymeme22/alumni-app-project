@@ -15,7 +15,7 @@ include ('../global-setup.php');
 ////////////////////////
 //  HELPER FUNCTIONS  //
 ////////////////////////
-// gets all the list of ids from the database
+// checks validity of ID from database
 function checkID($id) {
 	global $timed_sess_db;
 	$query = $timed_sess_db->query("SELECT id from session_data WHERE id='$id';");
@@ -129,7 +129,7 @@ function updateToken($old_id, $new_id, $token) {
 		$current_epoch = time();
 
 		$new_token = hash_hmac('sha256', "$user$pass$old_id$current_epoch$token", $SALT);
-		$timed_sess_db->query("UPDATE session_data SET new_id='$new_id', token='$new_token', epoch_created='$current_epoch';");
+		$timed_sess_db->query("UPDATE session_data SET new_id='$new_id', token='$new_token', epoch_created='$current_epoch' WHERE id='$old_id';");
 
 		$status['new_token'] = $new_token;
 		$status['update_status'] = 'updated';
