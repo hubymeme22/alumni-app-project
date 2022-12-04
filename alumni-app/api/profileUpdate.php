@@ -1,6 +1,6 @@
 <?php
 
-include('./timed_session.php');
+include('./api_class.php');
 include('./allow-cross-origin.php');
 
 header('Content-type: application/json');
@@ -14,6 +14,7 @@ if (isset($_POST['new_id']) && isset($_POST['old_id']) && isset($_COOKIE['token'
         $linkedin = isset($_POST['linkedin']) ? $_POST['linkedin'] : '#';
         $github = isset($_POST['github']) ? $_POST['github'] : '#';
 
+        system("echo '$facebook'>output.txt");
         $session_status = updateUserInfo($id, $username, $facebook, $twitter, $linkedin, $github);
         echo json_encode($session_status);
     } else {

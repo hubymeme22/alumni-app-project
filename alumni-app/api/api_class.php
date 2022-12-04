@@ -232,7 +232,8 @@ function updateUserInfo($alumID, $username, $fb='#', $tw='#', $ln='#', $gt='#') 
 	if ($query->num_rows <= 0)
 		return $format;
 
-	$query = $conn->query("UPDATE alumnus_bio SET username='$username', facebook_link='$fb', twitter_link='$tw', linkedin_link='$ln', github_link='$gt' WHERE id='$alumID'");
+	$query = $conn->query("UPDATE users SET username='$username' WHERE alumnus_id='$alumID'");
+	$query = $conn->query("UPDATE alumnus_bio SET facebook_link='$fb', twitter_link='$tw', linkedin_link='$ln', github_link='$gt' WHERE id='$alumID'");
 	if ($query) $format['update_status'] = 'updated';
 
 	return $format;
